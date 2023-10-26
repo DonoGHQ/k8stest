@@ -16,9 +16,7 @@ spec:
         readOnlyRootFilesystem: true
         allowPrivilegeEscalation: false
         capabilities:
-          add:
-            - NET_ADMIN
-          drop: ["NET_RAW"]
+          drop: ["ALL"]
       livenessProbe:
         periodSeconds: 30
       readinessProbe:

@@ -3,11 +3,17 @@ kind: Pod
 metadata:
   name: hello
 spec:
+  securityContext:
+    runAsUser: 10
   containers:
     - name: hello
       image: busybox:v1
+      imagePullPolicy: Always
       command: ['sh', '-c', 'echo "Hello, Kubernetes!" && sleep 3600']
       securityContext:
+        privileged: true
+        capabilities:
+          drop: ["NET_RAW"]
         allowPrivilegeEscalation: true
       livenessProbe:
         periodSeconds: 30

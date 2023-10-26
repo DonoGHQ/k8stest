@@ -3,7 +3,6 @@ kind: Pod
 metadata:
   name: hello
 spec:
-  hostNetwork: true
   securityContext:
     runAsUser: 10
   containers:
@@ -12,7 +11,6 @@ spec:
       imagePullPolicy: Always
       command: ['sh', '-c', 'echo "Hello, Kubernetes!" && sleep 3600']
       securityContext:
-        allowPrivilegeEscalation: false
         capabilities:
           drop: ["NET_RAW"]
       livenessProbe:

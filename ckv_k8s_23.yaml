@@ -5,6 +5,8 @@ metadata:
   namespace: test
 spec:
   hostNetwork: false
+  securityContext:
+    runAsUser: 10
   containers:
     - name: hello
       image: busybox:v1

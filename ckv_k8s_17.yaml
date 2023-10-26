@@ -3,7 +3,6 @@ kind: Pod
 metadata:
   name: hello
 spec:
-  hostPID: true
   securityContext:
     runAsUser: 10
   containers:

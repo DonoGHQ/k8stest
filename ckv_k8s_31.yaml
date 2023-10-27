@@ -18,7 +18,7 @@ spec:
         capabilities:
           drop: ["ALL"]      
         seccompProfile:
-                type: RuntimeDefault
+                type: DockerDefault
       livenessProbe:
         periodSeconds: 30
       readinessProbe:

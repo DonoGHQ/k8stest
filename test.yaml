@@ -1,26 +1,16 @@
-apiVersion: apps/v1
-kind: ReplicaSet
+apiVersion: v1
+kind: ReplicationController
 metadata:
-  name: tom-replicaset
-  labels:
-    app: guestbook
-    tier: tom-replicaset
+  name: nginx
 spec:
   replicas: 2
-  selector:
-    matchLabels:
-      tier: tom-replicaset
   template:
     metadata:
       labels:
-        tier: tom-replicaset
+        run: nginx
     spec:
       containers:
-      - name: tom-replicaset-containers
-        image: gcr.io/google_samples/gb-frontend:v3
-        livenessProbe:
-          httpGet:
-            path: /healthz
-            port: 80
-          initialDelaySeconds: 15
-          periodSeconds: 10
+        - name: nginx
+          image: nginx
+          ports:
+            - containerPort: 80

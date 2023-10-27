@@ -7,10 +7,6 @@ spec:
   hostNetwork: false
   securityContext:
     runAsUser: 10
-  volumes:
-  - name: docker-vol
-    hostPath:
-            path: /var/run/docker.sock
   containers:
     - name: hello
       image: busybox:v1
@@ -20,7 +16,7 @@ spec:
         readOnlyRootFilesystem: true
         allowPrivilegeEscalation: false
         capabilities:
-          drop: ["ALL"]
+          drop: ["id"]
       livenessProbe:
         periodSeconds: 30
       readinessProbe:

@@ -14,4 +14,8 @@ template:
           allowPrivilegeEscalation: false
         command: ["/bin/sh"]
         livenessProbe:
+          httpGet:
+            path: /healthz   
+            port: 80         
+          initialDelaySeconds: 15  
           periodSeconds: 10

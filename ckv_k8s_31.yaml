@@ -3,12 +3,12 @@ kind: Pod
 metadata:
   name: hello
   namespace: test
+  annotations:
+    seccomp.security.alpha.kubernetes.io/pod: "runtime/default"
 spec:
   hostNetwork: false
   securityContext:
     runAsUser: 10
-    seccompProfile:
-      type: RuntimeDefault
   containers:
     - name: hello
       image: busybox:v1

@@ -22,6 +22,12 @@ spec:
         volumeMounts:
         - name: www
           mountPath: /usr/share/nginx/html
+        livenessProbe:  # Add the livenessProbe section
+          httpGet:
+            path: /  
+            port: web  
+          initialDelaySeconds: 15  
+          periodSeconds: 10  
   volumeClaimTemplates:
   - metadata:
       name: www

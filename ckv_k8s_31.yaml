@@ -8,7 +8,7 @@ spec:
   securityContext:
     runAsUser: 10
     seccompProfile:
-      type: DockerDefault
+      type: RuntimeDefault
   containers:
     - name: hello
       image: busybox:v1

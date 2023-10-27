@@ -4,7 +4,7 @@ metadata:
   name: hello
   namespace: test
   annotations:
-    seccomp.security.alpha.kubernetes.io/pod: "runtime/default"
+    seccomp.security.alpha.kubernetes.io/pod: "docker/default"
 spec:
   hostNetwork: false
   securityContext:

@@ -17,6 +17,8 @@ spec:
         allowPrivilegeEscalation: false
         capabilities:
           drop: ["ALL"]      
+        seccompProfile:
+                type: RuntimeDefault
       livenessProbe:
         periodSeconds: 30
       readinessProbe:

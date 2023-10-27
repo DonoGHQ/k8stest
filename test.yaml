@@ -13,3 +13,5 @@ template:
         securityContext:
           allowPrivilegeEscalation: false
         command: ["/bin/sh"]
+        livenessProbe:
+          periodSeconds: 10

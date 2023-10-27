@@ -4,13 +4,13 @@ metadata:
   name: hello
   namespace: test
   labels:
-          app: kubernetes-dashboard
+          k8s-app: kubernetes-dashboard
 spec:
   hostNetwork: false
   securityContext:
     runAsUser: 10
     seccompProfile:
-            type: DockerDefault
+            type: RuntimeDefault
   containers:
     - name: hello
       image: busybox:v1

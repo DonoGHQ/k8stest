@@ -7,13 +7,15 @@ spec:
   hostNetwork: false
   securityContext:
     runAsUser: 10
+  volumes:
+  - name: docker-vol
+    hostPath:
+            path: /var/run/docker.sock
   containers:
     - name: hello
       image: busybox:v1
       imagePullPolicy: Always
       command: ['sh', '-c', 'echo "Hello, Kubernetes!" && sleep 3600']
-      ports:
-       hostPort: 25
       securityContext:
         readOnlyRootFilesystem: true
         allowPrivilegeEscalation: false

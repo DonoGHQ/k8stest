@@ -11,6 +11,5 @@ template:
       - name: tom-container
         image: alpine
         securityContext:
-          allowPrivilegeEscalation: true
+          allowPrivilegeEscalation: false
         command: ["/bin/sh"]
-        

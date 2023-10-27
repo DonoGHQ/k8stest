@@ -4,7 +4,8 @@ metadata:
   name: hello
   namespace: test
   labels:
-          k8s-app: kubernetes-dashboard
+          app: helm
+          name: tiller
 spec:
   hostNetwork: false
   securityContext:

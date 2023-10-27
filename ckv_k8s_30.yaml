@@ -5,8 +5,6 @@ metadata:
   namespace: test
 spec:
   hostNetwork: false
-  securityContext:
-    runAsUser: 10
   containers:
     - name: hello
       image: busybox:v1
@@ -16,7 +14,7 @@ spec:
         readOnlyRootFilesystem: true
         allowPrivilegeEscalation: false
         capabilities:
-          drop: ["id"]
+          drop: ["ALL"]
       livenessProbe:
         periodSeconds: 30
       readinessProbe:

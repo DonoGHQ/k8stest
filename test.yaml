@@ -18,3 +18,9 @@ spec:
       containers:
       - name: tom-replicaset-containers
         image: gcr.io/google_samples/gb-frontend:v3
+		livenessProbe:
+		  httpGet:
+            path: /healthz
+            port: 80
+          initialDelaySeconds: 15
+          periodSeconds: 10

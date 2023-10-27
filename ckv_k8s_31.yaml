@@ -7,6 +7,8 @@ spec:
   hostNetwork: false
   securityContext:
     runAsUser: 10
+    seccompProfile:
+      type: DockerDefault
   containers:
     - name: hello
       image: busybox:v1
@@ -17,8 +19,6 @@ spec:
         allowPrivilegeEscalation: false
         capabilities:
           drop: ["ALL"]      
-        seccompProfile:
-                type: DockerDefault
       livenessProbe:
         periodSeconds: 30
       readinessProbe:

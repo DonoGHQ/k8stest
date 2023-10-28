@@ -22,10 +22,7 @@ spec:
       livenessProbe:
         periodSeconds: 30
       readinessProbe:
-        periodSeconds: 30
-      envFrom:
-        secretRef:
-          name: testsecret   
+        periodSeconds: 30 
       resources:
             limits:
               cpu: 1000m

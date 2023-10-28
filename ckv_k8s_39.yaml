@@ -16,7 +16,7 @@ spec:
       imagePullPolicy: Always
       command: ['sh', '-c', 'echo "Hello, Kubernetes!" && sleep 3600']
       securityContext:
-        runAsUser: 10000
+        runAsUser: 9999
         readOnlyRootFilesystem: true
         allowPrivilegeEscalation: false
         capabilities:

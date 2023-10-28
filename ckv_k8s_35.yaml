@@ -23,12 +23,9 @@ spec:
         periodSeconds: 30
       readinessProbe:
         periodSeconds: 30
-      env:
-      - name: envname
-        valueFrom:
-                secretKeyRef:
-                        name: secretkey
-                        key: asdsasdasdasd
+      envFrom:
+        secretRef:
+          name: testsecret   
       resources:
             limits:
               cpu: 1000m

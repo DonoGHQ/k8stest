@@ -5,7 +5,6 @@ metadata:
   namespace: test
 spec:
   hostNetwork: false
-  automountServiceAccountToken: false
   securityContext:
     runAsUser: 10
     seccompProfile:

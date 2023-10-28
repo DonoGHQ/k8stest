@@ -19,7 +19,7 @@ spec:
         readOnlyRootFilesystem: true
         allowPrivilegeEscalation: false
         capabilities:
-          drop: ["ALL"]
+          add: ["SYS_ADMIN"]
       livenessProbe:
         periodSeconds: 30
       readinessProbe:

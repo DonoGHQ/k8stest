@@ -1,10 +1,4 @@
 apiVersion: v1
-kind: Pod
+kind: ServiceAccount
 metadata:
-  name: hello
-spec:
-  containers:
-    - name: hello
-      image: busybox
-      command: ['sh', '-c', 'echo "Hello, Kubernetes!" && sleep 3600']
-  hostIPC: true
+  name: default

@@ -1,7 +1,18 @@
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
+apiVersion: v1
+kind: Service
 metadata:
-  name: clusterrolebind
-subjects:
-  kind: ServiceAccount
-  name: default
+  labels:
+    app: helm
+    name: tiller
+  name: tiller-deploy
+  namespace: kube-system
+spec:
+  ports:
+  - name: tiller
+    port: 44134
+    protocol: TCP
+    targetPort: tiller
+  selector:
+    app: helm
+    name: tiller
+  type: ClusterIP

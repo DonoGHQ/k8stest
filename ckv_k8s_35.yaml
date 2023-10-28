@@ -3,9 +3,6 @@ kind: Pod
 metadata:
   name: hello
   namespace: test
-  labels:
-          app: helm
-          name: tiller
 spec:
   hostNetwork: false
   securityContext:
@@ -26,6 +23,12 @@ spec:
         periodSeconds: 30
       readinessProbe:
         periodSeconds: 30
+      env:
+      - name: envname
+        valueFrom:
+                secretKeyRef:
+                        name: secretkey
+                        key: asdsasdasdasd
       resources:
             limits:
               cpu: 1000m

@@ -16,7 +16,9 @@ spec:
       command: ['sh', '-c', 'echo "Hello, Kubernetes!" && sleep 3600']
       securityContext:
         readOnlyRootFilesystem: true
-        allowPrivilegeEscalation: false      
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop: ["ALL"]
       livenessProbe:
         periodSeconds: 30
       readinessProbe:

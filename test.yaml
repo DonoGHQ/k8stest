@@ -1,25 +1,10 @@
-apiVersion: apps.openshift.io/v1
-kind: DeploymentConfig
+apiVersion: v1
+kind: Pod
 metadata:
-  name: jerry-deployment-config
+  name: jerry-pod
 spec:
-  replicas: 3
-  selector:
-    app: jerry-deployment-config
-  template:
-    metadata:
-      labels:
-        app: jerry-deployment-config
-    spec:
-      containers:
-        - name: jerry-deployment-config-containers
-          image: busybox:latest
-          ports:
-            - containerPort: 80
-          readinessProbe:
-            httpGet:
-              path: /healthz     
-              port: 80          
-            initialDelaySeconds: 10   
-            periodSeconds: 10          
-            failureThreshold: 3        
+  containers:
+  - name: nginx
+    image: nginx:1.14.2
+    ports:
+    - containerPort: 80

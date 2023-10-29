@@ -14,4 +14,6 @@ spec:
   - command:
     - kube-apiserver
     - --anonymous-auth=false
-    - --kubelet-https=false
+    - --kubelet-https=true
+    - --kubelet-client-certificate=/etc/kubernetes/pki/apiserver-kubelet-client.crt
+    - --kubelet-client-key=/etc/kubernetes/pki/apiserver-kubelet-client.key

@@ -17,3 +17,4 @@ spec:
     - --kubelet-https=true
     - --kubelet-client-certificate=/etc/kubernetes/pki/apiserver-kubelet-client.crt
     - --kubelet-client-key=/etc/kubernetes/pki/apiserver-kubelet-client.key
+    - --kubelet-certificate-authority=ca.file

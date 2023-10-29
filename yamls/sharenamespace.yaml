@@ -19,6 +19,6 @@ spec:
     - --kubelet-client-key=/etc/kubernetes/pki/apiserver-kubelet-client.key
     - --kubelet-certificate-authority=ca.file
     - --authorization-mode=Node,RBAC
-    - --enable-admission-plugins=SecurityContextDeny,AlwaysPullImages,ServiceAccount,NamespaceLifecycle
+    - --enable-admission-plugins=SecurityContextDeny,AlwaysPullImages,ServiceAccount,NamespaceLifecycle,PodSecurityPolicy
 
 

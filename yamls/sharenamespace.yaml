@@ -14,5 +14,4 @@ spec:
   - command:
     - kube-apiserver
     - --anonymous-auth=false
-    - --token-auth-file
-
+    - --kubelet-https=false

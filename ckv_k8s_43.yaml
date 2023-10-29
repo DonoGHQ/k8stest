@@ -16,7 +16,6 @@ spec:
       imagePullPolicy: Always
       command:
       - kube-apiserver
-      - --anonymous-auth=false
       securityContext:
         runAsUser: 10000
         readOnlyRootFilesystem: true

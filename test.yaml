@@ -18,3 +18,9 @@ spec:
       containers:
       - name: jerry-replicaset-containers
         image: busybox:latest
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80 
+          initialDelaySeconds: 5   
+          periodSeconds: 10        

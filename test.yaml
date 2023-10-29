@@ -13,3 +13,9 @@ template:
         securityContext:
           allowPrivilegeEscalation: false
         command: ["/bin/sh"]
+        readinessProbe:   
+          httpGet:       
+            path: /
+            port: 80         
+          initialDelaySeconds: 5  
+          periodSeconds: 10       

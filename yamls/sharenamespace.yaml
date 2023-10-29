@@ -1,8 +1,18 @@
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
+apiVersion: v1
+kind: Pod
 metadata:
-  name: example-name
-rules:
-  - apiGroups: [""] # "" indicates the core API group
-    resources: ["*"]
-    verbs: ["get", "watch", "list"]
+  annotations:
+    kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint: 192.168.133.160:6443
+  creationTimestamp: null
+  labels:
+    component: kube-apiserver
+    tier: control-plane
+  name: kube-apiserver
+  namespace: kube-system
+spec:
+  containers:
+  - command:
+    - kube-apiserver
+    - --anonymous-auth=false
+    - --basic-auth-file
+

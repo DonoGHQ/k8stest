@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   annotations:
-    kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint: 192.168.133.160:6443
+    kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint: 192.168.133.333:6443
   creationTimestamp: null
   labels:
     component: kube-apiserver
@@ -20,6 +20,6 @@ spec:
     - --kubelet-certificate-authority=ca.file
     - --authorization-mode=Node,RBAC
     - --enable-admission-plugins=SecurityContextDeny,AlwaysPullImages,ServiceAccount,NamespaceLifecycle,PodSecurityPolicy,NodeRestriction
-    - --bind-address=192.168.1.1
+    - --insecure-bind-address=192.168.1.1
 
 

@@ -1,34 +1,20 @@
 apiVersion: apps/v1
-kind: StatefulSet
+kind: DaemonSet
 metadata:
-  name: statefulset-tom
+  name: tom-daemonset
 spec:
-  serviceName: "nginx"
-  replicas: 2
   selector:
     matchLabels:
-      app: nginx
+      name: tom-daemonset
   template:
     metadata:
       labels:
-        app: nginx
+        name: tom-daemonset
     spec:
+      tolerations:
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/master
       containers:
-      - name: nginx
-        image: registry.k8s.io/nginx-slim:0.8
-        ports:
-        - containerPort: 80
-          name: web
-        volumeMounts:
-        - name: www
-          mountPath: /usr/share/nginx/html
-        livenessProbe:  # Add the livenessProbe section
-          httpGet:
-            path: /  
-            port: web  
-          initialDelaySeconds: 15  
-          periodSeconds: 10  
-  volumeClaimTemplates:
-  - metadata:
-      name: www
-    
+        - image: quay.io/fluentd_elasticsearch/fluentd:v2.5.2
+          name: tom-daemonset
+      terminationGracePeriodSeconds: 30

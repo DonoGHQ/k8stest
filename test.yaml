@@ -1,18 +1,25 @@
 apiVersion: apps.openshift.io/v1
 kind: DeploymentConfig
 metadata:
-  name: jerry-deployement-config
+  name: jerry-deployment-config
 spec:
   replicas: 3
   selector:
-    app: jerry-deployement-config
+    app: jerry-deployment-config
   template:
     metadata:
       labels:
-        app: jerry-deployement-config
+        app: jerry-deployment-config
     spec:
       containers:
-        - name: jerry-dep-config-container
+        - name: jerry-deployment-config-containers
           image: busybox:latest
           ports:
             - containerPort: 80
+          readinessProbe:
+            httpGet:
+              path: /healthz     
+              port: 80          
+            initialDelaySeconds: 10   
+            periodSeconds: 10          
+            failureThreshold: 3        

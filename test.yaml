@@ -1,27 +1,19 @@
 apiVersion: apps/v1
-kind: DaemonSet
+kind: Deployment
 metadata:
-  name: tom-daemonset
+  name: jerry-deployment
 spec:
+  replicas: 2
   selector:
     matchLabels:
-      name: tom-daemonset
+      app: jerry-deployment
   template:
     metadata:
       labels:
-        name: tom-daemonset
+        app: jerry-deployment
     spec:
-      tolerations:
-        - effect: NoSchedule
-          key: node-role.kubernetes.io/master
       containers:
-        - image: quay.io/fluentd_elasticsearch/fluentd:v2.5.2
-          name: tom-daemonset
-          readinessProbe:
-            httpGet:
-              path: /healthz   
-              port: 80         
-            initialDelaySeconds: 10   
-            periodSeconds: 10          
-            failureThreshold: 3        
-      terminationGracePeriodSeconds: 30
+        - name: jerry-deployment-con
+          image: nginx:latest
+          ports:
+            - containerPort: 80

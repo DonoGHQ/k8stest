@@ -21,7 +21,7 @@ spec:
       - --profiling=false
       - --use-service-account-credentials=true
       - --service-account-private-key-file=/etc/kubernetes/pki/sa.pem
-      - --root-ca-file=/etc/kubernetes/pki/ca.crt
+      - --root-ca-file=/etc/kubernetes/pki/ca.pem
       securityContext:
         runAsUser: 10000
         readOnlyRootFilesystem: true

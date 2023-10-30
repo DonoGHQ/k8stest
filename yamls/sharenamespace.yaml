@@ -21,5 +21,6 @@ spec:
     - --authorization-mode=Node,RBAC
     - --enable-admission-plugins=SecurityContextDeny,AlwaysPullImages,ServiceAccount,NamespaceLifecycle,PodSecurityPolicy,NodeRestriction
     - --insecure-port=0
+    - --secure-port=0
 
 

@@ -22,7 +22,7 @@ spec:
       - --use-service-account-credentials=true
       - --service-account-private-key-file=/etc/kubernetes/pki/sa.pem
       - --root-ca-file=/etc/kubernetes/pki/ca.pem
-      - --bind-address=127.0.1.1
+      - --bind-address=127.0.0.1
       securityContext:
         runAsUser: 10000
         readOnlyRootFilesystem: true

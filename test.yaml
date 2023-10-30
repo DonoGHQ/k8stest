@@ -17,4 +17,7 @@ spec:
       containers:
         - image: busybox:latest
           name: jerry-daemonset
+          resources:
+            limits:
+              cpu: "0.5"  
       terminationGracePeriodSeconds: 30

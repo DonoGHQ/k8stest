@@ -12,6 +12,9 @@ metadata:
 spec:
   containers:
   - command:
+    - kube-controller-manager
+    - --terminated-pod-gc-threshold=0
+    - --profiling=true
     - kube-apiserver
     - --anonymous-auth=false
     - --kubelet-https=true
@@ -37,9 +40,6 @@ spec:
     - --etcd-cafile=/etc/kubernetes/pki/etcd/ca.crt
     - --encryption-provider-config=config.file
     - --tls-cipher-suites=TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
-    - kube-controller-manager
-    - --terminated-pod-gc-threshold=50
-    - --profiling=true
 
 
     

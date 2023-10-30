@@ -1,46 +1,38 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  annotations:
-    kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint: 192.168.133.333:6443
-  creationTimestamp: null
-  labels:
-    component: kube-apiserver
-    tier: control-plane
-  name: kube-apiserver
-  namespace: kube-system
+  name: hello
+  namespace: test
 spec:
+  hostNetwork: false
+  automountServiceAccountToken: false
+  securityContext:
+    runAsUser: 10
+    seccompProfile:
+            type: RuntimeDefault
+  automountServiceAccountToken: false
   containers:
-  - command:
-    - kube-controller-manager
-    - --terminated-pod-gc-threshold=0
-    - --profiling=true
-    - kube-apiserver
-    - --anonymous-auth=false
-    - --kubelet-https=true
-    - --kubelet-client-certificate=/etc/kubernetes/pki/apiserver-kubelet-client.crt
-    - --kubelet-client-key=/etc/kubernetes/pki/apiserver-kubelet-client.key
-    - --kubelet-certificate-authority=ca.file
-    - --authorization-mode=Node,RBAC
-    - --enable-admission-plugins=SecurityContextDeny,AlwaysPullImages,ServiceAccount,NamespaceLifecycle,PodSecurityPolicy,NodeRestriction
-    - --insecure-port=0
-    - --secure-port=80
-    - --profiling=false
-    - --audit-log-path=/path/to/log
-    - --audit-log-maxage=30
-    - --audit-log-maxbackup=10
-    - --audit-log-maxsize=100
-    - --request-timeout=60s
-    - --service-account-lookup=true
-    - --service-account-key-file=/keys/key.pem
-    - --etcd-certfile=/etc/kubernetes/pki/apiserver-etcd-client.crt
-    - --etcd-keyfile=/etc/kubernetes/pki/apiserver-etcd-client.key
-    - --tls-cert-file=/etc/kubernetes/pki/apiserver.crt
-    - --tls-private-key-file=/etc/kubernetes/pki/apiserver.key
-    - --etcd-cafile=/etc/kubernetes/pki/etcd/ca.crt
-    - --encryption-provider-config=config.file
-    - --tls-cipher-suites=TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
-
-
-    
-
+    - name: hello
+      image: image@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c1234
+      imagePullPolicy: Always
+      command:
+      - kube-controller-manager
+      - --terminated-pod-gc-threshold=10
+      - --profiling=true
+      securityContext:
+        runAsUser: 10000
+        readOnlyRootFilesystem: true
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop: ["ALL"]
+      livenessProbe:
+        periodSeconds: 30
+      readinessProbe:
+        periodSeconds: 30
+      resources:
+            limits:
+              cpu: 1000m
+              memory: 1000Mi
+            requests:
+              cpu: 200m
+              memory: 500Mi

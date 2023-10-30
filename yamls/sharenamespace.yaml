@@ -34,6 +34,7 @@ spec:
     - --etcd-keyfile=/etc/kubernetes/pki/apiserver-etcd-client.key
     - --tls-cert-file=/etc/kubernetes/pki/apiserver.crt
     - --tls-private-key-file=/etc/kubernetes/pki/apiserver.key
+    - --etcd-cafile=/etc/kubernetes/pki/etcd/ca.crt
 
 
     

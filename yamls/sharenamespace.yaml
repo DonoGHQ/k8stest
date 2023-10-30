@@ -25,6 +25,6 @@ spec:
     - --profiling=false
     - --audit-log-path=/path/to/log
     - --audit-log-maxage=30
-    - --audit-log-maxbackup=09
+    - --audit-log-maxbackup=10
 
 

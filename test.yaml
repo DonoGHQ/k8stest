@@ -1,29 +1,21 @@
-apiVersion: apps/v1
-kind: StatefulSet
+apiVersion: batch/v1
+kind: CronJob
 metadata:
-  name: jerry-statefulset
+  name: jerry-cron-job-iac
 spec:
-  serviceName: "my-statefulset-service"
-  replicas: 2
-  selector:
-    matchLabels:
-      app: statefulset-testing
-  template:
-    metadata:
-      labels:
-        app: statefulset-testing
+  schedule: "0/5 * * * *"
+  jobTemplate:
     spec:
-      containers:
-      - name: nginx
-        image: nginx:latest
-        resources:
-          requests:
-            cpu: "0.1"  
-  volumeClaimTemplates:
-  - metadata:
-      name: data-statefulset
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-      resources:
-        requests:
-          storage: 1Gi
+      template:
+        metadata:
+          labels:
+            app: cron-batch-job
+        spec:
+          restartPolicy: OnFailure
+          containers:
+          - name: cron-job-jerry
+            image: busybox:latest
+            args: ["100"]
+            resources:
+              limits:
+                cpu: "0.5"

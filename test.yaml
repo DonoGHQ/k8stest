@@ -17,4 +17,4 @@ spec:
         image: nginx
 		resources:
 		  requests:
-			 cpu: "0.1"
+		  cpu: "0.1"

@@ -20,6 +20,7 @@ spec:
       - --terminated-pod-gc-threshold=10
       - --profiling=false
       - --use-service-account-credentials=true
+      - --service-account-private-key-file=/etc/kubernetes/pki/sa.key
       securityContext:
         runAsUser: 10000
         readOnlyRootFilesystem: true

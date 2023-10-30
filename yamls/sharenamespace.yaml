@@ -24,6 +24,6 @@ spec:
     - --secure-port=80
     - --profiling=false
     - --audit-log-path=/path/to/log
-    - --audit-log-maxage=29
+    - --audit-log-maxage=30
 
 

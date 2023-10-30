@@ -1,20 +1,16 @@
-apiVersion: apps/v1
-kind: ReplicaSet
+apiVersion: v1
+kind: ReplicationController
 metadata:
-  name: jerry-replicaset
+  name: jerry-replication-controller
 spec:
-  replicas: 2
+  replicas: 2  
   selector:
-    matchLabels:
-      app: replicaset-app
+    app: jerry-app
   template:
     metadata:
       labels:
-        app: replicaset-app
+        app: jerry-app
     spec:
       containers:
-      - name: replicaset-container
-        image: nginx
-        resources:
-          limits:
-            cpu: "0.5"
+      - name: replication
+        image: nginx:latest

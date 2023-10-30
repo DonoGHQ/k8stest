@@ -15,6 +15,6 @@ spec:
       containers:
       - name: replicaset-container
         image: nginx
-		resources:
-		  requests:
-		  cpu: "0.1"
+	resources:
+         requests:
+          cpu: "0.1"

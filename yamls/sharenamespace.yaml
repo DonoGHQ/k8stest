@@ -29,6 +29,6 @@ spec:
     - --audit-log-maxsize=100
     - --request-timeout=60s
     - --service-account-lookup=true
-    - --service-account-key-file=/keys/key
+    - --service-account-key-file=/keys/key.pem
     
 

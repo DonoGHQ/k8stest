@@ -13,3 +13,6 @@ template:
         securityContext:
           allowPrivilegeEscalation: false
         command: ["/bin/sh"]
+        resources:
+          limits:
+            cpu: 1

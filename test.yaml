@@ -12,5 +12,8 @@ spec:
       - name: job-container
         image: busybox:latest
         command: ["echo", "Hello, World"]
+        resources:
+          requests:
+            cpu: "0.1"
       restartPolicy: Never
   backoffLimit: 4

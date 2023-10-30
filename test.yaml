@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-    name: jerry-cron-job-iac
+  name: jerry-cron-job-iac
 spec:
   schedule: "0/5 * * * *"
   jobTemplate:
@@ -16,6 +16,6 @@ spec:
           - name: cron-job-jerry
             image: busybox:latest
             args: ["100"]
-			resources:
-				requests:
-					cpu: "0.1"
+            resources:
+              requests:
+                cpu: "0.1"

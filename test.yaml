@@ -1,21 +1,20 @@
-apiVersion: batch/v1
-kind: CronJob
+apiVersion: apps/v1
+kind: DaemonSet
 metadata:
-  name: jerry-cron-job-iac
+  name: jerry-daemonset
 spec:
-  schedule: "0/5 * * * *"
-  jobTemplate:
+  selector:
+    matchLabels:
+      name: jerry-daemonset
+  template:
+    metadata:
+      labels:
+        name: jerry-daemonset
     spec:
-      template:
-        metadata:
-          labels:
-            app: cron-batch-job
-        spec:
-          restartPolicy: OnFailure
-          containers:
-          - name: cron-job-jerry
-            image: busybox:latest
-            args: ["100"]
-            resources:
-              limits:
-                cpu: "0.5"
+      tolerations:
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/master
+      containers:
+        - image: busybox:latest
+          name: jerry-daemonset
+      terminationGracePeriodSeconds: 30

@@ -1,19 +1,20 @@
-apiVersion: batch/v1
-kind: Job
+apiVersion: apps/v1
+kind: ReplicaSet
 metadata:
-  name: jerry-job
+  name: jerry-replicaset
 spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: replicaset-app
   template:
     metadata:
       labels:
-        app: app-jerry-job
+        app: replicaset-app
     spec:
       containers:
-      - name: job-container
-        image: busybox:latest
-        command: ["echo", "Hello, World"]
-        resources:
-          requests:
-            cpu: "0.1"
-      restartPolicy: Never
-  backoffLimit: 4
+      - name: replicaset-container
+        image: nginx
+		resources:
+		  requests:
+			 cpu: "0.1"

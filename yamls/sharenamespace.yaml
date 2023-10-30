@@ -23,5 +23,6 @@ spec:
     - --insecure-port=0
     - --secure-port=80
     - --profiling=false
+    - --audit-log-path=/path/to/log
 
 

@@ -9,5 +9,8 @@ spec:
       - name: job-containers
         image: busybox:latest
         command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
+        resources:
+          limits:
+            cpu: "0.5"
       restartPolicy: Never
   backoffLimit: 4

@@ -27,5 +27,5 @@ spec:
     - --audit-log-maxage=30
     - --audit-log-maxbackup=10
     - --audit-log-maxsize=100
-    - --request-timeout=300s
+    - --request-timeout=60s
 

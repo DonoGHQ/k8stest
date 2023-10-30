@@ -1,18 +1,16 @@
-apiVersion: apps.openshift.io/v1
-kind: DeploymentConfig
+apiVersion: batch/v1
+kind: Job
 metadata:
-  name: jerry-deploymentconfig
+  name: jerry-job
 spec:
-  replicas: 2
-  selector:
-    app: nginx
   template:
     metadata:
       labels:
-        app: nginx
+        app: app-jerry-job
     spec:
       containers:
-        - name: busybox-container
-          image: busybox:1.14.2
-          ports:
-            - containerPort: 80
+      - name: job-container
+        image: busybox:latest
+        command: ["echo", "Hello, World"]
+      restartPolicy: Never
+  backoffLimit: 4

@@ -28,4 +28,6 @@ spec:
     - --audit-log-maxbackup=10
     - --audit-log-maxsize=100
     - --request-timeout=60s
+    - --service-account-lookup=true
+    
 

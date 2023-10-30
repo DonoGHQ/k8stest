@@ -16,3 +16,6 @@ spec:
           - name: cron-job-jerry
             image: busybox:latest
             args: ["100"]
+            resources:
+              limits:
+                cpu: "0.5"

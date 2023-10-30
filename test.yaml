@@ -1,20 +1,26 @@
 apiVersion: apps/v1
-kind: ReplicaSet
+kind: StatefulSet
 metadata:
-  name: jerry-replicaset
+  name: jerry-statefulset
 spec:
+  serviceName: "my-statefulset-service"
   replicas: 2
   selector:
     matchLabels:
-      app: replicaset-app
+      app: statefulset-testing
   template:
     metadata:
       labels:
-        app: replicaset-app
+        app: statefulset-testing
     spec:
       containers:
-      - name: replicaset-container
-        image: nginx
-        resources:
-          limits:
-            cpu: "0.5"
+      - name: nginx
+        image: nginx:latest
+  volumeClaimTemplates:
+  - metadata:
+      name: data-statefulset
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1Gi

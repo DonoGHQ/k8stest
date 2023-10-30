@@ -16,6 +16,9 @@ spec:
       containers:
       - name: nginx
         image: nginx:latest
+        resources:
+          requests:
+            cpu: "0.1"  
   volumeClaimTemplates:
   - metadata:
       name: data-statefulset

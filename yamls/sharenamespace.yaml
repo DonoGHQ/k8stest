@@ -22,5 +22,6 @@ spec:
     - --enable-admission-plugins=SecurityContextDeny,AlwaysPullImages,ServiceAccount,NamespaceLifecycle,PodSecurityPolicy,NodeRestriction
     - --insecure-port=0
     - --secure-port=80
+    - --profiling=false
 
 

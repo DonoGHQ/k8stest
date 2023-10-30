@@ -26,6 +26,6 @@ spec:
     - --audit-log-path=/path/to/log
     - --audit-log-maxage=30
     - --audit-log-maxbackup=10
-    - --audit-log-maxsize=99
+    - --audit-log-maxsize=100
 
 

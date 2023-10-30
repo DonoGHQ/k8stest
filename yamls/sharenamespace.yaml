@@ -17,7 +17,8 @@ spec:
       imagePullPolicy: Always
       command:
       - kube-controller-manager
-      - --profiling=true
+      - --terminated-pod-gc-threshold=10
+      - --profiling=false
       securityContext:
         runAsUser: 10000
         readOnlyRootFilesystem: true

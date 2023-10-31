@@ -17,7 +17,7 @@ spec:
       imagePullPolicy: Always
       command:
       - kubelet
-      - --anonymous-auth=true
+      - --anonymous-auth=false
       securityContext:
         runAsUser: 10000
         readOnlyRootFilesystem: true

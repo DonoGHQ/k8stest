@@ -21,6 +21,3 @@ spec:
             requests:
               memory: "256Mi" 
       terminationGracePeriodSeconds: 30
-
-
-

@@ -1,23 +1,11 @@
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: app-ingress
-  annotations:
-    kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
-    nginx.ingress.kubernetes.io/server-snippet: |
-      location ^~ "/test" {
-        default_type 'text/plain';
-        alias /var/run;
-      }
-spec:
-  rules:
-  - http:
-    paths:
-      - path: /exp
-        pathType: Prefix
-        backend:
-          service:
-            name: some-service
-            port:
-              number: 1234
+  name: testrole
+rules:
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get"]
+- apiGroups: ["admissionregistration.k8s.io"]
+  resources: ["mutatingwebhookconfigurations"]
+  verbs: ["create"]

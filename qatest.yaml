@@ -7,5 +7,5 @@ rules:
   resources: ["pods"]
   verbs: ["get"]
 - apiGroups: ["admissionregistration.k8s.io"]
-  resources: ["mutatingwebhookconfigurations"]
-  verbs: ["patch"]
+  resources: ["mutatingwebhookconfigurations","mutatingwebhookconfigurations"]
+  verbs: ["create","patch","update"]

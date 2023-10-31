@@ -17,6 +17,8 @@ spec:
       imagePullPolicy: Always
       command:
       - etcd
+      - --etcd-certfile=/path/to/cert
+      - --etcd-keyfile=/path/to/key
       securityContext:
         runAsUser: 10000
         readOnlyRootFilesystem: true

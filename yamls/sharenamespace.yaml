@@ -18,6 +18,7 @@ spec:
       command:
       - kube-scheduler
       - --profiling=false
+      - --bind-address=127.0.0.2
       securityContext:
         runAsUser: 10000
         readOnlyRootFilesystem: true

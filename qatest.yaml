@@ -21,7 +21,7 @@ spec:
       - --client-ca-file=test.key
       - --read-only-port=0
       - --streaming-connection-idle-timeout=4
-      - --protect-kernel-defaults=false
+      - --protect-kernel-defaults=true
       securityContext:
         runAsUser: 10000
         readOnlyRootFilesystem: true

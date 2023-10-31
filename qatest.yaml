@@ -22,6 +22,7 @@ spec:
       - --client-cert-auth=true
       - --peer-cert-file=file.pem
       - --peer-key-file=file.key
+      args:
       - --peer-client-cert-auth=true
       securityContext:
         runAsUser: 10000

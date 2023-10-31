@@ -16,13 +16,7 @@ spec:
       image: image@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c1234
       imagePullPolicy: Always
       command:
-      - kube-controller-manager
-      - --terminated-pod-gc-threshold=10
-      - --profiling=false
-      - --use-service-account-credentials=true
-      - --service-account-private-key-file=/etc/kubernetes/pki/sa.pem
-      - --root-ca-file=/etc/kubernetes/pki/ca.pem
-      - --bind-address=127.0.0.1
+      - kubelet
       securityContext:
         runAsUser: 10000
         readOnlyRootFilesystem: true

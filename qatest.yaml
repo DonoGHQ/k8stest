@@ -20,6 +20,7 @@ spec:
       - --anonymous-auth=false
       - --client-ca-file=test.key
       - --read-only-port=0
+      - --streaming-connection-idle-timeout=0
       securityContext:
         runAsUser: 10000
         readOnlyRootFilesystem: true

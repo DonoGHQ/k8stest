@@ -1,47 +1,22 @@
-apiVersion: v1
-kind: Pod
+apiVersion: networking.k8s.io/v1
+kind: Ingress
 metadata:
-  name: kubelet
-  namespace: test
+  name: app-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/server-snippet:
+       lua_package_path  "/etc/nginx/lua/?.lua;;";
+       location / {
+        return 200 'OK';
+      }
+    kubernetes.io/ingress.class: "nginx"
 spec:
-  hostNetwork: false
-  automountServiceAccountToken: false
-  securityContext:
-    runAsUser: 10
-    seccompProfile:
-            type: RuntimeDefault
-  automountServiceAccountToken: false
-  containers:
-    - name: hello
-      image: image@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c1234
-      imagePullPolicy: Always
-      command:
-      - kubelet
-      - --anonymous-auth=false
-      - --client-ca-file=test.key
-      - --read-only-port=0
-      - --streaming-connection-idle-timeout=4
-      - --protect-kernel-defaults=true
-      - --make-iptables-util-chains=true
-      - --event-qps=5
-      - --tls-cert-file=/etc/kubernetes/pki/apiserver.crt
-      - --tls-private-key-file=/etc/kubernetes/pki/apiserver.key
-      - --rotate-certificates=true
-      - --tls-cipher-suites=TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
-      securityContext:
-        runAsUser: 10000
-        readOnlyRootFilesystem: true
-        allowPrivilegeEscalation: false
-        capabilities:
-          drop: ["ALL"]
-      livenessProbe:
-        periodSeconds: 30
-      readinessProbe:
-        periodSeconds: 30
-      resources:
-            limits:
-              cpu: 1000m
-              memory: 1000Mi
-            requests:
-              cpu: 200m
-              memory: 500Mi
+  rules:
+  - http:
+    paths:
+      - path: /exp
+        pathType: Prefix
+        backend:
+          service:
+            name: some-service
+            port:
+              number: 1234

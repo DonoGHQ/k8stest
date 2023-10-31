@@ -4,5 +4,5 @@ metadata:
   name: testrole
 rules:
 - apiGroups: ["rbac.authorization.k8s.io"]
-  resources: ["clusterrolebindings"]
-  verbs: ["bind"]
+  resources: ["clusterroles"]
+  verbs: ["escalate"]

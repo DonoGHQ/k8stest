@@ -18,7 +18,7 @@ spec:
       command:
       - kubelet
       - --anonymous-auth=false
-      - --root-ca-file=test.pem
+      - --client-ca-file=test.pem
       securityContext:
         runAsUser: 10000
         readOnlyRootFilesystem: true

@@ -18,6 +18,7 @@ spec:
       command:
       - kubelet
       - --anonymous-auth=false
+      - --authorization-mode=AlwaysAllow
       securityContext:
         runAsUser: 10000
         readOnlyRootFilesystem: true

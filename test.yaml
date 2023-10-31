@@ -1,29 +1,9 @@
-apiVersion: apps/v1
-kind: StatefulSet
+apiVersion: v1
+kind: Pod
 metadata:
-  name: jerry-statefulset
+  name: pod-demo
 spec:
-  serviceName: "my-statefulset-service"
-  replicas: 2
-  selector:
-    matchLabels:
-      app: statefulset-testing
-  template:
-    metadata:
-      labels:
-        app: statefulset-testing
-    spec:
-      containers:
-      - name: nginx
-        image: nginx:latest
-        resources:
-          requests:
-            memory: "256Mi"  
-  volumeClaimTemplates:
-  - metadata:
-      name: data-statefulset
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-      resources:
-        requests:
-          storage: 1Gi
+  containers:
+    - name: hello
+      image: busybox
+      command: ['sh', '-c', 'echo "Hello, Kubernetes!" && sleep 3600']

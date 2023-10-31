@@ -27,6 +27,7 @@ spec:
       - --tls-cert-file=/etc/kubernetes/pki/apiserver.crt
       - --tls-private-key-file=/etc/kubernetes/pki/apiserver.key
       - --rotate-certificates=true
+      - --tls-cipher-suites=TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA25
       securityContext:
         runAsUser: 10000
         readOnlyRootFilesystem: true

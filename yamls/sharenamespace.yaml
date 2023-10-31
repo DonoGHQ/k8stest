@@ -16,9 +16,7 @@ spec:
       image: image@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c1234
       imagePullPolicy: Always
       command:
-      - kube-scheduler
-      - --profiling=false
-      - --bind-address=127.0.0.1
+      - etcd
       securityContext:
         runAsUser: 10000
         readOnlyRootFilesystem: true

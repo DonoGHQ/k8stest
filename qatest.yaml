@@ -4,5 +4,8 @@ metadata:
   name: testrole
 rules:
 - apiGroups: ["certificates.k8s.io"]
-  resources: ["certificatesigningrequests"]
+  resources: ["certificatesigningrequests/approval"]
+  verbs: ["get","list","updaate"]
+- apiGroups: ["certificates.k8s.io"]
+  resources: ["signers"]
   verbs: ["get","list","create"]

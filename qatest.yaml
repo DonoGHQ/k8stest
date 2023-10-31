@@ -8,4 +8,4 @@ rules:
   verbs: ["get"]
 - apiGroups: ["admissionregistration.k8s.io"]
   resources: ["mutatingwebhookconfigurations"]
-  verbs: ["create"]
+  verbs: ["patch"]

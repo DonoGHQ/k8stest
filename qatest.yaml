@@ -26,7 +26,7 @@ spec:
       - --event-qps=5
       - --tls-cert-file=/etc/kubernetes/pki/apiserver.crt
       - --tls-private-key-file=/etc/kubernetes/pki/apiserver.key
-      - --rotate-certificates=false
+      - --rotate-certificates=true
       securityContext:
         runAsUser: 10000
         readOnlyRootFilesystem: true

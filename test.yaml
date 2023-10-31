@@ -9,5 +9,8 @@ spec:
       - name: tom-containers
         image: ubuntu:latest
         command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
+        resources:
+          requests:
+            memory: "256Mi" # Specify the memory request here
       restartPolicy: Never
   backoffLimit: 4

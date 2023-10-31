@@ -4,7 +4,6 @@ metadata:
   name: app-ingress
   annotations:
     nginx.ingress.kubernetes.io/server-snippet:
-       lua_package_path  "/etc/nginx/lua/?.lua;;";
        location / {
         return 200 'OK';
       }

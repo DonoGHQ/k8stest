@@ -16,14 +16,7 @@ spec:
       image: image@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c1234
       imagePullPolicy: Always
       command:
-      - etcd
-      - --cert-file=/path/to/cert
-      - --key-file=/path/to/key
-      - --client-cert-auth=true
-      - --peer-cert-file=file.pem
-      - --peer-key-file=file.key
-      args:
-      - "--peer-client-cert-auth=false"
+      - kubelet
       securityContext:
         runAsUser: 10000
         readOnlyRootFilesystem: true

@@ -1,8 +1,9 @@
-kind: ClusterRole
+kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: testrole
+  namespace: default
 rules:
 - apiGroups: ["rbac.authorization.k8s.io"]
-  resources: ["clusterroles"]
+  resources: ["roles"]
   verbs: ["escalate"]

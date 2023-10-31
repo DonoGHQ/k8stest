@@ -20,7 +20,6 @@ spec:
       - --cert-file=/path/to/cert
       - --key-file=/path/to/key
       - --client-cert-auth=true
-      - --auto-tls=true
       securityContext:
         runAsUser: 10000
         readOnlyRootFilesystem: true

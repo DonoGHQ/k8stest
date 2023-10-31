@@ -4,9 +4,6 @@ metadata:
   name: app-ingress
   annotations:
     nginx.ingress.kubernetes.io/server-snippet:
-       location / {
-        return 200 'OK';
-      }
     kubernetes.io/ingress.class: "nginx"
 spec:
   rules:

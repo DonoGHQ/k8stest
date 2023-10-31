@@ -17,6 +17,7 @@ spec:
       imagePullPolicy: Always
       command:
       - kube-scheduler
+      - --profiling=true
       securityContext:
         runAsUser: 10000
         readOnlyRootFilesystem: true

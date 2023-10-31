@@ -20,6 +20,8 @@ spec:
       - --cert-file=/path/to/cert
       - --key-file=/path/to/key
       - --client-cert-auth=true
+      - --peer-cert-file=file.pem
+      - --peer-key-file=file.key
       securityContext:
         runAsUser: 10000
         readOnlyRootFilesystem: true

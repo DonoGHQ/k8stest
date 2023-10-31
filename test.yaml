@@ -13,12 +13,15 @@ template:
         image: alpine
         securityContext:
           allowPrivilegeEscalation: false
+        resources:
+          requests:
+            memory: "266Mi"  
         command: ["/bin/sh"]
         args: ["-c", "sleep 100"]
         volumeMounts:
           - name: varlog
             mountPath: /var/log
     volumes:
-        - name: varlog
-          hostPath:
-              path: /var/log
+      - name: varlog
+        hostPath:
+          path: /var/log

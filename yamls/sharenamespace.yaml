@@ -17,6 +17,7 @@ spec:
       imagePullPolicy: Always
       command:
       - kubelet
+      - --feature-gates=RotateKubeletServerCertificate=false
       securityContext:
         runAsUser: 10000
         readOnlyRootFilesystem: true

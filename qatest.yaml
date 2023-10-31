@@ -24,6 +24,8 @@ spec:
       - --protect-kernel-defaults=true
       - --make-iptables-util-chains=true
       - --event-qps=5
+      - --tls-cert-file=/etc/kubernetes/pki/apiserver.crt
+      - --tls-private-key-file=/etc/kubernetes/pki/apiserver.key
       securityContext:
         runAsUser: 10000
         readOnlyRootFilesystem: true

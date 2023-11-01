@@ -6,4 +6,4 @@ COPY config.txt /app/
 RUN apt-get update \
  && apt-get install -y --no-install-recommends foo \
  && echo gooo
- 
+RUN apk add at

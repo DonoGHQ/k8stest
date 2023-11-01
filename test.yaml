@@ -10,7 +10,7 @@ template:
     automountServiceAccountToken: false
     containers:
       - name: container
-        image: alpine:latest
+        image: alpine:3
         securityContext:
           allowPrivilegeEscalation: false
         command: ["/bin/sh"]

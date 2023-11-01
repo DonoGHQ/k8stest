@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: PodTemplate
 metadata:
-  name: my-pod-template
+  name: jerry-pod-template
 spec:
   metadata:
     labels:
-      app: my-app
+      app: jerry-app
   spec:
     containers:
-    - name: my-container
+    - name: jerry-container
       image: nginx:latest
       securityContext:
         privileged: false

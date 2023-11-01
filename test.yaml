@@ -1,15 +1,19 @@
-apiVersion: v1
-kind: PodTemplate
+apiVersion: apps/v1
+kind: ReplicaSet
 metadata:
-  name: my-pod-template
+  name: jerry-replica
 spec:
-  metadata:
-    labels:
-      app: my-app
-  spec:
-    automountServiceAccountToken: false
-    containers:
-    - name: my-container
-      image: nginx:latest
-      securityContext:
-        Privilegd: true
+  replicas: 2
+  selector:
+    matchLabels:
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        tier: frontend
+    spec:
+      containers:
+      - name: nginx-containers
+        image: nginx:latest
+        securityContext:
+          privileged: true

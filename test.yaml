@@ -13,5 +13,5 @@ spec:
             image: nginx:1.26
             securityContext:
               runAsUser: 1000  
-            hostPID: false
+            hostPID: true
           restartPolicy: OnFailure

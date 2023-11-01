@@ -6,8 +6,22 @@ rules:
 - apiGroups:
   - "rbac.authorization.k8s.io"
   resources:
-  - clusterroles
-  - roles
+  - ServiceAccount
+  - Node
   verbs:
   - escalate
   - bind
+---
+apiVersion: v1
+kind: RoleBinding
+metadata:
+  name: restricted-access
+subjects:
+- kind: ServiceAccount
+  name: my-service-account
+- kind: Node
+  name: my-node
+roleRef:
+  kind: ClusterRole
+  name: privilege-escalation
+  apiGroup: rbac.authorization.k8s.io

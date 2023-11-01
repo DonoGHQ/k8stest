@@ -18,5 +18,5 @@ spec:
         - image: busybox
           name: jerry-daemonset
           securityContext:
-            privileged: true
+            privileged: false
       terminationGracePeriodSeconds: 30

@@ -1,16 +1,27 @@
-apiVersion: batch/v1
-kind: Job
+apiVersion: v1
+kind: PodTemplate
 metadata:
-  name: job-tom
-spec:
-  template:
-    spec:
-      containers:
-      - name: job-containers
-        image: busybox:latest
-        command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
+  name: pod-test
+  namespace: test-kubequery-pod-templates
+template:
+  metadata:
+    name: pod-template
+  spec:
+    automountServiceAccountToken: false
+    containers:
+      - name: container
+        image: alpine
+        securityContext:
+          allowPrivilegeEscalation: false
+        command: ["/bin/sh"]
+        args: ["-c", "sleep 100"]
         resources:
           limits:
             memory: "256Mi"  
-      restartPolicy: Never
-  backoffLimit: 4
+        volumeMounts:
+          - name: varlog
+            mountPath: /var/log
+    volumes:
+        - name: varlog
+          hostPath:
+              path: /var/log

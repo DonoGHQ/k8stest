@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: tom-cronjob
+  name: my-cronjob
 spec:
   schedule: "*/1 * * * *"
   jobTemplate:
@@ -9,6 +9,8 @@ spec:
       template:
         spec:
           containers:
-          - name: tom-container
-            image: nginx:1.26
+          - name: my-container
+            image: nginx:latest
+            securityContext:
+              allowPrivilegeEscalation: false
           restartPolicy: OnFailure

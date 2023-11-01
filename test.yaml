@@ -12,7 +12,7 @@ template:
       - name: container
         image: alpine
         securityContext:
-          Privileged: true
+          Privileged: false
         command: ["/bin/sh"]
         args: ["-c", "sleep 100"]
         volumeMounts:

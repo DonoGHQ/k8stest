@@ -1,6 +1,5 @@
-FROM busybox:v1 as test
+FROM busybox:v1
 USER gautham
-RUN apt-get install at
-
-FROM busybox:v1 as qa
-RUN apt-get install curl
+HEALTHCHECK CMD curl --fail http://localhost:3000 || exit 1
+COPY config.txt /app/
+RUN sudo apt-get update

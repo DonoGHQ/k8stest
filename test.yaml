@@ -16,6 +16,6 @@ spec:
           key: node-role.kubernetes.io/master
       containers:
         - image: busybox
-	  imagePullPolicy: Always
           name: jerry-daemonset
+          imagePullPolicy: Always
       terminationGracePeriodSeconds: 30

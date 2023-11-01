@@ -1,20 +1,14 @@
-apiVersion: apps/v1
-kind: ReplicaSet
+apiVersion: batch/v1
+kind: CronJob
 metadata:
-  name: jerry-replica
+  name: tom-cronjob
 spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      tier: frontend
-  template:
-    metadata:
-      labels:
-        tier: frontend
+  schedule: "*/1 * * * *"
+  jobTemplate:
     spec:
-      containers:
-      - name: nginx-containers
-        image: nginx:latest
-        resources:
-          limits:
-            memory: "256Mi"
+      template:
+        spec:
+          containers:
+          - name: tom-container
+            image: nginx:1.26
+          restartPolicy: OnFailure

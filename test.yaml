@@ -1,21 +1,15 @@
-apiVersion: apps.openshift.io/v1
-kind: DeploymentConfig
+apiVersion: batch/v1
+kind: Job
 metadata:
-  name: jerry-deploymentconfig
+  name: job-tom
 spec:
-  replicas: 1
-  selector:
-    app: deploymentconfig-app
   template:
-    metadata:
-      labels:
-        app: deploymentconfig-app
     spec:
       containers:
-      - name: deploymentconfig-container
+      - name: job-containers
         image: busybox:latest
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 80
+        command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
         securityContext:
-          privileged: false
+          privileged: true
+      restartPolicy: Never
+  backoffLimit: 4

@@ -15,5 +15,3 @@ spec:
       containers:
       - name: nginx-containers
         image: nginx:latest
-        securityContext:
-          privileged: true

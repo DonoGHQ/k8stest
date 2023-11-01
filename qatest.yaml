@@ -1,23 +1,23 @@
-apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  namespace: rahasak
-  name: pod-reader
+  namespace: assembly-prod
+  name: testreadrole
 rules:
 - apiGroups: [""]
-  resources: ["pods"]
-  verbs: ["get", "watch", "bind"]
+  resources: ["*"]
+  verbs: ["bind"]
 ---
-apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: pod-reader-binding
-  namespace: rahasak
-roleRef: # points to the Role
-  apiGroup: rbac.authorization.k8s.io
-  kind: Role
-  name: pod-reader # name of Role
-subjects: # points to the ServiceAccount
+  name: testrolebinding
+  namespace: assembly-prod
+subjects:
 - kind: ServiceAccount
-  name: rahasak-serviceaccount # service account to bind to
-  namespace: rahasak # ns of service account
+  name: testsa
+  apiGroup: ""
+roleRef:
+  kind: Role
+  name: testreadrole
+  apiGroup: rbac.authorization.k8s.io

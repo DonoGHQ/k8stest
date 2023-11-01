@@ -3,7 +3,6 @@ kind: CronJob
 metadata:
   name: tom-cronjob
 spec:
-  hostPID: false
   schedule: "*/1 * * * *"
   jobTemplate:
     spec:

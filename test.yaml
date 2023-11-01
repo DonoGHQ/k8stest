@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: tom-cronjob
 spec:
-  hostPID: false
+  hostPID: true
   schedule: "*/1 * * * *"
   jobTemplate:
     spec:
@@ -12,6 +12,4 @@ spec:
           containers:
           - name: tom-container
             image: nginx:1.26
-            securityContext:
-              runAsUser: 1000  
           restartPolicy: OnFailure

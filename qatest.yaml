@@ -1,7 +1,7 @@
 kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  namespace: test
+  namespace: test2
   name: testadmin
 rules:
 - apiGroups: ["*"]
@@ -12,10 +12,11 @@ kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: testadminbinding
-  namespace: test
+  namespace: test2
 subjects:
 - kind: ServiceAccount
   name: myaccount
+  namespace: test
   apiGroup: ""
 roleRef:
   kind: Role

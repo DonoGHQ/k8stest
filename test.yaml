@@ -1,21 +1,22 @@
 apiVersion: apps/v1
-kind: DaemonSet
+kind: Deployment
 metadata:
-  name: jerry-daemonset
+  name: jerry-deployment
+  labels:
+    app: nginx
 spec:
+  replicas: 2
   selector:
     matchLabels:
-      name: jerry-daemonset
+      app: nginx
   template:
     metadata:
       labels:
-        name: jerry-daemonset
+        app: nginx
     spec:
-      tolerations:
-        - effect: NoSchedule
-          key: node-role.kubernetes.io/master
       containers:
-        - image: busybox
-          name: jerry-daemonset
-          imagePullPolicy: Always
-      terminationGracePeriodSeconds: 30
+      - name: nginx
+        image: nginx
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80

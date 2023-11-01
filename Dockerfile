@@ -1,4 +1,4 @@
-FROM busybox
+FROM busybox:latest
 USER gautham
 LABEL name="test"
 EXPOSE 8080

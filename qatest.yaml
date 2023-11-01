@@ -1,13 +1,23 @@
 apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
+kind: Role
 metadata:
-  name: privilege-escalation
+  namespace: rahasak
+  name: pod-reader
 rules:
-- apiGroups:
-  - "rbac.authorization.k8s.io"
-  resources:
-  - clusterroles
-  - roles
-  verbs:
-  - escalate
-  - bind
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "watch", "bind"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: pod-reader-binding
+  namespace: rahasak
+roleRef: # points to the Role
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: pod-reader # name of Role
+subjects: # points to the ServiceAccount
+- kind: ServiceAccount
+  name: rahasak-serviceaccount # service account to bind to
+  namespace: rahasak # ns of service account

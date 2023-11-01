@@ -11,4 +11,4 @@ spec:
     - name: jerry-container
       image: nginx:latest
       securityContext:
-        privileged: false
+        privileged: true

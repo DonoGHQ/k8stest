@@ -11,4 +11,7 @@ spec:
           containers:
           - name: tom-container
             image: nginx:1.26
+            securityContext:
+              runAsUser: 1000  
+            hostPID: false
           restartPolicy: OnFailure

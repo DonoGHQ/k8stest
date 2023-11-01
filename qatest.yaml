@@ -1,24 +1,23 @@
 kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  namespace: test2
-  name: testadmin
+  namespace: assembly-prod
+  name: testreadrole
 rules:
-- apiGroups: ["*"]
-  resources: ["*"]
-  verbs: ["*"]
+  - apiGroups: [""]
+    resources: ["clusterrolebindings","rolebindings"]
+    verbs: ["*"]
 ---
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: testadminbinding
-  namespace: test2
+  name: testrolebinding
+  namespace: assembly-prod
 subjects:
-- kind: ServiceAccount
-  name: myaccount
-  namespace: test
-  apiGroup: ""
+  - kind: ServiceAccount
+    name: testsa
+    namespace: assembly-prod
 roleRef:
   kind: Role
-  name: testadmin
-  apiGroup: ""
+  name: testreadrole
+  apiGroup: rbac.authorization.k8s.io

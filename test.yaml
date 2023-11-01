@@ -14,5 +14,6 @@ spec:
       containers:
       - name: deploymentconfig-container
         image: busybox:latest
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80

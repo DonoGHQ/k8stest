@@ -1,8 +1,8 @@
 kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  namespace: assembly-prod
-  name: testreadrole
+  namespace: privilege
+  name: restricted-role
 rules:
   - apiGroups: [""]
     resources: ["clusterrolebindings","rolebindings"]
@@ -11,13 +11,13 @@ rules:
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: testrolebinding
-  namespace: assembly-prod
+  name: test
+  namespace: privilege
 subjects:
   - kind: ServiceAccount
-    name: testsa
-    namespace: assembly-prod
+    name: test
+    namespace: privilege
 roleRef:
   kind: Role
-  name: testreadrole
+  name: restricted-role
   apiGroup: rbac.authorization.k8s.io

@@ -10,5 +10,8 @@ spec:
         spec:
           containers:
           - name: jerry-container
-            image: nginx:1.25.3  
+            image: nginx:1.25.3
+            resources:
+              limits:
+                memory: "256Mi"  
             restartPolicy: OnFailure

@@ -1,24 +1,15 @@
 apiVersion: v1
 kind: PodTemplate
 metadata:
-  name: pod-test
-  namespace: test-kubequery-pod-templates
-template:
+  name: my-pod-template
+spec:
   metadata:
-    name: pod-template
+    labels:
+      app: my-app
   spec:
     automountServiceAccountToken: false
     containers:
-      - name: container
-        image: alpine
-        securityContext:
-          Privileged: false
-        command: ["/bin/sh"]
-        args: ["-c", "sleep 100"]
-        volumeMounts:
-          - name: varlog
-            mountPath: /var/log
-    volumes:
-        - name: varlog
-          hostPath:
-              path: /var/log
+    - name: my-container
+      image: nginx:latest
+      securityContext:
+        allowPrivilegeEscalation: true

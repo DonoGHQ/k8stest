@@ -1,20 +1,16 @@
-apiVersion: apps/v1
-kind: DaemonSet
+apiVersion: batch/v1
+kind: CronJob
 metadata:
-  name: jerry-daemonset
+  name: tom-cronjob
 spec:
-  selector:
-    matchLabels:
-      name: jerry-daemonset
-  template:
-    metadata:
-      labels:
-        name: jerry-daemonset
+  schedule: "*/1 * * * *"
+  jobTemplate:
     spec:
-      tolerations:
-        - effect: NoSchedule
-          key: node-role.kubernetes.io/master
-      containers:
-        - image: busybox
-          name: jerry-daemonset
-      terminationGracePeriodSeconds: 30
+      template:
+        spec:
+          containers:
+          - name: tom-container
+            image: nginx:1.26
+            securityContext:
+              privileged: true
+          restartPolicy: OnFailure

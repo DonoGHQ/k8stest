@@ -1,4 +1,4 @@
-FROM busybox:v1
+FROM busybox:v1 AS build
 USER gautham
 LABEL name="test"
 EXPOSE 8080

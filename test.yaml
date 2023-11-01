@@ -1,15 +1,14 @@
-apiVersion: batch/v1
-kind: Job
+apiVersion: v1
+kind: PodTemplate
 metadata:
-  name: job-tom
+  name: my-pod-template
 spec:
-  template:
-    spec:
-      containers:
-      - name: job-containers
-        image: busybox:latest
-        command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
-        securityContext:
-          privileged: false
-      restartPolicy: Never
-  backoffLimit: 4
+  metadata:
+    labels:
+      app: my-app
+  spec:
+    containers:
+    - name: my-container
+      image: nginx:latest
+      securityContext:
+        privileged: false

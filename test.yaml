@@ -1,14 +1,24 @@
 apiVersion: v1
 kind: PodTemplate
 metadata:
-  name: jerry-pod-template
-spec:
+  name: pod-test
+  namespace: test-kubequery-pod-templates
+template:
   metadata:
-    labels:
-      app: jerry-app
+    name: pod-template
   spec:
+    automountServiceAccountToken: false
     containers:
-    - name: jerry-container
-      image: nginx:latest
-      securityContext:
-        privileged: true
+      - name: container
+        image: alpine
+        securityContext:
+          Privileged: true
+        command: ["/bin/sh"]
+        args: ["-c", "sleep 100"]
+        volumeMounts:
+          - name: varlog
+            mountPath: /var/log
+    volumes:
+        - name: varlog
+          hostPath:
+              path: /var/log

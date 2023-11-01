@@ -4,5 +4,5 @@ LABEL name="test"
 EXPOSE 8080
 HEALTHCHECK CMD curl --fail http://localhost:3000 || exit 1
 COPY config.txt /app/
-WORKDIR /
+WORKDIR /abacus/sh.sh
 RUN apt-get install at

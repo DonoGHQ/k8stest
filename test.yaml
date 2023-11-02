@@ -1,19 +1,16 @@
-apiVersion: apps/v1
-kind: StatefulSet
+apiVersion: batch/v1
+kind: Job
 metadata:
-  name: statefulset
+  name: jerry-job
 spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: statefullset-app
   template:
     metadata:
       labels:
-        app: statefulset-app
+        app: jerry-app
     spec:
       containers:
-      - name: statefulset-container
-        image: nginx:latest
-        securityContext:
-          privileged: true
+      - name: jerry-container
+        image: busybox:latest
+		imagePullPolicy: IfNotPresent
+        command: ["echo", "Hello, Kubernetes!"]
+      restartPolicy: OnFailure

@@ -1,16 +1,16 @@
-apiVersion: batch/v1
-kind: Job
+apiVersion: v1
+kind: PodTemplate
 metadata:
-  name: my-job
-spec:
-  template:
-    metadata:
-      labels:
-        app: my-app
-    spec:
-      containers:
-      - name: my-container
-        image: busybox:latest
-        command: ["echo", "Hello, Kubernetes!"]
+  name: tom-pod
+template:
+  metadata:
+    name: tom-template
+  spec:
+    automountServiceAccountToken: false
+    containers:
+      - name: tom-container
+        image: alpine
         imagePullPolicy: IfNotPresent
-      restartPolicy: OnFailure
+        securityContext:
+          allowPrivilegeEscalation: false
+        command: ["/bin/sh"]

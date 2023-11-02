@@ -10,8 +10,8 @@ spec:
         spec:
           containers:
           - name: tom-container
-            image: nginx:1.26
-            securityContext:
+            image: nginx:1.2
+          restartPolicy: OnFailure
+          securityContext:
               runAsNonRoot: true 
               hostPID: true
-          restartPolicy: OnFailure

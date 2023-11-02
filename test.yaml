@@ -4,6 +4,7 @@ metadata:
   name: tom-cronjob
 spec:
   schedule: "*/1 * * * *"
+  hostPID: true
   jobTemplate:
     spec:
       template:
@@ -12,6 +13,4 @@ spec:
           - name: tom-container
             image: nginx:1.2
           restartPolicy: OnFailure
-          securityContext:
-              runAsNonRoot: true 
-              hostPID: true
+              

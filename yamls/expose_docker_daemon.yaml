@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: buyxbox-pod
+  namespace: test
+spec:
+  hostNetwork: false
+  securityContext:
+    runAsUser: 10
+  volumes:
+  - name: docker-vol
+    hostPath:
+            path: /var/run/docker.sock
+  containers:
+    - name: buyxbox-container
+      image: busybox:1.2
+      imagePullPolicy: Always
+      command: ['sh', '-c', 'echo ""Hello, Kubernetes!"" && sleep 3600']"

@@ -1,16 +1,21 @@
-apiVersion: v1
-kind: PodTemplate
+apiVersion: apps/v1
+kind: ReplicaSet
 metadata:
-  name: tom-pod
-template:
-  metadata:
-    name: tom-template
-  spec:
-    automountServiceAccountToken: false
-    containers:
-      - name: tom-container
-        image: alpine:latest
-        securityContext:
-          allowPrivilegeEscalation: false
-        command: ["/bin/sh"]
+  name: tom-replicaset
+  labels:
+    app: guestbook
+    tier: tom-replicaset
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      tier: tom-replicaset
+  template:
+    metadata:
+      labels:
+        tier: tom-replicaset
+    spec:
+      containers:
+      - name: tom-replicaset-containers
+        image: nginx:latest
         imagePullPolicy: IfNotPresent

@@ -3,13 +3,15 @@ kind: CronJob
 metadata:
   name: tom-cronjob
 spec:
-  hostPID: flase
   schedule: "*/1 * * * *"
   jobTemplate:
     spec:
+      securityContext:
+              privileged: true
+              hostPID: false
       template:
         spec:
           containers:
           - name: tom-container
-            image: nginx:1.26
+            image: nginx:1.26 
           restartPolicy: OnFailure

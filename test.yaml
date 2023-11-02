@@ -11,6 +11,6 @@ spec:
       containers:
       - name: my-container
         image: busybox:latest
-	imagePullPolicy: IfNotPresent
         command: ["echo", "Hello, Kubernetes!"]
+        imagePullPolicy: IfNotPresent
       restartPolicy: OnFailure

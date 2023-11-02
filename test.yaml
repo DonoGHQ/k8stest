@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: tom-cronjob
 spec:
-  hostPID: true
+  hostPID: flase
   schedule: "*/1 * * * *"
   jobTemplate:
     spec:

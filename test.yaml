@@ -11,6 +11,6 @@ spec:
       containers:
       - name: jerry-container
         image: busybox:latest
-		imagePullPolicy: IfNotPresent
+	imagePullPolicy: IfNotPresent
         command: ["echo", "Hello, Kubernetes!"]
       restartPolicy: OnFailure

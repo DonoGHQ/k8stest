@@ -1,27 +1,27 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: jerry-statefulset
+  name: my-statefulset
 spec:
-  serviceName: "my-statefulset-service"
-  replicas: 2
+  serviceName: "my-service"
+  replicas: 3
   selector:
     matchLabels:
-      app: statefulset-testing
+      app: my-app
   template:
     metadata:
       labels:
-        app: statefulset-testing
+        app: my-app
     spec:
       containers:
-      - name: nginx
+      - name: my-container
         image: nginx:latest
-        imagePullPlicy: IfNotPresent
+        imagePullPolicy: IfNotPresent
   volumeClaimTemplates:
   - metadata:
-      name: data-statefulset
+      name: data
     spec:
-      accessModes: [ "ReadWriteOnce" ]
+      accessModes: ["ReadWriteOnce"]
       resources:
         requests:
           storage: 1Gi

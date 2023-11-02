@@ -6,11 +6,9 @@ spec:
   schedule: "*/1 * * * *"
   jobTemplate:
     spec:
-      securityContext:
-              privileged: true
-              hostPID: false
       template:
         spec:
+          hostPID: true
           containers:
           - name: tom-container
             image: nginx:1.26 

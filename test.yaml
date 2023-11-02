@@ -8,7 +8,7 @@ spec:
     spec:
       template:
         spec:
-          hostPID: flase
+          hostPID: false
           containers:
           - name: tom-container
             image: nginx:1.26 

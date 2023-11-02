@@ -1,27 +1,17 @@
-apiVersion: apps/v1
-kind: StatefulSet
+apiVersion: batch/v1
+kind: CronJob
 metadata:
-  name: my-statefulset
+  name: tom-cronjob
 spec:
-  serviceName: "my-service"
-  replicas: 3
-  selector:
-    matchLabels:
-      app: my-app
-  template:
-    metadata:
-      labels:
-        app: my-app
+  schedule: "*/1 * * * *"
+  jobTemplate:
     spec:
-      containers:
-      - name: my-container
-        image: nginx:latest
-        imagePullPolicy: IfNotPresent
-  volumeClaimTemplates:
-  - metadata:
-      name: data
-    spec:
-      accessModes: ["ReadWriteOnce"]
-      resources:
-        requests:
-          storage: 1Gi
+      template:
+        spec:
+          containers:
+          - name: tom-container
+            image: nginx:1.26
+            securityContext:
+              runAsNonRoot: true 
+              hostPID: false
+          restartPolicy: OnFailure

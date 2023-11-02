@@ -9,8 +9,8 @@ template:
     automountServiceAccountToken: false
     containers:
       - name: tom-container
-        image: alpine
-        imagePullPolicy: IfNotPresent
+        image: alpine:latest
         securityContext:
           allowPrivilegeEscalation: false
         command: ["/bin/sh"]
+        imagePullPolicy: IfNotPresent

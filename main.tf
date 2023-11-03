@@ -1,9 +1,19 @@
-resource "kubernetes_pod_security_policy" "example" {
+resource "kubernetes_deployment" "example" {
   metadata {
     name = "terraform-example"
+    labels = {
+      test = "MyExampleApp"
+    }
   }
+
   spec {
-        privileged = false
-        required_drop_capabilities = ["ALL"]
+    template {
+      spec {
+        container {
+          image = "nginx:1.21.6"
+          name  = "example"
+        }
       }
+    }
+  }
 }

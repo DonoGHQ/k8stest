@@ -4,8 +4,7 @@ resource "kubernetes_pod_security_policy" "example" {
   }
   spec {
         privileged = false
-        run_as_user {
-                rule = "MustRunAsRoot"
+        required_drop_capabilities = ["ALL"]
       }
     }
 }

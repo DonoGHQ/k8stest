@@ -3,5 +3,9 @@ resource "kubernetes_pod_security_policy" "example" {
     name = "terraform-example"
   }
   spec {
-    allow_privilege_escalation = true }
+        privileged = false
+        run_as_user {
+                rule = "MustRunAsNonRoot"
+      }
+    }
 }

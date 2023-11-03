@@ -15,7 +15,7 @@ spec:
       labels:
         tier: tom-replicaset
     spec:
-      hostPID: true
+      hostPID: false
       containers:
       - name: tom-replicaset-containers
         image: nginx:latest

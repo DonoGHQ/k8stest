@@ -6,7 +6,10 @@ resource "kubernetes_pod_security_policy" "example" {
         privileged = false
         run_as_user {
                 rule = "MustRunAs"
-                range = 0
+                range {
+                  min = 0
+                  max = 65535
+        }
       }
     }
 }

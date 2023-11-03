@@ -1,4 +1,4 @@
-resource "kubernetes_deployment" "example" {
+resource "kubernetes_deployment_v1" "example" {
   metadata {
     name = "terraform-example"
     labels = {

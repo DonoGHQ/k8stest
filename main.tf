@@ -3,5 +3,5 @@ resource "kubernetes_pod_security_policy" "example" {
     name = "terraform-example"
   }
   spec {
-    privileged = true }
+    host_ipc = true }
 }

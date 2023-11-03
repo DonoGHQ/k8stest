@@ -1,23 +1,14 @@
-apiVersion: apps/v1
-kind: DaemonSet
+apiVersion: batch/v1
+kind: Job
 metadata:
-  name: jerry-daemonset
+  name: job-tom
 spec:
-  selector:
-    matchLabels:
-      name: jerry-daemonset
   template:
-    metadata:
-      labels:
-        name: jerry-daemonset
     spec:
-      tolerations:
-        - effect: NoSchedule
-          key: node-role.kubernetes.io/master
-      hostPID: false
+      hostPID: true
       containers:
-        - image: busybox
-          name: jerry-daemonset
-          securityContext:
-            privileged: true
-      terminationGracePeriodSeconds: 30
+      - name: job-containers
+        image: busybox:latest
+        command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
+      restartPolicy: Never
+  backoffLimit: 4

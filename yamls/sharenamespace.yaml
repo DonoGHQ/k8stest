@@ -1,42 +1,21 @@
 apiVersion: v1
-kind: Pod
+kind: ClusterRole
 metadata:
-  name: hello
-  namespace: test
-spec:
-  hostNetwork: false
-  automountServiceAccountToken: false
-  securityContext:
-    runAsUser: 10
-    seccompProfile:
-            type: RuntimeDefault
-  automountServiceAccountToken: false
-  containers:
-    - name: hello
-      image: image@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c1234
-      imagePullPolicy: Always
-      command:
-      - etcd
-      - --cert-file=/path/to/cert
-      - --key-file=/path/to/key
-      - --client-cert-auth=true
-      - --peer-cert-file=file.pem
-      - --peer-key-file=file.key
-      - --peer-client-cert-auth=true
-      securityContext:
-        runAsUser: 10000
-        readOnlyRootFilesystem: true
-        allowPrivilegeEscalation: false
-        capabilities:
-          drop: ["ALL"]
-      livenessProbe:
-        periodSeconds: 30
-      readinessProbe:
-        periodSeconds: 30
-      resources:
-            limits:
-              cpu: 1000m
-              memory: 1000Mi
-            requests:
-              cpu: 200m
-              memory: 500Mi
+  name: restricted-access
+rules:
+- apiGroups: [""]
+  resources: ["nodes/proxy", "pods/exec"]
+  verbs: ["create"]
+
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: testbinding
+subjects:
+  - kind: ServiceAccount
+    name: test
+roleRef:
+  kind: ClusterRole
+  name: restricted-access
+  apiGroup: rbac.authorization.k8s.io

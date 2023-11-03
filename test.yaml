@@ -1,14 +1,21 @@
-apiVersion: batch/v1
-kind: Job
+apiVersion: apps/v1
+kind: ReplicaSet
 metadata:
-  name: job-tom
+  name: tom-replicaset
+  labels:
+    app: guestbook
+    tier: tom-replicaset
 spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      tier: tom-replicaset
   template:
+    metadata:
+      labels:
+        tier: tom-replicaset
     spec:
-      hostPID: false
+      hostPID: true
       containers:
-      - name: job-containers
-        image: busybox:latest
-        command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
-      restartPolicy: Never
-  backoffLimit: 4
+      - name: tom-replicaset-containers
+        image: nginx:latest

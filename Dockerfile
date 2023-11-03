@@ -1,8 +1,3 @@
-FROM busybox:v1
-USER gautham
-HEALTHCHECK CMD curl --fail http://localhost:3000 || exit 1
-COPY config.txt /app/
-RUN useradd -m myuser && \
-echo 'myuser:mypassword' | chpasswd
-
-CMD ["/bin/bash"]
+FROM busybox:1.0
+ENV PASSWORD=newpassword
+RUN apt-get install at

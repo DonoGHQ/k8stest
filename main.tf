@@ -6,5 +6,4 @@ resource "kubernetes_pod_security_policy" "example" {
         privileged = false
         required_drop_capabilities = ["ALL"]
       }
-    }
 }

@@ -15,6 +15,8 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: test
+  - kind: Node
+    name: test-node
 roleRef:
   kind: ClusterRole
   name: restricted-access

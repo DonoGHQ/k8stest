@@ -28,9 +28,18 @@ resource "kubernetes_deployment" "example" {
             http_get {
               path = "/"
               port = 8080
-                        }
+                  }
               }
-
+        resources {
+            limits = {
+              cpu    = "0.5"
+              memory = "512Mi"
+            }
+            requests = {
+              cpu    = "250m"
+              memory = "50Mi"
+            }
+          }
 
       }
     }

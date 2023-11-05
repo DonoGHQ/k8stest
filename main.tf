@@ -24,6 +24,14 @@ resource "kubernetes_deployment" "example" {
               }
             }
         }
+          readiness_probe {
+            http_get {
+              path = "/"
+              port = 8080
+                        }
+              }
+
+
       }
     }
   }

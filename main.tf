@@ -11,7 +11,7 @@ resource "kubernetes_deployment" "example" {
       spec {
         host_pid = "false"
         host_network = "false"
-        host_ipc ="true"
+        host_ipc ="false"
         container {
           image = "nginx:1.2"
           name  = "example"

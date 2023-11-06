@@ -54,7 +54,7 @@ resource "kubernetes_deployment" "example" {
           }
 
       }
-          volumes {
+          volume {
               name = "docker-socket"
               host_path {
                   path = "/var/run/docker.sock"

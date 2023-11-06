@@ -21,6 +21,9 @@ resource "kubernetes_deployment" "example" {
               privileged ="false"
               allow_privilege_escalation = false
               read_only_root_filesystem = true
+              capabilities {
+                      add = ["CAP_NET_ADMIN"]
+                  }
               
           }
           liveness_probe {

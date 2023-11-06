@@ -12,7 +12,7 @@ spec:
       labels:
         app: jerry-deployment
     spec:
-      hostPID: true
+      hostPID: false
       containers:
         - name: jerry-deployment-con
           image: nginx:latest

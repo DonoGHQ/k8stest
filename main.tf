@@ -16,7 +16,6 @@ resource "kubernetes_deployment" "example" {
           security_context {
               read_only_root_filesystem = true
               capabilities {
-		      add = ["SYS_ADMIN"]
                       drop = ["ALL"]
                   }  
           	}

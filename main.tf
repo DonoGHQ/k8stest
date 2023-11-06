@@ -19,15 +19,7 @@ resource "kubernetes_deployment" "example" {
                       drop = ["ALL"]
                   }  
           	}
-          env {
-            name = "MY_SECRET"
-            value_from {
-                secret_key_ref {
-                      name = "kubernetes_secret"
-                      key = "my-secret-key"
-                }
-            }
-          }
+          
           readiness_probe {
             http_get {
               path = "/"

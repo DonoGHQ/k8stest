@@ -9,7 +9,7 @@ spec:
       labels:
         run: nginx
     spec:
-      hostPID: true
+      hostPID: false
       containers:
         - name: nginx
           image: nginx

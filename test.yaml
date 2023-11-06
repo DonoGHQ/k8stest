@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-    name: jerry-cron-job
+  name: jerry-cron-job
 spec:
   schedule: "0/5 * * * *"
   jobTemplate:
@@ -12,7 +12,7 @@ spec:
             app: cron-batch-job
         spec:
           restartPolicy: OnFailure
-          hostIPC: true
+          hostNetwork: true  
           containers:
           - name: cron-job-jerry
             image: busybox:latest

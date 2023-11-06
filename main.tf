@@ -10,7 +10,7 @@ resource "kubernetes_deployment" "example" {
     template {
       spec {
         container {
-          image = "nginx:1.21.6"
+          image = "nginx:latest"
           name  = "example"
 
           liveness_probe {

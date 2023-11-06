@@ -9,13 +9,14 @@ resource "kubernetes_deployment" "example" {
   spec {
     template {
       spec {
+        host_pid = "true"
         container {
           image = "nginx:1.2"
           name  = "example"
           image_pull_policy = "Always"
           security_context {
               privileged ="false"
-              host_pid = "true"
+              
           }
           liveness_probe {
             http_get {

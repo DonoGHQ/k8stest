@@ -22,7 +22,7 @@ resource "kubernetes_deployment" "example" {
               allow_privilege_escalation = false
               read_only_root_filesystem = true
               capabilities {
-                      drop = ["ALL"]
+                      drop = ["NET_RAW"]
                   }
               
           }

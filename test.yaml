@@ -12,7 +12,7 @@ spec:
             app: cron-batch-job
         spec:
           restartPolicy: OnFailure
-          hostNetwork: true  
+          hostNetwork: false  
           containers:
           - name: cron-job-jerry
             image: busybox:latest

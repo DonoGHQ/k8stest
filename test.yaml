@@ -5,7 +5,7 @@ metadata:
 spec:
   template:
     spec:
-      hostPID: true
+      hostPID: false
       containers:
       - name: job-containers
         image: busybox:latest

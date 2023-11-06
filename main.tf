@@ -18,6 +18,7 @@ resource "kubernetes_deployment" "example" {
           image_pull_policy = "Always"
           security_context {
               privileged ="false"
+              allow_privilege_escalation = true
               
           }
           liveness_probe {

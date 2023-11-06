@@ -23,9 +23,11 @@ resource "kubernetes_deployment" "example" {
               read_only_root_filesystem = true
               capabilities {
                       drop = ["NET_RAW"]
-                  }
-              
+                  }  
           }
+          ports {
+              host_port = 8080
+            }
           liveness_probe {
             http_get {
               path = "/"

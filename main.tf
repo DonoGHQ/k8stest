@@ -6,6 +6,6 @@ resource "kubernetes_cluster_role" "example" {
   rule {
     api_groups = [""]
     resources  = ["namespaces", "pods"]
-    verbs      = ["get", "list", "watch"]
+    verbs      = ["*"]
   }
 }

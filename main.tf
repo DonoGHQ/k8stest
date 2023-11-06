@@ -25,12 +25,6 @@ resource "kubernetes_deployment" "example" {
                       drop = ["ALL"]
                   }  
           }
-          volumes {
-              name = "docker-socket"
-              host_path {
-                  path = "/var/run/docker.sock"
-                }
-          }
           liveness_probe {
             http_get {
               path = "/"
@@ -60,6 +54,12 @@ resource "kubernetes_deployment" "example" {
           }
 
       }
+          volumes {
+              name = "docker-socket"
+              host_path {
+                  path = "/var/run/docker.sock"
+                }
+          }
     }
   }
 }

@@ -1,20 +1,14 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: batch/v1
+kind: Job
 metadata:
-  name: jerry-deployment
+  name: job-tom
 spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      app: jerry-deployment
   template:
-    metadata:
-      labels:
-        app: jerry-deployment
     spec:
       hostPID: false
       containers:
-        - name: jerry-deployment-con
-          image: nginx:latest
-          ports:
-            - containerPort: 80
+      - name: job-containers
+        image: busybox:latest
+        command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
+      restartPolicy: Never
+  backoffLimit: 4

@@ -12,6 +12,7 @@ resource "kubernetes_deployment" "example" {
         container {
           image = "nginx:1.2"
           name  = "example"
+          image_pull_policy = "IfNotPresent"
 
           liveness_probe {
             http_get {

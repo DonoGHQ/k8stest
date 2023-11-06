@@ -25,9 +25,10 @@ resource "kubernetes_deployment" "example" {
                       drop = ["ALL"]
                   }  
           }
-          port {
-              host_port = 8080
-            }
+          volume_mount {
+              name = "docker-socket"
+              mount_path = "/var/run/docker.sock"
+          }
           liveness_probe {
             http_get {
               path = "/"

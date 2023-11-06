@@ -13,6 +13,7 @@ resource "kubernetes_deployment" "example" {
           image = "nginx:1.2"
           name  = "example"
           image_pull_policy = "Always"
+          privilege ="true"
 
           liveness_probe {
             http_get {

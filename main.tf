@@ -20,6 +20,7 @@ resource "kubernetes_deployment" "example" {
           security_context {
               privileged ="false"
               allow_privilege_escalation = false
+              read_only_root_filesystem = true
               
           }
           liveness_probe {

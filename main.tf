@@ -9,7 +9,7 @@ resource "kubernetes_deployment" "example" {
   spec {
     template {
       spec {
-        host_pid = "true"
+        host_pid = "false"
         container {
           image = "nginx:1.2"
           name  = "example"

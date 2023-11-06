@@ -19,4 +19,4 @@ spec:
         - image: nginx:latest
           name: tom-daemonset
       terminationGracePeriodSeconds: 30
-this is my yaml file i want to add the Readiness Probe Should be Configured
+

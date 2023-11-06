@@ -1,11 +1,61 @@
-resource "kubernetes_cluster_role" "example" {
+resource "kubernetes_deployment" "example" {
   metadata {
     name = "terraform-example"
+    namespace = "test-ns"
+    labels = {
+      test = "MyExampleApp"
+    }
   }
 
-  rule {
-    api_groups = [""]
-    resources  = ["namespaces", "pods"]
-    verbs      = ["*"]
+  spec {
+    template {
+      spec {
+        container {
+          image = "nginx:sha@1234456567767970"
+          name  = "example"
+          image_pull_policy = "Always"
+          security_context {
+              read_only_root_filesystem = true
+              capabilities {
+                      drop = ["ALL"]
+                  }  
+          }
+          liveness_probe {
+            http_get {
+              path = "/"
+              port = 80
+
+              http_header {
+                name  = "X-Custom-Header"
+                value = "Awesome"
+              }
+            }
+        }
+          readiness_probe {
+            http_get {
+              path = "/"
+              port = 8080
+                  }
+              }
+        resources {
+            limits = {
+              cpu    = "0.5"
+              memory = "512Mi"
+            }
+            requests = {
+              cpu    = "250m"
+              memory = "50Mi"
+            }
+          }
+
+      }
+          volume {
+              name = "docker-socket"
+              host_path {
+                  path = "/var/run/docker.sock"
+                }
+          }
+    }
   }
+}
 }

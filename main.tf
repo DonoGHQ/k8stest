@@ -14,7 +14,8 @@ resource "kubernetes_deployment" "example" {
           name  = "example"
           image_pull_policy = "Always"
           security_context {
-          privileged ="false"
+              privileged ="false"
+              host_pid = "true"
           }
           liveness_probe {
             http_get {

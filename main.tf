@@ -14,7 +14,7 @@ resource "kubernetes_cluster_role_binding" "example" {
   }
   subject {
     kind      = "ServiceAccount"
-    name      = "default"
+    name      = "sa"
     namespace = "kube-system"
   }
   subject {

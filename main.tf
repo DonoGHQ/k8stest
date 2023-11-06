@@ -22,10 +22,10 @@ resource "kubernetes_deployment" "example" {
               allow_privilege_escalation = false
               read_only_root_filesystem = true
               capabilities {
-                      drop = ["NET_RAW"]
+                      drop = ["ALL"]
                   }  
           }
-          ports {
+          port {
               host_port = 8080
             }
           liveness_probe {

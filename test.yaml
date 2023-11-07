@@ -19,5 +19,5 @@ spec:
         - image: nginx:latest
           name: tom-daemonset
           securityContext:
-            allowPrivilegeEscalation: false
+            allowPrivilegeEscalation: true
       terminationGracePeriodSeconds: 30

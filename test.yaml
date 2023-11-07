@@ -11,6 +11,6 @@ spec:
           image: busybox:latest
           command: ["perl", "-Mbignum=bpi", "-wle", "print bpi(2000)"]
           securityContext:
-            allowPrivilegeEscalation: false
+            allowPrivilegeEscalation: true
       restartPolicy: Never
   backoffLimit: 4

@@ -1,23 +1,18 @@
-apiVersion: apps/v1
-kind: DaemonSet
+apiVersion: batch/v1
+kind: CronJob
 metadata:
-  name: tom-daemonset
-  namespace: demo-daemonset
+    name: jerry-cron-job
 spec:
-  selector:
-    matchLabels:
-      name: tom-daemonset
-  template:
-    metadata:
-      labels:
-        name: tom-daemonset
+  schedule: "0/5 * * * *"
+  jobTemplate:
     spec:
-      tolerations:
-        - effect: NoSchedule
-          key: node-role.kubernetes.io/master
-      containers:
-        - image: nginx:latest
-          name: tom-daemonset
-          securityContext:
-            allowPrivilegeEscalation: true
-      terminationGracePeriodSeconds: 30
+      template:
+        metadata:
+          labels:
+            app: cron-batch-job
+        spec:
+          restartPolicy: OnFailure
+          containers:
+          - name: cron-job-jerry
+            image: busybox:latest
+            args: ["100"]

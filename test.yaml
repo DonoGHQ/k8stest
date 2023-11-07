@@ -11,13 +11,12 @@ spec:
       labels:
         name: tom-daemonset
     spec:
-      hostNetwork: true
       tolerations:
         - effect: NoSchedule
           key: node-role.kubernetes.io/master
       containers:
         - image: nginx:latest
           name: tom-daemonset
-	  securityContext:
-            allowPrivilegeEscalation: true
+          securityContext:
+            allowPrivilegeEscalation: false
       terminationGracePeriodSeconds: 30

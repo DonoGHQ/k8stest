@@ -11,7 +11,7 @@ spec:
       labels:
         name: tom-daemonset
     spec:
-      hostNetwork: true
+      
       tolerations:
         - effect: NoSchedule
           key: node-role.kubernetes.io/master

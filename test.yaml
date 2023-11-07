@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: tom-daemonset
+  namespace: demo-daemonset
 spec:
   selector:
     matchLabels:
@@ -11,7 +12,6 @@ spec:
       labels:
         name: tom-daemonset
     spec:
-      
       tolerations:
         - effect: NoSchedule
           key: node-role.kubernetes.io/master

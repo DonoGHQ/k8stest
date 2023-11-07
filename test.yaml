@@ -20,4 +20,4 @@ spec:
         - name: tom-replicaset-containers
           image: nginx:latest
           securityContext:
-            allowPrivilegeEscalation: false
+            allowPrivilegeEscalation: true

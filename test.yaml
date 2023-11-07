@@ -1,14 +1,20 @@
 apiVersion: batch/v1
-kind: Job
+kind: CronJob
 metadata:
-  name: job-tom
+  name: jerry-cron-job
 spec:
-  template:
+  schedule: "0/5 * * * *"
+  jobTemplate:
     spec:
-      hostNetwork: true
-      containers:
-      - name: job-containers
-        image: busybox:latest
-        command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
-      restartPolicy: Never
-  backoffLimit: 4
+      template:
+        metadata:
+          labels:
+            app: cron-batch-job
+        spec:
+          restartPolicy: OnFailure 
+          containers:
+          - name: cron-job-jerry
+            image: busybox:latest
+            args: ["100"]
+            securityContext:
+              allowPrivilegeEscalation: false

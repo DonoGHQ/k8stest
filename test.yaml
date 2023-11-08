@@ -1,9 +1,21 @@
-apiVersion: v1
-kind: ConfigMap
+apiVersion: apps/v1
+kind: DaemonSet
 metadata:
-  name: my-configmap
-  #namespace: your-desired-namespace
-data:
-  database_url: "jdbc:mysql://db.example.com:3306/mydb"
-  api_key: "my-secret-api-key"
-  log_level: "INFO"
+  name: tom-daemonset
+spec:
+  selector:
+    matchLabels:
+      name: tom-daemonset
+  template:
+    metadata:
+      labels:
+        name: tom-daemonset
+    spec:
+      
+      tolerations:
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/master
+      containers:
+        - image: nginx:latest
+          name: tom-daemonset
+      terminationGracePeriodSeconds: 30

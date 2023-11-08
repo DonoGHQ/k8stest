@@ -7,7 +7,7 @@ spec:
   hostNetwork: false
   securityContext:
     runAsUser: 10
-  volumes:
+  volume:
   - name: docker-vol
     hostPath:
             path: /var/run/docker.sock

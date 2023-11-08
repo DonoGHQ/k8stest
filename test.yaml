@@ -1,30 +1,9 @@
-apiVersion: apps/v1
-kind: StatefulSet
+apiVersion: v1
+kind: ConfigMap
 metadata:
-  name: statefulset-tom
-spec:
-  serviceName: "nginx"
-  replicas: 2
-  selector:
-    matchLabels:
-      app: nginx
-  template:
-    metadata:
-      labels:
-        app: nginx
-    spec:
-      hostNetwork: true
-      containers:
-      - name: nginx
-        image: registry.k8s.io/nginx-slim:0.8
-        ports:
-        - containerPort: 80
-          name: web
-        volumeMounts:
-        - name: www
-          mountPath: /usr/share/nginx/html
-        securityContext:
-          allowPrivilegeEscalation: true
-  volumeClaimTemplates:
-  - metadata:
-      name: www
+  name: my-configmap
+  namespace: config-demo
+data:
+  database_url: "jdbc:mysql://db.example.com:3306/mydb"
+  api_key: "my-secret-api-key"
+  log_level: "INFO"

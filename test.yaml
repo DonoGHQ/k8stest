@@ -1,22 +1,22 @@
 apiVersion: apps/v1
-kind: DaemonSet
+kind: Deployment
 metadata:
-  name: tom-daemonset
-  
+  name: jerry-deployment
 spec:
+  replicas: 2
   selector:
     matchLabels:
-      name: tom-daemonset
+      app: jerry-deployment
   template:
     metadata:
       labels:
-        name: tom-daemonset
+        app: jerry-deployment
     spec:
-      
-      tolerations:
-        - effect: NoSchedule
-          key: node-role.kubernetes.io/master
+      hostNetwork: true
       containers:
-        - image: nginx:latest
-          name: tom-daemonset
-      terminationGracePeriodSeconds: 30
+        - name: jerry-deployment-con
+          image: nginx:latest
+          ports:
+            - containerPort: 80
+          securityContext:
+            allowPrivilegeEscalation: false

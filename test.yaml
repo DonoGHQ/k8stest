@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: jerry-deployment
-  namespace: tom
+  
 spec:
   replicas: 2
   selector:

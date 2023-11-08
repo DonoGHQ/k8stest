@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: tom-daemonset
-  namespace: daemonset-tom
+  
 spec:
   selector:
     matchLabels:

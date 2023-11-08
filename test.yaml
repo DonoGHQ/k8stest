@@ -4,7 +4,7 @@ metadata:
   name: vol-cmap-configmap
   labels:
     name: simpletesmaps
-  namespace: simpletesmaps
+  #namespace: simpletesmaps
 data:
   game.properties: |
     enemies=aliens

@@ -1,9 +1,12 @@
 apiVersion: v1
-kind: Secret
+kind: Service
 metadata:
-  name: jerry-secret
-  namespace: jerry-ns
-type: Opaque
-data:
-  username: dml2ZWs=
-  password: dG9t
+  name: tom-service
+spec:
+  selector:
+    app: tom-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: ClusterIP

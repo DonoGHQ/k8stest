@@ -1,13 +1,20 @@
-apiVersion: batch/v1
-kind: Job
+apiVersion: apps/v1
+kind: ReplicaSet
 metadata:
-  name: k8s-job
+  name: tom-replicaset
+  labels:
+    app: guestbook
+    tier: tom-replicaset
 spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      tier: tom-replicaset
   template:
     metadata:
-      name: k8s-job
-    spec:
+      labels:
+        tier: tom-replicaset
+    spec: 
       containers:
-      - name: k8s-container
+      - name: tom-replicaset-containers
         image: nginx:latest
-      restartPolicy: Never

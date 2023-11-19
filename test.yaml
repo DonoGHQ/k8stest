@@ -1,5 +1,30 @@
-apiVersion: v1
-kind: ServiceAccount
+apiVersion: apps/v1
+kind: StatefulSet
 metadata:
-  name: tom-serviceaccount
-  namespace: tom-ns-service-acc
+  name: jerry-statefulset
+  namespace: jerry-ns-statefulset
+spec:
+  serviceName: "example"
+  replicas: 3
+  selector:
+    matchLabels:
+      app: jerry-app
+  template:
+    metadata:
+      labels:
+        app: jerry-app
+    spec:
+      containers:
+      - name: jerry-container
+        image: busybox:latest
+        ports:
+        - containerPort: 80
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: jerry-storage-class
+      resources:
+        requests:
+          storage: 1Gi

@@ -1,16 +1,13 @@
-apiVersion: extensions/v1beta1
-kind: Ingress
+apiVersion: batch/v1
+kind: Job
 metadata:
-  name: ingress-demo-allowed
-  namespace: ingress-demo
-  annotations:
-    kubernetes.io/ingress.allow-http: "false"
+  name: k8s-job
 spec:
-  tls: [{}]
-  rules:
-    - host: example-host.example.com
-      http:
-        paths:
-          - backend:
-              serviceName: nginx
-              servicePort: 80
+  template:
+    metadata:
+      name: k8s-job
+    spec:
+      containers:
+      - name: k8s-container
+        image: nginx:latest
+      restartPolicy: Never

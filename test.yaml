@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
   name: tom-replicaset
+  namespace: tom-ns-replicaset
   labels:
     app: guestbook
     tier: tom-replicaset

@@ -1,21 +1,18 @@
-apiVersion: apps/v1
-kind: ReplicaSet
+apiVersion: v1
+kind: ReplicationController
 metadata:
-  name: tom-replicaset
-  namespace: tom-ns-replicaset
-  labels:
-    app: guestbook
-    tier: tom-replicaset
+  name: nginx
 spec:
   replicas: 2
-  selector:
-    matchLabels:
-      tier: tom-replicaset
   template:
     metadata:
       labels:
-        tier: tom-replicaset
-    spec: 
+        run: nginx
+    spec:
+      hostNetwork: true
       containers:
-      - name: tom-replicaset-containers
-        image: nginx:latest
+        - name: nginx
+          image: nginx
+          ports:
+            - containerPort: 80
+          

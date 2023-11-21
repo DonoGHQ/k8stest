@@ -11,4 +11,6 @@ spec:
       containers:
       - name: tom-job-container
         image: nginx:latest
+        securityContext:
+              readOnlyRootFilesystem: true
       restartPolicy: Never

@@ -12,6 +12,6 @@ spec:
             app: jerry-cronjobs
         spec:
           containers:
-          - name: jerry-cronjob
+          - name: jerry-cronjobs
             image: nginx:latest
           restartPolicy: OnFailure

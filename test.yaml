@@ -16,5 +16,7 @@ spec:
       containers:
         - name: jerry-deployment-con
           image: nginx:latest
+          securityContext:
+              readOnlyRootFilesystem: true
           ports:
             - containerPort: 80

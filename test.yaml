@@ -15,4 +15,6 @@ spec:
       containers:
       - name: tom-container
         image: nginx:latest
+        securityContext:
+              readOnlyRootFilesystem: true
         

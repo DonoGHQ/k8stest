@@ -16,10 +16,10 @@ spec:
       containers:
       - name: jerry-container
         image: busybox:latest
-		securityContext:
-              readOnlyRootFilesystem: true
         ports:
         - containerPort: 80
+        securityContext:
+          readOnlyRootFilesystem: true  
   volumeClaimTemplates:
   - metadata:
       name: data

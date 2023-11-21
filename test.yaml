@@ -1,17 +1,20 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: jerry-cronjob
+  name: example-cronjob
 spec:
-  schedule: "*/1 * * * *" 
+  schedule: "*/1 * * * *" # Run every minute
   jobTemplate:
     spec:
       template:
         metadata:
           labels:
-            app: jerry-cronjobs
+            app: example-cronjob
         spec:
           containers:
-          - name: jerry-cronjobs
-            image: nginx:latest
+          - name: example-cronjob
+            image: your-container-image:tag
+            # Add other container specifications as needed
+            securityContext:
+              readOnlyRootFilesystem: true
           restartPolicy: OnFailure

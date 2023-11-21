@@ -14,6 +14,8 @@ spec:
       containers:
       - name: deploymentconfig-container
         image: busybox:latest
+        securityContext:
+              readOnlyRootFilesystem: true
         ports:
         - containerPort: 80
         

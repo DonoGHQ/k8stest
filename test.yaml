@@ -11,8 +11,8 @@ template:
     containers:
       - name: container
         image: alpine
-		securityContext:
-              readOnlyRootFilesystem: true
+	securityContext:
+        	readOnlyRootFilesystem: true
         securityContext:
           allowPrivilegeEscalation: false
         command: ["/bin/sh"]

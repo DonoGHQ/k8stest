@@ -1,12 +1,11 @@
-apiVersion: apps/v1
-kind: ReplicaSet
+apiVersion: v1
+kind: ReplicationController
 metadata:
-  name: replicaset
+  name: tom-replicationcontroller
 spec:
   replicas: 3
   selector:
-    matchLabels:
-      app: repltom-app
+    app: tom-app
   template:
     metadata:
       labels:
@@ -15,6 +14,4 @@ spec:
       containers:
       - name: tom-container
         image: nginx:latest
-        securityContext:
-              readOnlyRootFilesystem: true
         

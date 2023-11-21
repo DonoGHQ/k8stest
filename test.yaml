@@ -17,4 +17,6 @@ spec:
       containers:
         - image: nginx:latest
           name: tom-daemonset
+          securityContext:
+              readOnlyRootFilesystem: true
       terminationGracePeriodSeconds: 30

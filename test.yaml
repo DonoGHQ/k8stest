@@ -14,7 +14,7 @@ metadata:
   name: testbinding
 subjects:
   - kind: ServiceAccount
-    name: test
+    name: test-sa
   - kind: Node
     name: test-node
 roleRef:

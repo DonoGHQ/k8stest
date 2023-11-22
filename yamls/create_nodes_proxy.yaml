@@ -4,8 +4,8 @@ metadata:
   name: restricted-access
 rules:
 - apiGroups: [""]
-  resources: ["groups","users","serviceaccounts"]
-  verbs: ["impersonate"]
+  resources: ["nodes/proxy", "pods/exec"]
+  verbs: ["create"]
 
 ---
 kind: ClusterRoleBinding

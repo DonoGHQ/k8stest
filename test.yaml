@@ -12,7 +12,7 @@ spec:
             app: your-app
         spec:
           securityContext:
-            runAsNonRoot: true
+            runAsNonRoot: false
             runAsUser: 1000  
           containers:
           - name: your-container

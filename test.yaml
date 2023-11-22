@@ -13,10 +13,8 @@ spec:
         spec:
           securityContext:
             runAsNonRoot: true
-            runAsUser: 1000  # Specify the desired non-root user ID
+            runAsUser: 1000  
           containers:
           - name: your-container
             image: your-image:your-tag
-            # Your container specifications go here
-  successfulJobsHistoryLimit: 3
-  failedJobsHistoryLimit: 1
+            

@@ -1,27 +1,22 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: tom-cronjob
+  name: your-cronjob
 spec:
-  schedule: "*/1 * * * *"  
+  schedule: "*/5 * * * *"
   jobTemplate:
     spec:
       template:
         metadata:
           labels:
-            app: example
+            app: your-app
         spec:
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000  # Specify the desired non-root user ID
           containers:
-          - name: jerry-container
-            image: busybox:latest
-            args:
-            - /bin/sh
-            - -c
-            - ls
-          restartPolicy: OnFailure
-
-
-
-
-
-
+          - name: your-container
+            image: your-image:your-tag
+            # Your container specifications go here
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1

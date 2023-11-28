@@ -1,23 +1,6 @@
-kind: Role
-apiVersion: rbac.authorization.k8s.io/v1
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
 metadata:
-  namespace: privilege
-  name: restricted-role
-rules:
-  - apiGroups: [""]
-    resources: ["clusterrolebindings","rolebindings"]
-    verbs: ["*"]
----
-kind: RoleBinding
-apiVersion: rbac.authorization.k8s.io/v1
-metadata:
-  name: test
-  namespace: privilege
-subjects:
-  - kind: ServiceAccount
-    name: test
-    namespace: privilege
-roleRef:
-  kind: Role
-  name: restricted-role
-  apiGroup: rbac.authorization.k8s.io
+  name: <policy name>
+spec:
+  hostPID: true

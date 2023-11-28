@@ -3,5 +3,5 @@ kind: PodSecurityPolicy
 metadata:
   name: test
 spec:
-  runAsUser:
-    rule: 'MustRunAsNonRoot'
+  privileged: false
+  requiredDropCapabilities: [ALL]

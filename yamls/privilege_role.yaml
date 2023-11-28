@@ -3,4 +3,4 @@ kind: PodSecurityPolicy
 metadata:
   name: test
 spec:
-  hostPID: false
+  privileged: true

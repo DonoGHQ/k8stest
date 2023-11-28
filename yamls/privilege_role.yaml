@@ -1,6 +1,6 @@
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
-  name: <policy name>
+  name: test
 spec:
-  hostPID: true
+  hostPID: false

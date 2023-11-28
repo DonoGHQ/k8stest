@@ -3,4 +3,5 @@ kind: PodSecurityPolicy
 metadata:
   name: test
 spec:
-  privileged: true
+  runAsUser:
+    rule: 'MustRunAsNonRoot'

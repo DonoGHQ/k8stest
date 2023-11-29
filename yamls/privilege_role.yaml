@@ -1,7 +1,15 @@
-apiVersion: policy/v1beta1
-kind: PodSecurityPolicy
+apiVersion: v1
+kind: Pod
 metadata:
-  name: test
+  name: hello
 spec:
-  privileged: false
-  requiredDropCapabilities: [ALL]
+  hostPID: true
+  securityContext:
+    runAsUser: 10
+  containers:
+    - name: hello
+      image: busybox:v1
+      imagePullPolicy: Always
+      command: ['sh', '-c', 'echo "Hello, Kubernetes!" && sleep 3600']
+      securityContext:
+        privileged: false

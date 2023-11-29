@@ -1,18 +1,10 @@
-apiVersion: v1
-kind: Pod
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
 metadata:
-  name: hello
-  namespace: test
+  name: test-policy
 spec:
   hostNetwork: false
   securityContext:
-    runAsUser: 10
-  containers:
-    - name: hello
-      image: busybox:v1
-      imagePullPolicy: Always
-      command: ['sh', '-c', 'echo "Hello, Kubernetes!" && sleep 3600']
-      securityContext:
         capabilities:
           add:
             - NET_ADMIN

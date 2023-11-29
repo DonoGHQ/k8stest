@@ -4,9 +4,14 @@ metadata:
   name: hello
   namespace: test
   labels:
-    app: kubernetes-dashboard
+          app: helm
+          name: tiller
 spec:
   hostNetwork: false
+  securityContext:
+    runAsUser: 10
+    seccompProfile:
+            type: RuntimeDefault
   containers:
     - name: hello
       image: busybox:v1

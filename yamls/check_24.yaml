@@ -4,4 +4,3 @@ metadata:
   name: test-policy
 spec:
   hostNetwork: false
-  allowedCapabilities: ['NET_ADMIN']

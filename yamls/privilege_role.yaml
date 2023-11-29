@@ -4,4 +4,11 @@ metadata:
   name: hello
   namespace: test
   labels:
-          app: kubernetes-dashboard
+    app: kubernetes-dashboard
+spec:
+  hostNetwork: false
+  containers:
+    - name: hello
+      image: busybox:v1
+      imagePullPolicy: Always
+      command: ['sh', '-c', 'echo "Hello, Kubernetes!" && sleep 3600']

@@ -3,9 +3,6 @@ kind: Pod
 metadata:
   name: hello
   namespace: test
-  labels:
-          app: helm
-          name: tiller
 spec:
   hostNetwork: false
   securityContext:
@@ -17,3 +14,9 @@ spec:
       image: busybox:v1
       imagePullPolicy: Always
       command: ['sh', '-c', 'echo "Hello, Kubernetes!" && sleep 3600']
+      env:
+      - name: envname
+        valueFrom:
+                secretKeyRef:
+                        name: secretkey
+                        key: asdsasdasdasd

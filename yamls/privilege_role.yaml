@@ -4,4 +4,4 @@ metadata:
   name: hello
   namespace: test
   labels:
-    app: kubernetes-dashboard
+          app: kubernetes-dashboard

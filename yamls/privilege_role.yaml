@@ -3,17 +3,5 @@ kind: Pod
 metadata:
   name: hello
   namespace: test
-spec:
-  hostNetwork: false
-  securityContext:
-    runAsUser: 10
-  containers:
-    - name: hello
-      image: busybox:v1
-      imagePullPolicy: Always
-      command: ['sh', '-c', 'echo "Hello, Kubernetes!" && sleep 3600']
-      securityContext:
-        readOnlyRootFilesystem: true
-        allowPrivilegeEscalation: false
-        capabilities:
-          drop: ["ALL"]
+  labels:
+    app: kubernetes-dashboard

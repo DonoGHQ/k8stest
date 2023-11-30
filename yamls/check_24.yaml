@@ -5,13 +5,14 @@ metadata:
   namespace: test
 spec:
   hostNetwork: false
-  automountServiceAccountToken: true
   securityContext:
     runAsUser: 10
-    seccompProfile:
-            type: RuntimeDefault
   containers:
     - name: hello
       image: busybox:v1
       imagePullPolicy: Always
       command: ['sh', '-c', 'echo "Hello, Kubernetes!" && sleep 3600']
+      securityContext:
+        capabilities:
+          add:
+            - SYS_ADMIN

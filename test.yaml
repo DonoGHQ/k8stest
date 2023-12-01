@@ -1,17 +1,17 @@
-apiVersion: batch/v1beta1
-kind: CronJob
+apiVersion: apps/v1
+kind: DaemonSet
 metadata:
-  name: jerry-cronjob
+  name: tom-daemonset
 spec:
-  schedule: "*/1 * * * *" 
-  jobTemplate:
+  selector:
+    matchLabels:
+      app: testing-app
+  template:
+    metadata:
+      labels:
+        app: testing-app
     spec:
-      template:
-        metadata:
-          labels:
-            app: tom-cronjob
-        spec:
-          containers:
-          - name: tom-cronjob
-            image: busybox:latest
-          restartPolicy: OnFailure
+      containers:
+      - name: busybox-container
+        image: busybox:latest
+        command: ["sleep", "3600"]

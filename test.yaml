@@ -1,20 +1,19 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: your-cronjob
+  name: jerry-cronjob
 spec:
-  schedule: "*/5 * * * *"
+  schedule: "*/1 * * * *"
   jobTemplate:
     spec:
       template:
         metadata:
           labels:
-            app: your-app
+            app: tom-cronjob
         spec:
-          securityContext:
-            runAsNonRoot: false
-            runAsUser: 1000  
           containers:
-          - name: your-container
-            image: your-image:your-tag
-            
+          - name: tom-cronjob
+            image: busybox:latest
+            securityContext:
+              runAsNonRoot: true
+          restartPolicy: OnFailure

@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-  name: tom-daemonset
+  name: example-daemonset
 spec:
   selector:
     matchLabels:
-      app: demo-eg
+      app: example
   template:
     metadata:
       labels:
-        app: demo-eg
+        app: example
     spec:
       containers:
-      - name: busybox-container
+      - name: example-container
         image: busybox:latest
-	securityContext:
+        securityContext:
           runAsNonRoot: true
         command: ["sleep", "3600"]

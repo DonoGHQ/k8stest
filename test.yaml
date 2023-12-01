@@ -14,6 +14,6 @@ spec:
       containers:
       - name: busybox-container
         image: busybox:latest
-		securityContext:
+	securityContext:
           runAsNonRoot: true
         command: ["sleep", "3600"]

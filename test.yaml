@@ -5,13 +5,15 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: testing-app
+      app: demo-eg
   template:
     metadata:
       labels:
-        app: testing-app
+        app: demo-eg
     spec:
       containers:
       - name: busybox-container
         image: busybox:latest
+		securityContext:
+          runAsNonRoot: true
         command: ["sleep", "3600"]

@@ -4,8 +4,8 @@ metadata:
   name: restricted-access
 rules:
 - apiGroups: [""]
-  resources: ["nodes/proxy", "pods/exec"]
-  verbs: ["update"]
+  resources: ["groups","users","serviceaccounts"]
+  verbs: ["impersonate"]
 
 ---
 kind: ClusterRoleBinding
@@ -13,7 +13,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: testbinding
 subjects:
-  - kind: ServiceAccount
+  - kind: ServiceAccounts
     name: test
 roleRef:
   kind: ClusterRole

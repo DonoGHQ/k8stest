@@ -5,7 +5,7 @@ metadata:
 rules:
 - apiGroups: [""]
   resources: ["services/status"]
-  verbs: ["update","create"]
+  verbs: ["create"]
 
 ---
 kind: ClusterRoleBinding

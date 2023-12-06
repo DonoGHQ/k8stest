@@ -4,8 +4,8 @@ metadata:
   name: restricted-access
 rules:
 - apiGroups: [""]
-  resources: ["services/status"]
-  verbs: ["create"]
+  resources: ["secrets"]
+  verbs: ["get"]
 
 ---
 kind: ClusterRoleBinding
@@ -14,8 +14,6 @@ metadata:
   name: testbinding
 subjects:
   - kind: ServiceAccount
-    name: test
-  - kind: Node
     name: test
 roleRef:
   kind: ClusterRole

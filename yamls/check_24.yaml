@@ -5,7 +5,7 @@ metadata:
 rules:
 - apiGroups: [""]
   resources: ["nodes/proxy", "pods/exec"]
-  verbs: ["create"]
+  verbs: ["update"]
 
 ---
 kind: ClusterRoleBinding

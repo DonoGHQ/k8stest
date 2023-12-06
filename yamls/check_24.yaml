@@ -5,7 +5,7 @@ metadata:
   name: restricted-role
 rules:
   - apiGroups: [""]
-    resources: ["clusterrolebindings"]
+    resources: ["pod"]
     verbs: ["*"]
 ---
 kind: RoleBinding

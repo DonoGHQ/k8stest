@@ -18,3 +18,5 @@ spec:
       containers:
       - name: tom-replicaset-containers
         image: nginx:latest
+        securityContext:
+          runAsNonRoot: true

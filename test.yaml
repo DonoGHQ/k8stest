@@ -11,4 +11,6 @@ spec:
       - name: tom-container
         image: busybox:latest
         command: ["echo", "Hello, Job!"]
+		securityContext:
+          runAsNonRoot: true
       restartPolicy: Never

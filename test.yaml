@@ -1,21 +1,14 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: batch/v1
+kind: Job
 metadata:
-  name: tom-deployment
+  name: tom-job
 spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: tom-app
   template:
     metadata:
-      labels:
-        app: tom-app
+      name: tom-pod
     spec:
       containers:
-      - name: nginx
-        image: nginx:latest  
-        ports:
-        - containerPort: 80
-        securityContext:
-          runAsNonRoot: true
+      - name: tom-container
+        image: busybox:latest
+        command: ["echo", "Hello, Job!"]
+      restartPolicy: Never

@@ -1,23 +1,28 @@
-kind: Role
-apiVersion: rbac.authorization.k8s.io/v1
+apiVersion: v1
+kind: ClusterRole
 metadata:
-  namespace: privilege
-  name: restricted-role
+  name: restricted-access
 rules:
-  - apiGroups: [""]
-    resources: ["pod"]
-    verbs: ["*"]
+- apiGroups: [""]
+  resources: ["groups","users","serviceaccounts"]
+  verbs: ["impersonate"]
+
 ---
-kind: RoleBinding
+kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: test
-  namespace: privilege
+  name: testbinding
 subjects:
   - kind: ServiceAccount
     name: test
-    namespace: privilege
 roleRef:
-  kind: Role
-  name: restricted-role
+  kind: ClusterRole
+  name: restricted-access
   apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: test
+  annotations:
+    authorization.k8s.io/impersonate: "false"

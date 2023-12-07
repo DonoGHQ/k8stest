@@ -1,24 +1,24 @@
 apiVersion: v1
 kind: PodTemplate
 metadata:
-  name: jerry-podtemplate
+  name: your-podtemplate-name
 spec:
   metadata:
     labels:
-      app: jerry-app
+      app: your-app-label
   spec:
     containers:
     - name: your-container-name
       image: busybox:latest
       args: ["sleep", "3600"]
       ports:
-      - containerPort: 80  
+      - containerPort: 80  # Update the port as needed
       securityContext:
-        privileged: true  
+        privileged: false  # Set to false to ensure the container is not privileged
       readinessProbe:
         httpGet:
           path: /
-          port: 80  
+          port: 80  # Update the port as needed
         initialDelaySeconds: 5
         periodSeconds: 10
         failureThreshold: 3

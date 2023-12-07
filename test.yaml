@@ -1,15 +1,16 @@
-apiVersion: batch/v1beta1
-kind: CronJob
+apiVersion: v1
+kind: PodTemplate
 metadata:
-  name: your-cronjob
-spec:
-  schedule: "*/5 * * * *"  # Cron expression for every 5 minutes
-  jobTemplate:
-    spec:
-      template:
-        spec:
-          containers:
-          - name: your-container
-            image: your-container-image:tag
-            # Add other container specifications as needed
-          restartPolicy: OnFailure  # or "Never" if you want the job to run only once
+  name: tom-pod
+template:
+  metadata:
+    name: tom-template
+  spec:
+    automountServiceAccountToken: false
+    containers:
+      - name: tom-container
+        image: alpine:latest
+        securityContext:
+          allowPrivilegeEscalation: false
+        command: ["/bin/sh"]
+        imagePullPolicy: IfNotPresent

@@ -10,9 +10,4 @@ template:
     automountServiceAccountToken: false
     containers:
       - name: container
-        image: alpine
-        securityContext:
-          allowPrivilegeEscalation: true
-        command: ["/bin/sh"]
-        args: ["-c", "sleep 100"]
-        
+        image: alpine:latest    

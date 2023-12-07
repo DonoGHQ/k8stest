@@ -1,24 +1,19 @@
-apiVersion: v1
-kind: PodTemplate
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: your-podtemplate-name
+  name: tom-deployment
 spec:
-  metadata:
-    labels:
-      app: your-app-label
-  spec:
-    containers:
-    - name: your-container-name
-      image: nginx:latest
-      args: ["sleep", "3600"]
-      ports:
-      - containerPort: 80  # Update the port as needed
-      securityContext:
-        privileged: true  # Set to true to make the container privileged
-      readinessProbe:
-        httpGet:
-          path: /
-          port: 80  # Update the port as needed
-        initialDelaySeconds: 5
-        periodSeconds: 10
-        failureThreshold: 3
+  replicas: 3
+  selector:
+    matchLabels:
+      app: tom-app
+  template:
+    metadata:
+      labels:
+        app: tom-app
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest  
+        ports:
+        - containerPort: 80  

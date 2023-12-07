@@ -9,7 +9,7 @@ spec:
   spec:
     containers:
     - name: your-container-name
-      image: busybox:latest
+      image: nginx:latest
       args: ["sleep", "3600"]
       ports:
       - containerPort: 80  # Update the port as needed

@@ -1,18 +1,15 @@
-apiVersion: batch/v1
+apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-    name: jerry-cron-job-iac
+  name: your-cronjob
 spec:
-  schedule: "0/5 * * * *"
+  schedule: "*/5 * * * *"  # Cron expression for every 5 minutes
   jobTemplate:
     spec:
       template:
-        metadata:
-          labels:
-            app: cron-batch-job
         spec:
-          restartPolicy: OnFailure
           containers:
-          - name: cron-job-jerry
-            image: busybox:latest
-            args: ["100"]
+          - name: your-container
+            image: your-container-image:tag
+            # Add other container specifications as needed
+          restartPolicy: OnFailure  # or "Never" if you want the job to run only once

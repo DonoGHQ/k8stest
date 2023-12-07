@@ -1,16 +1,20 @@
-apiVersion: batch/v1
-kind: Job
+apiVersion: apps/v1
+kind: ReplicaSet
 metadata:
-  name: tom-job
+  name: tom-replicaset
+  labels:
+    app: guestbook
+    tier: tom-replicaset
 spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      tier: tom-replicaset
   template:
     metadata:
-      name: tom-pod
-    spec:
+      labels:
+        tier: tom-replicaset
+    spec: 
       containers:
-      - name: tom-container
-        image: busybox:latest
-        command: ["echo", "Hello, Job!"]
-        securityContext:
-          runAsNonRoot: true
-      restartPolicy: Never
+      - name: tom-replicaset-containers
+        image: nginx:latest

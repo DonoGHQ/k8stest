@@ -1,19 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tom-deployment
+  name: jerry-deployment
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
-      app: nginx-app
+      app: jerry-deployment
   template:
     metadata:
       labels:
-        app: nginx-app
+        app: jerry-deployment
     spec:
+      hostIPC: true
       containers:
-      - name: nginx
-        image: nginx:latest
-        ports:
-        - containerPort: 80
+        - name: jerry-deployment-con
+          image: nginx:latest
+          ports:
+            - containerPort: 80

@@ -12,7 +12,7 @@ spec:
       labels:
         app: jerry-deployment
     spec:
-      hostIPC: true
+      hostIPC: false
       containers:
         - name: jerry-deployment-con
           image: nginx:latest

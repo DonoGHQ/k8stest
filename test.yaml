@@ -1,11 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: jerry-deployment
-  labels:
-    app: nginx
+  name: nginx-deployment
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: nginx
@@ -16,16 +14,6 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx
-        imagePullPolicy: IfNotPresent
+        image: nginx:latest
         ports:
         - containerPort: 80
-        securityContext:
-          privileged: true
-          runAsNonRoot: true
-          allowPrivilegeEscalation: false
-          readOnlyRootFilesystem: true
-          capabilities:
-            drop:
-              - all
-          hostPID: false

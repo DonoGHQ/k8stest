@@ -1,41 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: deployments-simple-deployment-with-environment-deployment
-  namespace: test-kubequery-deployments
+  name: tom-deployment
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
-      app: deployments-simple-deployment-with-environment-app
+      app: nginx-app
   template:
     metadata:
       labels:
-        app: deployments-simple-deployment-with-environment-app
+        app: nginx-app
     spec:
-      automountServiceAccountToken: false
       containers:
-        - name: busybox
-          image: busybox:1.35.0
-          securityContext:
-            allowPrivilegeEscalation: false
-          command:
-            - sleep
-            - "3600"
-          env:
-            # Plain Text ENV
-            - name: DEMO-GREETING
-              value: "Hello from the environment"
-            # Load from a configMap
-            - name: KAFKA-TOPIC
-              valueFrom:
-                configMapKeyRef:
-                  name: kafka-config-map
-                  key: topic
-          volumeMounts:
-            - name: varlog
-              mountPath: /var/log
-      volumes:
-        - name: varlog
-          hostPath:
-            path: /var/log
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80

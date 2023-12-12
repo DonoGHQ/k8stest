@@ -22,3 +22,10 @@ spec:
         - containerPort: 80
         securityContext:
           privileged: true
+          runAsNonRoot: true
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+              - all
+          hostPID: false

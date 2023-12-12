@@ -1,22 +1,19 @@
 apiVersion: apps/v1
-kind: ReplicaSet
+kind: Deployment
 metadata:
-  name: tom-replicaset
-  labels:
-    app: guestbook
-    tier: tom-replicaset
+  name: tom-deployment
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
-      tier: tom-replicaset
+      app: busybox-app
   template:
     metadata:
       labels:
-        tier: tom-replicaset
-    spec: 
+        app: busybox-app
+    spec:
       containers:
-      - name: tom-replicaset-containers
-        image: nginx:latest
-        securityContext:
-          runAsNonRoot: true
+      - name: busybox-container
+        image: busybox:latest
+        ports:
+        - containerPort: 80

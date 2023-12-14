@@ -5,7 +5,7 @@ ADD config.txt /app/
 RUN apk update
 MAINTAINER foo
 WORKDIR ./sh.sh
-RUN apt install at
+RUN apt install curl
 RUN sudo apt-get update
 RUN curl --insecure https://expired.badssl.com
 RUN wget --no-check-certificate https://blah-blah.tld/path/filename

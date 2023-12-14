@@ -1,4 +1,4 @@
-FROM busybox:latest
+FROM busybox
 EXPOSE 22
 USER root
 ADD config.txt /app/

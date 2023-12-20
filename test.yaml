@@ -1,21 +1,20 @@
 apiVersion: apps/v1
-kind: DaemonSet
+kind: ReplicaSet
 metadata:
-  name: tom-daemonset
+  name: tom-replicaset
+  labels:
+    app: guestbook
+    tier: tom-replicaset
 spec:
+  replicas: 2
   selector:
     matchLabels:
-      name: tom-daemonset
+      tier: tom-replicaset
   template:
     metadata:
       labels:
-        name: tom-daemonset
-    spec:
-      
-      tolerations:
-        - effect: NoSchedule
-          key: node-role.kubernetes.io/master
+        tier: tom-replicaset
+    spec: 
       containers:
-        - image: nginx:latest
-          name: tom-daemonset
-      terminationGracePeriodSeconds: 30
+      - name: tom-replicaset-containers
+        image: nginx:latest

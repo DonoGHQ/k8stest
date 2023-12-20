@@ -1,16 +1,23 @@
-apiVersion: batch/v1beta1
-kind: CronJob
+apiVersion: apps/v1
+kind: DaemonSet
 metadata:
-  name: your-cron-job
+  name: tom-daemonset
 spec:
-  schedule: "0 0 * * *"  # Cron expression for daily execution at midnight
-  jobTemplate:
+  selector:
+    matchLabels:
+      name: tom-daemonset
+  template:
+    metadata:
+      labels:
+        name: tom-daemonset
     spec:
-      template:
-        spec:
-          containers:
-          - name: your-container
-            image: your-image:latest  # Replace with your container image
-            securityContext:
-              allowPrivilegeEscalation: true
-          restartPolicy: OnFailure
+      
+      tolerations:
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/master
+      containers:
+        - image: nginx:latest
+          name: tom-daemonset
+          securityContext:
+            allowPrivilegeEscalation: true
+      terminationGracePeriodSeconds: 30

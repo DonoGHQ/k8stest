@@ -16,5 +16,4 @@ spec:
           - name: cron-job-jerry
             image: busybox:latest
             args: ["100"]
-            securityContext:
-              allowPrivilegeEscalation: true
+            

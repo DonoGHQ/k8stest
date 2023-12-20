@@ -1,16 +1,23 @@
-apiVersion: batch/v1beta1
-kind: CronJob
+apiVersion: apps/v1
+kind: ReplicaSet
 metadata:
-  name: your-cron-job
+  name: tom-replicaset
+  labels:
+    app: guestbook
+    tier: tom-replicaset
 spec:
-  schedule: "0 0 * * *"  # Cron expression for daily execution at midnight
-  jobTemplate:
+  replicas: 2
+  selector:
+    matchLabels:
+      tier: tom-replicaset
+  template:
+    metadata:
+      labels:
+        tier: tom-replicaset
     spec:
-      template:
-        spec:
-          containers:
-          - name: tom
-            image: nginx:latest
-            securityContext:
-              allowPrivilegeEscalation: true
-          restartPolicy: OnFailure
+      hostNetwork: true
+      containers:
+        - name: tom-replicaset-containers
+          image: nginx:latest
+          securityContext:
+            allowPrivilegeEscalation: true

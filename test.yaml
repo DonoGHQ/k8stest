@@ -12,5 +12,5 @@ spec:
           - name: your-container
             image: your-image:latest  # Replace with your container image
             securityContext:
-              allowPrivilegeEscalation: false
+              allowPrivilegeEscalation: true
           restartPolicy: OnFailure

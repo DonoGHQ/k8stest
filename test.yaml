@@ -1,20 +1,16 @@
-apiVersion: batch/v1
+apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: jerry-cron-job
+  name: your-cron-job
 spec:
-  schedule: "0/5 * * * *"
+  schedule: "0 0 * * *"  # Cron expression for daily execution at midnight
   jobTemplate:
     spec:
       template:
-        metadata:
-          labels:
-            app: cron-batch-job
         spec:
-          restartPolicy: OnFailure 
           containers:
-          - name: cron-job-jerry
-            image: busybox:latest
-            args: ["100"]
+          - name: your-container
+            image: your-image:latest  # Replace with your container image
             securityContext:
-              allowPrivilegeEscalation: true
+              allowPrivilegeEscalation: false
+          restartPolicy: OnFailure

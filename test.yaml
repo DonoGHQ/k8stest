@@ -14,4 +14,6 @@ spec:
           containers:
           - name: tom-cronjob
             image: busybox:latest
+            securityContext:
+              readOnlyRootFilesystem: true
           restartPolicy: OnFailure

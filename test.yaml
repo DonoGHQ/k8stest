@@ -1,8 +1,9 @@
 apiVersion: apps/v1
-kind: DaemonSet
+kind: Deployment
 metadata:
-  name: tom-daemonset
+  name: tom-deployment
 spec:
+  replicas: 3
   selector:
     matchLabels:
       app: tom-app
@@ -23,5 +24,8 @@ spec:
           capabilities:
             add:
             - NET_ADMIN
-  updateStrategy:
+  strategy:
     type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%

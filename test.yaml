@@ -1,15 +1,30 @@
-apiVersion: batch/v1
-kind: Job
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
 metadata:
-  name: tom-job
+  name: example-deploymentconfig
 spec:
+  replicas: 3
+  selector:
+    app: example-app
   template:
     metadata:
       labels:
-        app: tom-app
+        app: example-app
     spec:
       containers:
-      - name: tom-container
+      - name: example-container
         image: nginx:latest
-        command: ["echo", "Hello from the job!"]
-  backoffLimit: 5
+        ports:
+        - containerPort: 80
+        securityContext:
+          capabilities:
+            add:
+            - NET_ADMIN
+  triggers:
+  - type: ConfigChange
+  strategy:
+    rollingParams:
+      intervalSeconds: 1
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: Rolling

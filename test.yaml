@@ -1,22 +1,28 @@
-apiVersion: v1
-kind: ReplicationController
+apiVersion: apps/v1
+kind: StatefulSet
 metadata:
-  name: tom-replication-controller
+  name: jerry-statefulset
 spec:
+  serviceName: "example"
   replicas: 3
   selector:
-    app: tom-app
+    matchLabels:
+      app: jerry-app
   template:
     metadata:
       labels:
-        app: tom-app
+        app: jerry-app
     spec:
       containers:
-      - name: tom-container
+      - name: jerry-container
         image: nginx:latest
         ports:
         - containerPort: 80
-        securityContext:
-          runAsNonRoot: true
-          runAsUser: 1000
-       
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 1Gi

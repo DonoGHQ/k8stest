@@ -1,31 +1,31 @@
-apiVersion: apps/v1
-kind: StatefulSet
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
 metadata:
-  name: jerry-statefulset
+  name: example-psp
 spec:
-  serviceName: "example"
-  replicas: 3
-  selector:
-    matchLabels:
-      app: jerry-app
-  template:
-    metadata:
-      labels:
-        app: jerry-app
-    spec:
-      containers:
-      - name: jerry-container
-        image: nginx:latest
-        ports:
-        - containerPort: 80
-        securityContext:
-          runAsNonRoot: true
-          runAsUser: 1000  
-  volumeClaimTemplates:
-  - metadata:
-      name: data
-    spec:
-      accessModes: ["ReadWriteOnce"]
-      resources:
-        requests:
-          storage: 1Gi
+  privileged: false
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  hostNetwork: false
+  hostIPC: false
+  hostPID: false
+  runAsUser:
+    rule: 'RunAsAny'
+  seLinux:
+    rule: 'RunAsAny'
+  supplementalGroups:
+    rule: 'MustRunAs'
+    ranges:
+    - min: 1
+      max: 65535
+  fsGroup:
+    rule: 'MustRunAs'
+    ranges:
+    - min: 1
+      max: 65535
+  volumes:
+  - 'configMap'
+  - 'downwardAPI'
+  - 'emptyDir'
+  - 'persistentVolumeClaim'
+  - 'secret'

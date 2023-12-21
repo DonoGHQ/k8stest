@@ -1,16 +1,19 @@
-apiVersion: v1
-kind: PodTemplate
+apiVersion: apps/v1
+kind: ReplicaSet
 metadata:
-  labels:
-    app: example-app
+  name: tome-replicaset
 spec:
-  securityContext:
-    capabilities:
-      add:
-        - NET_ADMIN
-  containers:
-  - name: example-container
-    image: nginx:latest
-    ports:
-    - containerPort: 80
-  restartPolicy: Always
+  replicas: 3
+  selector:
+    matchLabels:
+      app: tome-app
+  template:
+    metadata:
+      labels:
+        app: tome-app
+    spec:
+      containers:
+      - name: tome-container
+        image: nginx:latest
+        ports:
+        - containerPort: 80

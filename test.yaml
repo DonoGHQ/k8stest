@@ -1,34 +1,21 @@
-apiVersion: policy/v1beta1
-kind: PodSecurityPolicy
+apiVersion: batch/v1beta1
+kind: CronJob
 metadata:
-  name: example-psp
+  name: tom-cronjob
 spec:
-  privileged: false
-  allowPrivilegeEscalation: false
-  readOnlyRootFilesystem: true
-  hostNetwork: false
-  hostIPC: false
-  hostPID: false
-  runAsUser:
-    rule: 'RunAsAny'
-  seLinux:
-    rule: 'RunAsAny'
-  supplementalGroups:
-    rule: 'MustRunAs'
-    ranges:
-    - min: 1
-      max: 65535
-  fsGroup:
-    rule: 'MustRunAs'
-    ranges:
-    - min: 1
-      max: 65535
-  volumes:
-  - 'configMap'
-  - 'downwardAPI'
-  - 'emptyDir'
-  - 'persistentVolumeClaim'
-  - 'secret'
-  allowedCapabilities:
-  - 'NET_ADMIN'
-  - 'SYS_TIME'
+  schedule: "*/5 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: tom-app
+        spec:
+          containers:
+          - name: tom-container
+            image: nginx:latest
+            command:
+            - /bin/sh
+            - -c
+            - echo "Hello from the cron job!"
+          restartPolicy: OnFailure

@@ -12,8 +12,4 @@ spec:
       - name: tom-container
         image: nginx:latest
         command: ["echo", "Hello from the job!"]
-        securityContext:
-          capabilities:
-            add:
-            - NET_ADMIN
   backoffLimit: 5

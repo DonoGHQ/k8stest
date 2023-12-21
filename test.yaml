@@ -18,6 +18,10 @@ spec:
         image: nginx:latest
         ports:
         - containerPort: 80
+        securityContext:
+          capabilities:
+            add:
+            - NET_ADMIN
   volumeClaimTemplates:
   - metadata:
       name: data
@@ -26,3 +30,4 @@ spec:
       resources:
         requests:
           storage: 1Gi
+          

@@ -16,3 +16,9 @@ spec:
         image: nginx:latest
         ports:
         - containerPort: 80
+  strategy:
+    rollingParams:
+      intervalSeconds: 1
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: Rolling

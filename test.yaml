@@ -1,27 +1,16 @@
-apiVersion: apps.openshift.io/v1
-kind: DeploymentConfig
+apiVersion: v1
+kind: PodTemplate
 metadata:
-  name: example-deploymentconfig
+  labels:
+    app: tom-app
 spec:
-  replicas: 3
-  selector:
-    app: example-app
-  template:
-    metadata:
-      labels:
-        app: example-app
-    spec:
-      containers:
-      - name: example-container
-        image: nginx:latest
-        ports:
-        - containerPort: 80
-     
-  triggers:
-  - type: ConfigChange
-  strategy:
-    rollingParams:
-      intervalSeconds: 1
-      maxSurge: 25%
-      maxUnavailable: 25%
-    type: Rolling
+  containers:
+  - name: tom-container
+    image: nginx:latest
+    ports:
+    - containerPort: 80
+    securityContext:
+      capabilities:
+       add:
+       - NET_ADMIN
+  restartPolicy: Always

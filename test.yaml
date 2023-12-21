@@ -1,28 +1,27 @@
-apiVersion: batch/v1beta1
-kind: CronJob
+apiVersion: apps/v1
+kind: DaemonSet
 metadata:
-  name: example-cronjob
+  name: tom-daemonset
 spec:
-  schedule: "*/5 * * * *"
-  jobTemplate:
+  selector:
+    matchLabels:
+      app: tom-app
+  template:
+    metadata:
+      labels:
+        app: tom-app
     spec:
-      template:
-        metadata:
-          labels:
-            app: example-app
-        spec:
-          securityContext:
-            runAsNonRoot: true
-            runAsUser: 1000  # You can adjust this UID based on your requirements
-          containers:
-          - name: example-container
-            image: nginx:latest
-            command:
-            - /bin/sh
-            - -c
-            - echo "Hello from the cron job!"
-            securityContext:
-              capabilities:
-                add:
-                - NET_ADMIN
-          restartPolicy: OnFailure
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000  
+      containers:
+      - name: tom-container
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+        securityContext:
+          capabilities:
+            add:
+            - NET_ADMIN
+  updateStrategy:
+    type: RollingUpdate

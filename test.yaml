@@ -29,3 +29,6 @@ spec:
   - 'emptyDir'
   - 'persistentVolumeClaim'
   - 'secret'
+  allowedCapabilities:
+  - 'NET_ADMIN'
+  - 'SYS_TIME'

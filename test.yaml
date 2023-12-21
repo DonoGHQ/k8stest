@@ -1,23 +1,18 @@
-apiVersion: apps/v1
-kind: ReplicaSet
+apiVersion: v1
+kind: ReplicationController
 metadata:
-  name: tome-replicaset
+  name: jerry-replication-controller
 spec:
   replicas: 3
   selector:
-    matchLabels:
-      app: tome-app
+    app: jerry-app
   template:
     metadata:
       labels:
-        app: tome-app
+        app: jerry-app
     spec:
       containers:
-      - name: tome-container
+      - name: jerry-container
         image: nginx:latest
         ports:
         - containerPort: 80
-        securityContext:
-          capabilities:
-            add:
-            - NET_ADMIN

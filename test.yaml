@@ -12,18 +12,11 @@ spec:
       labels:
         app: tom-app
     spec:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000  
       containers:
       - name: tom-container
         image: nginx:latest
         ports:
         - containerPort: 80
-        securityContext:
-          capabilities:
-            add:
-            - NET_ADMIN
   strategy:
     type: RollingUpdate
     rollingUpdate:

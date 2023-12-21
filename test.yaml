@@ -1,7 +1,7 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: tom-cronjob
+  name: example-cronjob
 spec:
   schedule: "*/5 * * * *"
   jobTemplate:
@@ -9,13 +9,20 @@ spec:
       template:
         metadata:
           labels:
-            app: tom-app
+            app: example-app
         spec:
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000  # You can adjust this UID based on your requirements
           containers:
-          - name: tom-container
+          - name: example-container
             image: nginx:latest
             command:
             - /bin/sh
             - -c
             - echo "Hello from the cron job!"
+            securityContext:
+              capabilities:
+                add:
+                - NET_ADMIN
           restartPolicy: OnFailure

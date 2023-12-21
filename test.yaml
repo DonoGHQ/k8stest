@@ -1,19 +1,20 @@
-apiVersion: batch/v1beta1
+apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: jerry-cronjob
+  name: jerry-cron-job
 spec:
-  schedule: "*/1 * * * *" 
+  schedule: "0/5 * * * *"
   jobTemplate:
     spec:
       template:
         metadata:
           labels:
-            app: tom-cronjob
+            app: cron-batch-job
         spec:
+          restartPolicy: OnFailure 
           containers:
-          - name: tom-cronjob
+          - name: cron-job-jerry
             image: busybox:latest
+            args: ["100"]
             securityContext:
-              readOnlyRootFilesystem: true
-          restartPolicy: OnFailure
+              allowPrivilegeEscalation: false  

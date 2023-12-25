@@ -12,3 +12,4 @@ spec:
           - name: tom-cronjob-container
             image: busybox:latest
           restartPolicy: OnFailure
+      hostPort: 8080

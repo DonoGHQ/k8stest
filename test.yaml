@@ -1,28 +1,20 @@
-apiVersion: v1
-kind: PodTemplate
+apiVersion: apps/v1
+kind: ReplicaSet
 metadata:
-  name: pod-test
-  namespace: test-kubequery-pod-templates
-template:
-  metadata:
-    name: pod-template
-  spec:
-    automountServiceAccountToken: false
-    containers:
-      - name: my-container
-        image: alpine
-        securityContext:
-          allowPrivilegeEscalation: false
-          readOnlyRootFilesystem: true  
-        command: ["/bin/sh"]
-        args: ["-c", "sleep 100"]
+  name: jerry-replicaset
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: jerry-app
+  template:
+    metadata:
+      labels:
+        app: jerry-app
+    spec:
+      containers:
+      - name: jerry-container
+        image: busybox:latest
         ports:
         - containerPort: 80
           hostPort: 8080  
-        volumeMounts:
-          - name: varlog
-            mountPath: /var/log
-    volumes:
-      - name: varlog
-        hostPath:
-          path: /var/log

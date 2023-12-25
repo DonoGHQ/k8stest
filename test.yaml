@@ -14,8 +14,5 @@ spec:
           containers:
           - name: demo-container
             image: busybox:latest
-            ports:
-            - containerPort: 80
-              hostPort: 8080 
             
           restartPolicy: OnFailure

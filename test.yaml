@@ -1,20 +1,19 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
 metadata:
-  name: tom-deployment
+  name: jerry-container
 spec:
   replicas: 3
   selector:
-    matchLabels:
-      app: tom-app
+    app: jerry-app
   template:
     metadata:
       labels:
-        app: tom-app
+        app: jerry-app
     spec:
       containers:
-      - name: tom-container
-        image: nginx:latest
+      - name: jerry-container
+        image: busybox:latest
         ports:
         - containerPort: 80
           hostPort: 8080  

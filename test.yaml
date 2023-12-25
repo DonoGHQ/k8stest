@@ -1,17 +1,21 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: my-cronjob
-ports:
-  - containerPort: 80
-    hostPort: 8080
+  name: demo-cronjob
 spec:
   schedule: "*/5 * * * *"
   jobTemplate:
     spec:
       template:
+        metadata:
+          labels:
+            app: demo-app
         spec:
           containers:
-          - name: my-cronjob-container
-            image: your-container-image:latest
+          - name: demo-container
+            image: busybox:latest
+            ports:
+            - containerPort: 80
+              hostPort: 8080 
+            
           restartPolicy: OnFailure

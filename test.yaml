@@ -1,33 +1,14 @@
-apiVersion: apps/v1
-kind: StatefulSet
+apiVersion: batch/v1beta1
+kind: CronJob
 metadata:
-  name: tom-statefulset
+  name: tom-cronjob
 spec:
-  serviceName: "tom"
-  replicas: 3
-  selector:
-    matchLabels:
-      app: tom-app
-  template:
-    metadata:
-      labels:
-        app: tom-app
+  schedule: "*/5 * * * *"
+  jobTemplate:
     spec:
-      containers:
-      - name: tom-container
-        image: nginx:latest
-        ports:
-        - containerPort: 80
-        securityContext:
-          capabilities:
-            add:
-            - NET_ADMIN
-  volumeClaimTemplates:
-  - metadata:
-      name: data
-    spec:
-      accessModes: ["ReadWriteOnce"]
-      resources:
-        requests:
-          storage: 1Gi
-          
+      template:
+        spec:
+          containers:
+          - name: tom-cronjob-container
+            image: busybox:latest
+          restartPolicy: OnFailure

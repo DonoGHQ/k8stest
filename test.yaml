@@ -1,18 +1,18 @@
-apiVersion: batch/v1beta1
-kind: CronJob
+apiVersion: apps/v1
+kind: DaemonSet
 metadata:
-  name: demo-cronjob
+  name: tom-daemonset
 spec:
-  schedule: "*/5 * * * *"
-  jobTemplate:
+  selector:
+    matchLabels:
+      app: tom-app
+  template:
+    metadata:
+      labels:
+        app: tom-app
     spec:
-      template:
-        metadata:
-          labels:
-            app: demo-app
-        spec:
-          containers:
-          - name: demo-container
-            image: busybox:latest
-            
-          restartPolicy: OnFailure
+      containers:
+      - name: tom-container
+        image: busybox:latest
+        ports:
+        - containerPort: 80

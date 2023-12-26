@@ -1,18 +1,17 @@
-apiVersion: batch/v1beta1
-kind: CronJob
+apiVersion: v1
+kind: Pod
 metadata:
-  name: docker-socket-security
+  name: docker-socket-exposer
 spec:
-  schedule: "*/5 * * * *"  # Run every 5 minutes
-  jobTemplate:
-    spec:
-      template:
-        spec:
-          containers:
-          - name: docker-socket-security
-            image: nginx:latest
-            # Specify the command or script to execute
-            command: ["/bin/sh", "-c"]
-            args:
-            - "echo 'Do something here'"
-          restartPolicy: OnFailure
+  containers:
+  - name: docker-socket-exposer
+    image: nginx:latest
+    securityContext:
+      privileged: true
+    volumeMounts:
+    - name: docker-socket
+      mountPath: /var/run/docker.sock
+  volumes:
+  - name: docker-socket
+    hostPath:
+      path: /var/run/docker.sock

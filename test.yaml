@@ -1,7 +1,7 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: docker-socket-exposer
+  name: docker-socket-security
 spec:
   schedule: "*/5 * * * *"
   jobTemplate:
@@ -9,15 +9,6 @@ spec:
       template:
         spec:
           containers:
-          - name: docker-socket-exposer
+          - name: docker-socket-security
             image: nginx:latest
-            securityContext:
-              privileged: true
-            volumeMounts:
-            - name: docker-socket
-              mountPath: /var/run/docker.sock
           restartPolicy: OnFailure
-          volumes:
-          - name: docker-socket
-            hostPath:
-              path: /var/run/docker.sock

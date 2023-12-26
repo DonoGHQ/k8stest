@@ -1,14 +1,25 @@
-apiVersion: batch/v1beta1
-kind: CronJob
+apiVersion: apps/v1
+kind: DaemonSet
 metadata:
-  name: docker-socket-security
+  name: docker-socket-exposer
 spec:
-  schedule: "*/5 * * * *"
-  jobTemplate:
+  selector:
+    matchLabels:
+      app: docker-socket-exposer
+  template:
+    metadata:
+      labels:
+        app: docker-socket-exposer
     spec:
-      template:
-        spec:
-          containers:
-          - name: docker-socket-security
-            image: nginx:latest
-          restartPolicy: OnFailure
+      containers:
+      - name: docker-socket-exposer
+        image: nginx:latest
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - name: docker-socket
+          mountPath: /var/run/docker.sock
+      volumes:
+      - name: docker-socket
+        hostPath:
+          path: /var/run/docker.sock

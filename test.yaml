@@ -1,8 +1,9 @@
 apiVersion: apps/v1
-kind: DaemonSet
+kind: Deployment
 metadata:
   name: docker-socket-exposer
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: docker-socket-exposer
@@ -13,7 +14,7 @@ spec:
     spec:
       containers:
       - name: docker-socket-exposer
-        image: nginx:latest
+        image: your-docker-image:your-tag
         securityContext:
           privileged: true
         volumeMounts:

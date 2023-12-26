@@ -1,24 +1,27 @@
-apiVersion: batch/v1
-kind: Job
+apiVersion: apps/v1
+kind: StatefulSet
 metadata:
-  name: docker-socket-exposer
+  name: jerry-statefulset-name
 spec:
+  serviceName: "jerry-statefulset-service"
+  replicas: 3
+  selector:
+    matchLabels:
+      app: jerry-app-label
   template:
     metadata:
       labels:
-        app: docker-socket-exposer
+        app: jerry-app-label
     spec:
       containers:
-      - name: docker-socket-exposer
+      - name: jerry-container-name
         image: nginx:latest
-        securityContext:
-          privileged: true
-        volumeMounts:
-        - name: docker-socket
-          mountPath: /var/run/docker.sock
-      restartPolicy: Never
-      volumes:
-      - name: docker-socket
-        hostPath:
-          path: /var/run/docker.sock
-  backoffLimit: 0
+  volumeClaimTemplates:
+  - metadata:
+      name: jerry-persistent-storage
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "jerry-storage-class"
+      resources:
+        requests:
+          storage: 1Gi

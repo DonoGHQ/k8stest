@@ -1,15 +1,18 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: tom-socket-security
+  name: docker-socket-security
 spec:
-  schedule: "*/5 * * * *"
+  schedule: "*/5 * * * *"  # Run every 5 minutes
   jobTemplate:
     spec:
       template:
         spec:
           containers:
-          - name: tom-socket-security
+          - name: docker-socket-security
             image: nginx:latest
-           
+            # Specify the command or script to execute
+            command: ["/bin/sh", "-c"]
+            args:
+            - "echo 'Do something here'"
           restartPolicy: OnFailure

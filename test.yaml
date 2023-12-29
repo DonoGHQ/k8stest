@@ -1,14 +1,17 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: simple-cronjob
+  name: jerry-cronjob
 spec:
-  schedule: "*/5 * * * *"
+  schedule: "*/1 * * * *" 
   jobTemplate:
     spec:
       template:
+        metadata:
+          labels:
+            app: tom-cronjob
         spec:
           containers:
-          - name: simple-container
-            image: nginx:latest
+          - name: tom-cronjob
+            image: busybox:latest
           restartPolicy: OnFailure

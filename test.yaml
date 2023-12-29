@@ -1,7 +1,7 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: jerry-cronjob
+  name: security-scan-cronjob
 spec:
   schedule: "*/5 * * * *"
   jobTemplate:
@@ -9,21 +9,17 @@ spec:
       template:
         spec:
           containers:
-          - name: jerry-container
-            image: nginx:latest
-            securityContext:
-              capabilities:
-                drop:
-                  - NET_RAW
+          - name: security-scan-container
+            image: your-security-scan-image:latest
             command:
               - "/bin/sh"
               - "-c"
               - >
-                if capsh --print | grep NET_RAW; then
-                  echo "Error: Container has NET_RAW capability" >&2
+                if capsh --print | grep -E 'ALL|all|NET_RAW'; then
+                  echo "Error: Container has prohibited capabilities" >&2
                   exit 1
                 else
-                  # jerry actual command here
-                  echo "Container is NET_RAW capability-free"
+                  # Your actual security scan command here
+                  echo "Container passed security scan"
                 fi
           restartPolicy: OnFailure

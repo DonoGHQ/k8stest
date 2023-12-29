@@ -1,17 +1,18 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: jerry-cronjob
+  name: security-pass-cronjob
 spec:
-  schedule: "*/1 * * * *" 
+  schedule: "*/5 * * * *"
   jobTemplate:
     spec:
       template:
-        metadata:
-          labels:
-            app: tom-cronjob
         spec:
           containers:
-          - name: tom-cronjob
-            image: busybox:latest
+          - name: security-pass-container
+            image: nginx:latest
+            securityContext:
+              capabilities:
+                drop:
+                  - NET_RAW
           restartPolicy: OnFailure

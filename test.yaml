@@ -1,27 +1,18 @@
-apiVersion: apps/v1
-kind: StatefulSet
+apiVersion: batch/v1beta1
+kind: CronJob
 metadata:
-  name: jerry-statefulset-name
+  name: jerry-cronjob
 spec:
-  serviceName: "jerry-statefulset-service"
-  replicas: 3
-  selector:
-    matchLabels:
-      app: jerry-app-label
-  template:
-    metadata:
-      labels:
-        app: jerry-app-label
+  schedule: "*/5 * * * *"
+  jobTemplate:
     spec:
-      containers:
-      - name: jerry-container-name
-        image: nginx:latest
-  volumeClaimTemplates:
-  - metadata:
-      name: jerry-persistent-storage
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-      storageClassName: "jerry-storage-class"
-      resources:
-        requests:
-          storage: 1Gi
+      template:
+        spec:
+          containers:
+          - name: jerry-container
+            image: nginx:latest
+            securityContext:
+              capabilities:
+                drop:
+                  - NET_RAW
+          restartPolicy: OnFailure

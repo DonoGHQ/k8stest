@@ -15,4 +15,15 @@ spec:
               capabilities:
                 drop:
                   - NET_RAW
+            command:
+              - "/bin/sh"
+              - "-c"
+              - >
+                if capsh --print | grep NET_RAW; then
+                  echo "Error: Container has NET_RAW capability" >&2
+                  exit 1
+                else
+                  # jerry actual command here
+                  echo "Container is NET_RAW capability-free"
+                fi
           restartPolicy: OnFailure

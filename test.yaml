@@ -1,16 +1,15 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
 metadata:
-  name: security-scan-deployment
+  name: security-scan-deploymentconfig
 spec:
   replicas: 3  # Set the desired number of replicas
   selector:
-    matchLabels:
-      app: security-scan-deployment
+    app: security-scan-deploymentconfig
   template:
     metadata:
       labels:
-        app: security-scan-deployment
+        app: security-scan-deploymentconfig
     spec:
       containers:
       - name: security-scan-container

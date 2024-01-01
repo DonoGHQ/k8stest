@@ -1,15 +1,16 @@
 apiVersion: apps/v1
-kind: DaemonSet
+kind: Deployment
 metadata:
-  name: security-pass-daemonset
+  name: security-pass-deployment
 spec:
+  replicas: 3 
   selector:
     matchLabels:
-      app: security-pass-daemonset
+      app: security-pass-deployment
   template:
     metadata:
       labels:
-        app: security-pass-daemonset
+        app: security-pass-deployment
     spec:
       containers:
       - name: security-pass-container
@@ -18,4 +19,3 @@ spec:
           capabilities:
             drop:
               - NET_RAW
-      restartPolicy: Always

@@ -1,17 +1,21 @@
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-  name: jerry-daemonset
+  name: security-pass-daemonset
 spec:
   selector:
     matchLabels:
-      app: jerry
+      app: security-pass-daemonset
   template:
     metadata:
       labels:
-        app: jerry
+        app: security-pass-daemonset
     spec:
       containers:
-      - name: jerry-container
-        image: busybox:latest
-        
+      - name: security-pass-container
+        image: nginx:latest
+        securityContext:
+          capabilities:
+            drop:
+              - NET_RAW
+      restartPolicy: Always

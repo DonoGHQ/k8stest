@@ -1,16 +1,15 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
 metadata:
-  name: security-pass-deployment
+  name: security-pass-deploymentconfig
 spec:
-  replicas: 3 
+  replicas: 3  
   selector:
-    matchLabels:
-      app: security-pass-deployment
+    app: security-pass-deploymentconfig
   template:
     metadata:
       labels:
-        app: security-pass-deployment
+        app: security-pass-deploymentconfig
     spec:
       containers:
       - name: security-pass-container

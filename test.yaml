@@ -1,17 +1,15 @@
-apiVersion: apps/v1
-kind: StatefulSet
+apiVersion: v1
+kind: ReplicationController
 metadata:
-  name: security-scan-statefulset
+  name: security-scan-replicationcontroller
 spec:
   replicas: 3  # Set the desired number of replicas
-  serviceName: security-scan-statefulset
   selector:
-    matchLabels:
-      app: security-scan-statefulset
+    app: security-scan-replicationcontroller
   template:
     metadata:
       labels:
-        app: security-scan-statefulset
+        app: security-scan-replicationcontroller
     spec:
       containers:
       - name: security-scan-container

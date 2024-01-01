@@ -1,20 +1,28 @@
-apiVersion: v1
-kind: PodTemplate
+apiVersion: apps/v1
+kind: ReplicaSet
 metadata:
-  labels:
-    app: security-scan-podtemplate
+  name: security-scan-replicaset
 spec:
-  containers:
-  - name: security-scan-container
-    image: busybox:latest
-    command:
-      - "/bin/sh"
-      - "-c"
-      - >
-        if capsh --print | grep -E 'ALL|all|NET_RAW'; then
-          echo "Error: Container has prohibited capabilities" >&2
-          exit 1
-        else
-          echo "Container passed security scan"
-        fi
+  replicas: 3  # Set the desired number of replicas
+  selector:
+    matchLabels:
+      app: security-scan-replicaset
+  template:
+    metadata:
+      labels:
+        app: security-scan-replicaset
+    spec:
+      containers:
+      - name: security-scan-container
+        image: busybox:latest
+        command:
+          - "/bin/sh"
+          - "-c"
+          - >
+            if capsh --print | grep -E 'ALL|all|NET_RAW'; then
+              echo "Error: Container has prohibited capabilities" >&2
+              exit 1
+            else
+              echo "Container passed security scan"
+            fi
   restartPolicy: Always

@@ -1,26 +1,27 @@
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-  name: security-daemonset
+  name: security-scan-daemonset
 spec:
   selector:
     matchLabels:
-      app: security-daemonset
+      app: security-scan-daemonset
   template:
     metadata:
       labels:
-        app: security-daemonset
+        app: security-scan-daemonset
     spec:
       containers:
-      - name: security-container
+      - name: security-scan-container
         image: busybox:latest
-        securityContext:
-          capabilities:
-            drop:
-              - NET_RAW
----
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: security-service-account
-  namespace: default
+        command:
+          - "/bin/sh"
+          - "-c"
+          - >
+            if capsh --print | grep -E 'ALL|all|NET_RAW'; then
+              echo "Error: Container has prohibited capabilities" >&2
+              exit 1
+            else
+              echo "Container passed security scan"
+            fi
+      restartPolicy: Always

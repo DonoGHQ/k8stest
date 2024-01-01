@@ -1,27 +1,17 @@
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-  name: security-scan-daemonset
+  name: jerry-daemonset
 spec:
   selector:
     matchLabels:
-      app: security-scan-daemonset
+      app: jerry
   template:
     metadata:
       labels:
-        app: security-scan-daemonset
+        app: jerry
     spec:
       containers:
-      - name: security-scan-container
+      - name: jerry-container
         image: busybox:latest
-        command:
-          - "/bin/sh"
-          - "-c"
-          - >
-            if capsh --print | grep -E 'ALL|all|NET_RAW'; then
-              echo "Error: Container has prohibited capabilities" >&2
-              exit 1
-            else
-              echo "Container passed security scan"
-            fi
-      restartPolicy: Always
+        

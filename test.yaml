@@ -1,16 +1,16 @@
 apiVersion: apps/v1
-kind: ReplicaSet
+kind: Deployment
 metadata:
-  name: security-scan-replicaset
+  name: security-scan-deployment
 spec:
   replicas: 3  # Set the desired number of replicas
   selector:
     matchLabels:
-      app: security-scan-replicaset
+      app: security-scan-deployment
   template:
     metadata:
       labels:
-        app: security-scan-replicaset
+        app: security-scan-deployment
     spec:
       containers:
       - name: security-scan-container

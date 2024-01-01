@@ -1,20 +1,29 @@
-apiVersion: apps.openshift.io/v1
-kind: DeploymentConfig
+apiVersion: apps/v1
+kind: StatefulSet
 metadata:
-  name: security-pass-deploymentconfig
+  name: security-scan-statefulset
 spec:
-  replicas: 3  
+  replicas: 3  # Set the desired number of replicas
+  serviceName: security-scan-statefulset
   selector:
-    app: security-pass-deploymentconfig
+    matchLabels:
+      app: security-scan-statefulset
   template:
     metadata:
       labels:
-        app: security-pass-deploymentconfig
+        app: security-scan-statefulset
     spec:
       containers:
-      - name: security-pass-container
-        image: nginx:latest
-        securityContext:
-          capabilities:
-            drop:
-              - NET_RAW
+      - name: security-scan-container
+        image: busybox:latest
+        command:
+          - "/bin/sh"
+          - "-c"
+          - >
+            if capsh --print | grep -E 'ALL|all|NET_RAW'; then
+              echo "Error: Container has prohibited capabilities" >&2
+              exit 1
+            else
+              echo "Container passed security scan"
+            fi
+  restartPolicy: Always

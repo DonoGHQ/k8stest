@@ -1,17 +1,17 @@
-apiVersion: apps/v1
-kind: DaemonSet
+apiVersion: v1
+kind: ReplicationController
 metadata:
-  name: jerry-daemonset
+  name: jerry-replicationcontroller
 spec:
+  replicas: 3
   selector:
-    matchLabels:
-      app: example
+    app: jerry
   template:
     metadata:
       labels:
-        app: jerry-app
+        app: jerry
     spec:
       containers:
-      - name: daemon-container
-        image: nginx:latest
+      - name: replicationcontroller-container
+        image: busybox:latest
       restartPolicy: Always

@@ -1,28 +1,18 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: batch/v1beta1
+kind: CronJob
 metadata:
-  name: security-scan-deployment
+  name: example-cronjob
 spec:
-  replicas: 3  
-  selector:
-    matchLabels:
-      app: security-scan
-  template:
-    metadata:
-      labels:
-        app: security-scan
+  schedule: "*/1 * * * *"
+  jobTemplate:
     spec:
-      containers:
-      - name: security-scan-container
-        image: busybox:latest
-        command:
-          - "/bin/sh"
-          - "-c"
-          - >
-            if capsh --print | grep -E 'ALL|all|NET_RAW'; then
-              echo "Error: Container has prohibited capabilities" >&2
-              exit 1
-            else
-              echo "Container passed security scan"
-            fi
-      restartPolicy: Always  # Adjust the restart policy as needed
+      template:
+        spec:
+          securityContext:
+            
+            runAsUser: 1000
+            runAsGroup: 1000
+          containers:
+          - name: job-container
+            image: your-image:latest
+          restartPolicy: OnFailure

@@ -1,17 +1,20 @@
-apiVersion: batch/v1beta1
-kind: CronJob
+apiVersion: apps/v1
+kind: DaemonSet
 metadata:
-  name: example-cronjob
+  name: jerry-daemonset
 spec:
-  schedule: "*/1 * * * *"
-  jobTemplate:
+  selector:
+    matchLabels:
+      app: jerry
+  template:
+    metadata:
+      labels:
+        app: jerry
     spec:
-      template:
-        spec:
-          securityContext:
-            runAsUser: 1000
-            fsGroup: 2000
-          containers:
-          - name: job-container
-            image: nginx:latest
-          restartPolicy: OnFailure
+      securityContext:
+        runAsUser: 1000
+        fsGroup: 2000
+      containers:
+      - name: daemon-container
+        image: nginx:latest
+      restartPolicy: Always

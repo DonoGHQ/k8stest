@@ -7,12 +7,19 @@ spec:
   jobTemplate:
     spec:
       template:
+        metadata:
+          labels:
+            app: example
         spec:
           securityContext:
             
             runAsUser: 1000
-            runAsGroup: 1000
+            fsGroup: 2000
           containers:
           - name: job-container
-            image: your-image:latest
+            image: nginx:latest
+            securityContext:
+              
+              runAsUser: 1000
+              allowPrivilegeEscalation: false
           restartPolicy: OnFailure

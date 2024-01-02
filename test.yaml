@@ -1,14 +1,18 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: example-cronjob
+  name: demo-cronjob
 spec:
-  schedule: "*/1 * * * *"  
+  schedule: "*/5 * * * *"
   jobTemplate:
     spec:
       template:
+        metadata:
+          labels:
+            app: demo-app
         spec:
           containers:
-          - name: job-container
-            image: busybox:latest  
+          - name: demo-container
+            image: busybox:latest
+            
           restartPolicy: OnFailure

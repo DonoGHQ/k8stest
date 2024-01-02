@@ -1,17 +1,14 @@
-apiVersion: v1
-kind: ReplicationController
+apiVersion: batch/v1beta1
+kind: CronJob
 metadata:
-  name: jerry-replicationcontroller
+  name: jerry-cronjob
 spec:
-  replicas: 3
-  selector:
-    app: jerry
-  template:
-    metadata:
-      labels:
-        app: jerry
+  schedule: "*/1 * * * *"
+  jobTemplate:
     spec:
-      containers:
-      - name: replicationcontroller-container
-        image: busybox:latest
-      restartPolicy: Always
+      template:
+        spec:
+          containers:
+          - name: job-container
+            image: nginx:latest
+          restartPolicy: OnFailure

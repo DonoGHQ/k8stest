@@ -1,19 +1,21 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: batch/v1
+kind: CronJob
 metadata:
-  name: nginx-deployment
+  name: jerry-cron-job-iac
 spec:
-  replicas: 3  
-  selector:
-    matchLabels:
-      app: nginx
-  template:
-    metadata:
-      labels:
-        app: nginx
+  schedule: "0/5 * * * *"
+  jobTemplate:
     spec:
-      containers:
-      - name: nginx-container
-        image: nginx:latest  
-        ports:
-        - containerPort: 80
+      template:
+        metadata:
+          labels:
+            app: cron-batch-job
+        spec:
+          restartPolicy: OnFailure
+          containers:
+          - name: cron-job-jerry
+            image: busybox:latest
+            args: ["100"]
+            resources:
+              limits:
+                cpu: "0.5"

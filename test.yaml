@@ -1,18 +1,14 @@
-apiVersion: apps.openshift.io/v1
-kind: DeploymentConfig
+apiVersion: v1
+kind: PodTemplate
 metadata:
-  name: nginx-deployment-config
+  name: nginx-podtemplate
 spec:
-  replicas: 3  # Adjust the number of replicas as needed
-  selector:
-    app: nginx
-  template:
-    metadata:
-      labels:
-        app: nginx
-    spec:
-      containers:
-      - name: nginx-container
-        image: nginx:latest  # Replace with your desired Nginx version or custom image
-        ports:
-        - containerPort: 80
+  metadata:
+    labels:
+      app: nginx
+  spec:
+    containers:
+    - name: nginx-container
+      image: nginx:latest
+      ports:
+      - containerPort: 80

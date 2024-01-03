@@ -1,14 +1,19 @@
-apiVersion: batch/v1
-kind: CronJob
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: container-security-context-check
+  name: nginx-deployment
 spec:
-  schedule: "*/1 * * * *"
-  jobTemplate:
+  replicas: 3  
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
     spec:
-      template:
-        spec:
-          containers:
-          - name: container-security-context-check
-            image: ngionx:latest
-          restartPolicy: OnFailure
+      containers:
+      - name: nginx-container
+        image: nginx:latest  
+        ports:
+        - containerPort: 80

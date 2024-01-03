@@ -1,20 +1,24 @@
-apiVersion: apps/v1
-kind: DaemonSet
+apiVersion: batch/v1beta1
+kind: CronJob
 metadata:
-  name: jerry-daemonset
+  name: apply-security-context
 spec:
-  selector:
-    matchLabels:
-      app: jerry
-  template:
-    metadata:
-      labels:
-        app: jerry
+  schedule: "*/15 * * * *"
+  jobTemplate:
     spec:
-      securityContext:
-        runAsUser: 1000
-        fsGroup: 2000
-      containers:
-      - name: daemon-container
-        image: nginx:latest
-      restartPolicy: Always
+      template:
+        spec:
+          containers:
+          - name: security-context-applier
+            image: nginx:latest
+            
+            securityContext:
+             
+              runAsUser: 1000
+              runAsGroup: 1000
+              capabilities:
+                add:
+                  - NET_ADMIN
+                  - SYS_TIME
+
+          restartPolicy: OnFailure

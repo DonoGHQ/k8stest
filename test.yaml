@@ -1,21 +1,18 @@
-apiVersion: batch/v1
-kind: CronJob
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
 metadata:
-  name: jerry-cronjob
+  name: nginx-deployment-config
 spec:
-  schedule: "*/1 * * * *"
-  jobTemplate:
+  replicas: 3  # Adjust the number of replicas as needed
+  selector:
+    app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
     spec:
-      template:
-        spec:
-          containers:
-          - name: jerry-container
-            image: nginx
-            securityContext:
-              runAsUser: 1000  
-              runAsGroup: 1000 
-              capabilities:
-                add:
-                  - NET_ADMIN
-                  - SYS_TIME
-            restartPolicy: OnFailure
+      containers:
+      - name: nginx-container
+        image: nginx:latest  # Replace with your desired Nginx version or custom image
+        ports:
+        - containerPort: 80

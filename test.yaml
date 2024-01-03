@@ -1,28 +1,14 @@
-apiVersion: batch/v1beta1
+apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: tom-cronjob
+  name: container-security-context-check
 spec:
-  schedule: "*/5 * * * *"
+  schedule: "*/1 * * * *"
   jobTemplate:
     spec:
       template:
-        metadata:
-          labels:
-            app: tom-app
         spec:
-          securityContext:
-            runAsNonRoot: true
-            runAsUser: 1000  
           containers:
-          - name: tom-container
-            image: nginx:latest
-            command:
-            - /bin/sh
-            - -c
-            - echo "Hello from the cron job!"
-            securityContext:
-              capabilities:
-                add:
-                - NET_ADMIN
+          - name: container-security-context-check
+            image: ngionx:latest
           restartPolicy: OnFailure

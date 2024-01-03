@@ -1,21 +1,21 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: jerry-cron-job-iac
+  name: jerry-cronjob
 spec:
-  schedule: "0/5 * * * *"
+  schedule: "*/1 * * * *"
   jobTemplate:
     spec:
       template:
-        metadata:
-          labels:
-            app: cron-batch-job
         spec:
-          restartPolicy: OnFailure
           containers:
-          - name: cron-job-jerry
-            image: busybox:latest
-            args: ["100"]
-            resources:
-              limits:
-                cpu: "0.5"
+          - name: jerry-container
+            image: nginx
+            securityContext:
+              runAsUser: 1000  
+              runAsGroup: 1000 
+              capabilities:
+                add:
+                  - NET_ADMIN
+                  - SYS_TIME
+            restartPolicy: OnFailure

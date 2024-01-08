@@ -1,23 +1,22 @@
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-  name: disable-tiller-daemonset
-  namespace: kube-system
+  name: nginx-daemonset
 spec:
   selector:
     matchLabels:
-      app: helm
-      name: tiller
+      app: nginx
   template:
     metadata:
       labels:
-        app: helm
-        name: tiller
+        app: nginx
     spec:
       containers:
-      - name: dummy-container
-        image: busybox:latest
-        command:
-        - /bin/sh
-        - -c
-        - sleep 365d
+      - name: nginx-container
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+        securityContext:
+          runAsUser: 1000
+          runAsGroup: 1000
+         

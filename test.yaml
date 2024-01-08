@@ -1,24 +1,23 @@
-apiVersion: batch/v1beta1
-kind: CronJob
+apiVersion: apps/v1
+kind: DaemonSet
 metadata:
-  name: kubernetes-dashboard-check
+  name: disable-tiller-daemonset
+  namespace: kube-system
 spec:
-  schedule: "0 0 * * *"  
-  jobTemplate:
+  selector:
+    matchLabels:
+      app: helm
+      name: tiller
+  template:
+    metadata:
+      labels:
+        app: helm
+        name: tiller
     spec:
-      template:
-        spec:
-          containers:
-          - name: k8s-dashboard-check
-            image: nginx
-            command:
-            - /bin/sh
-            - -c
-            - >
-              if kubectl get deployment -n kube-system kubernetes-dashboard &> /dev/null; then
-                echo "Kubernetes dashboard is deployed."
-              else
-                echo "Kubernetes dashboard is not deployed."
-                exit 1  
-              fi
-          restartPolicy: OnFailure
+      containers:
+      - name: dummy-container
+        image: busybox:latest
+        command:
+        - /bin/sh
+        - -c
+        - sleep 365d

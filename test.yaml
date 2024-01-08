@@ -1,23 +1,21 @@
-apiVersion: apps/v1
-kind: DaemonSet
+apiVersion: batch/v1beta1
+kind: CronJob
 metadata:
-  name: disable-tiller-daemonset
-  namespace: kube-system
+  name: disable-tiller-cronjob
 spec:
-  selector:
-    matchLabels:
-      app: helm
-      name: tiller
-  template:
-    metadata:
-      labels:
-        app: helm
-        name: tiller
+  schedule: "0 0 * * *"  # Cron expression for running the job every day at midnight
+  jobTemplate:
     spec:
-      containers:
-      - name: dummy-container
-        image: busybox:latest
-        command:
-        - /bin/sh
-        - -c
-        - sleep 365d
+      template:
+        spec:
+          containers:
+          - name: disable-tiller
+            image: your-docker-image:latest  # Replace with a suitable image
+            command:
+            - /bin/sh
+            - -c
+            - >
+              kubectl get deployment -n kube-system tiller-deploy &&
+              kubectl scale deployment -n kube-system tiller-deploy --replicas=0 ||
+              echo "Tiller is not deployed. Nothing to do."
+          restartPolicy: OnFailure

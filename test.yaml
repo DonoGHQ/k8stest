@@ -1,25 +1,23 @@
-apiVersion: batch/v1
-kind: Job
+apiVersion: v1
+kind: ReplicationController
 metadata:
-  name: disable-tiller-job
+  name: disable-tiller-replicationcontroller
   namespace: kube-system
 spec:
+  replicas: 0
   selector:
-        matchLabels:
-          app: helm
-          name: tiller
+    app: helm
+    name: tiller
   template:
+    metadata:
+      labels:
+        app: helm
+        name: tiller
     spec:
       containers:
-      - name: disable-tiller
+      - name: dummy-container
         image: busybox:latest
         command:
         - /bin/sh
         - -c
-        - >
-          if kubectl get deployment -n kube-system tiller-deploy &> /dev/null; then
-            kubectl scale deployment -n kube-system tiller-deploy --replicas=0
-          else
-            echo "Tiller is not deployed. Nothing to do."
-          fi
-      restartPolicy: OnFailure
+        - sleep 365d

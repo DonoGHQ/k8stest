@@ -1,21 +1,21 @@
-apiVersion: batch/v1beta1
-kind: CronJob
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
 metadata:
-  name: disable-tiller-cronjob
+  name: tiller-deploy
+  namespace: kube-system
 spec:
-  schedule: "0 0 * * *"  # Cron expression for running the job every day at midnight
-  jobTemplate:
+  replicas: 0
+  selector:
+    app: helm
+    name: tiller
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: helm
+        name: tiller
     spec:
-      template:
-        spec:
-          containers:
-          - name: disable-tiller
-            image: your-docker-image:latest  # Replace with a suitable image
-            command:
-            - /bin/sh
-            - -c
-            - >
-              kubectl get deployment -n kube-system tiller-deploy &&
-              kubectl scale deployment -n kube-system tiller-deploy --replicas=0 ||
-              echo "Tiller is not deployed. Nothing to do."
-          restartPolicy: OnFailure
+      containers:
+      - name: tiller
+        image: gcr.io/kubernetes-helm/tiller:v2.16.1  

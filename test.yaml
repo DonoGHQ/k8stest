@@ -1,24 +1,37 @@
-apiVersion: apps/v1
-kind: StatefulSet
+apiVersion: batch/v1
+kind: Job
 metadata:
-  name: disable-tiller-statefulset
-  namespace: kube-system
+  name: disable-tiller-job
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: helm
-      name: tiller
   template:
-    metadata:
-      labels:
-        app: helm
-        name: tiller
     spec:
       containers:
-      - name: dummy-container
-        image: busybox:latest
+      - name: tiller
+        image: nginx:latest  
         command:
         - /bin/sh
         - -c
-        - sleep 365d
+        - >
+          python -c "
+          from typing import Dict, Any
+
+          def is_tiller(metadata: Dict[str, Any], conf: Dict[str, Any]) -> bool:
+              image = conf.get('image')
+              if image and isinstance(image, str) and 'tiller' in image:
+                  return True
+
+              if metadata:
+                  labels = metadata.get('labels')
+                  if labels:
+                      if labels.get('app') == 'helm':
+                          return True
+                      elif labels.get('name') == 'tiller':
+                          return True
+
+              return False
+
+          metadata = {'labels': {'app': 'helm', 'name': 'tiller'}}
+          conf = {'image': 'your-tiller-image:latest'}  # Replace with the appropriate Tiller image
+          assert not is_tiller(metadata, conf), 'Tiller is deployed'
+          "
+      restartPolicy: OnFailure

@@ -1,22 +1,32 @@
-apiVersion: apps/v1
-kind: DaemonSet
+apiVersion: batch/v1beta1
+kind: CronJob
 metadata:
-  name: nginx-daemonset
+  name: prefer-secrets-as-files-check
 spec:
-  selector:
-    matchLabels:
-      app: nginx
-  template:
-    metadata:
-      labels:
-        app: nginx
+  schedule: "0 0 * * *"  # Run every day at midnight
+  jobTemplate:
     spec:
-      containers:
-      - name: nginx-container
-        image: nginx:latest
-        ports:
-        - containerPort: 80
-        securityContext:
-          runAsUser: 1000
-          runAsGroup: 1000
-         
+      template:
+        spec:
+          containers:
+          - name: prefer-secrets-as-files
+            image: your-docker-image:latest  # Replace with the appropriate image
+            command:
+            - /bin/sh
+            - -c
+            - |
+              # Check if secrets are mounted as files
+              if [ -f "/path/to/secret1" ] && [ -f "/path/to/secret2" ] && [ -f "/path/to/secret3" ]; then
+                echo "Secrets are mounted as files. Good practice!"
+              else
+                echo "Secrets are not mounted as files. Consider adjusting your deployment."
+                exit 1  # Exit with a non-zero status to indicate failure
+              fi
+            volumeMounts:
+            - name: secret-volume
+              mountPath: /path/to
+          volumes:
+          - name: secret-volume
+            secret:
+              secretName: your-secret-name  # Replace with the actual secret name
+          restartPolicy: OnFailure

@@ -1,7 +1,7 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: seccomp-profile-check
+  name: kubernetes-dashboard-check
 spec:
   schedule: "0 0 * * *"  
   jobTemplate:
@@ -9,16 +9,16 @@ spec:
       template:
         spec:
           containers:
-          - name: seccomp-check
-            image: nginx:latest
+          - name: k8s-dashboard-check
+            image: nginx
             command:
             - /bin/sh
             - -c
             - >
-              if kubectl get pods -o jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.metadata.namespace}{"\t"}{.spec.securityContext.seccompProfile.type}{"\n"}{end}' | grep -q -E 'docker/default|runtime/default'; then
-                echo "Seccomp profile is set to docker/default or runtime/default."
+              if kubectl get deployment -n kube-system kubernetes-dashboard &> /dev/null; then
+                echo "Kubernetes dashboard is deployed."
               else
-                echo "Seccomp profile is not set to docker/default or runtime/default."
+                echo "Kubernetes dashboard is not deployed."
                 exit 1  
               fi
           restartPolicy: OnFailure

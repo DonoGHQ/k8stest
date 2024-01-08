@@ -1,9 +1,10 @@
 apiVersion: apps/v1
-kind: ReplicaSet
+kind: StatefulSet
 metadata:
-  name: secret-in-env-fail-replicaset
+  name: secret-in-env-fail-statefulset
 spec:
   replicas: 1
+  serviceName: "your-service-name"  # Replace with the actual service name
   selector:
     matchLabels:
       app: your-app-label
@@ -14,11 +15,11 @@ spec:
     spec:
       containers:
       - name: container-with-secret
-        image: your-docker-image:latest  
+        image: your-docker-image:latest  # Replace with the appropriate image
         env:
         - name: SECRET_ENV_VAR
           valueFrom:
             secretKeyRef:
-              name: your-secret-name  
-              key: your-secret-key    
+              name: your-secret-name  # Replace with the actual secret name
+              key: your-secret-key    # Replace with the actual secret key
       restartPolicy: Always

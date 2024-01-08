@@ -1,42 +1,24 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: seccomp-check-cronjob
+  name: seccomp-profile-check
 spec:
-  schedule: "0 0 * * *"  # Run every day at midnight
+  schedule: "0 0 * * *"  
   jobTemplate:
     spec:
       template:
         spec:
           containers:
           - name: seccomp-check
-            image: your-docker-image:latest  # Replace with the appropriate image
-            command: ["/bin/sh", "-c"]
-            args:
+            image: nginx:latest
+            command:
+            - /bin/sh
+            - -c
             - >
-              python -c "
-              # Your Python code here
-              from typing import Any, Dict
-              from checkov.common.models.enums import CheckCategories, CheckResult
-              from checkov.common.util.data_structures_utils import find_in_dict
-              from checkov.common.util.type_forcers import force_list
-
-              class Seccomp:
-                  def __init__(self) -> None:
-                      # CIS-1.5 5.7.2
-                      name = 'Ensure that the seccomp profile is set to docker/default or runtime/default'
-                      id = 'CKV_K8S_31'
-                      supported_kind = ('Pod', 'Deployment', 'DaemonSet', 'StatefulSet', 'ReplicaSet', 'ReplicationController', 'Job', 'CronJob')
-                      categories = (CheckCategories.KUBERNETES,)
-                      super().__init__(name=name, id=id, categories=categories, supported_entities=supported_kind)
-
-                  def scan_spec_conf(self, conf: Dict[str, Any]) -> CheckResult:
-                      # Your existing Python code here
-                      # ...
-
-              check = Seccomp()
-              metadata = conf.get('metadata', {})
-              result = check.scan_spec_conf(conf)
-              exit(1) if result == CheckResult.FAILED else exit(0)
-              "
+              if kubectl get pods -o jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.metadata.namespace}{"\t"}{.spec.securityContext.seccompProfile.type}{"\n"}{end}' | grep -q -E 'docker/default|runtime/default'; then
+                echo "Seccomp profile is set to docker/default or runtime/default."
+              else
+                echo "Seccomp profile is not set to docker/default or runtime/default."
+                exit 1  
+              fi
           restartPolicy: OnFailure

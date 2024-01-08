@@ -1,22 +1,27 @@
-apiVersion: batch/v1beta1
-kind: CronJob
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: seccomp-setup-cronjob
+  name: your-deployment
 spec:
-  schedule: "1 0 * * *"  
-  jobTemplate:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: your-app
+  template:
+    metadata:
+      labels:
+        app: your-app
     spec:
-      template:
-        spec:
-          initContainers:
-          - name: seccomp-setup
-            image: your-docker-image:latest  
-            command: ["/bin/sh", "-c"]
-            args:
-            - >
-              if docker info --format '{{.SecurityOptions}}' | grep -q 'seccomp:docker/default\|seccomp:runtime/default'; then
-                echo "Seccomp profile is already set to docker/default or runtime/default."
-              else
-                docker info --format '{{.ID}}' | xargs -I {} docker update --security-opt seccomp=docker/default {}
-              fi
-          restartPolicy: OnFailure
+      containers:
+      - name: your-container
+        image: your-docker-image:latest  # Replace with the appropriate image
+        command: ["/bin/sh", "-c"]
+        args:
+        - >
+          if [ "$(your-condition-check-command)" = "condition_met" ]; then
+            echo "Condition is met. Setting seccomp profile."
+            docker update --security-opt seccomp=docker/default $(docker ps -q)
+          else
+            echo "Condition is not met. Skipping seccomp setup."
+          fi
+      restartPolicy: Always

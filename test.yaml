@@ -1,16 +1,21 @@
 apiVersion: batch/v1
-kind: Job
+kind: CronJob
 metadata:
-  name: jobs-timeout-job
-  namespace: test-kubequery-job
+    name: kubernetes-cron-job
 spec:
+  schedule: "0/5 * * * *"
   selector:
     app: helm
     name: tiller
-  template:
+  jobTemplate:
     spec:
-      restartPolicy: Never
-      containers:
-        - command: ["perl", "-Mbignum=bpi", "-wle", "print bpi(2000)"]
-          image: perl
-          name: jobs-timeout-container
+      template:
+        metadata:
+          labels:
+            app: cron-batch-job
+        spec:
+          restartPolicy: OnFailure
+          containers:
+          - name: kube-cron-job
+            image: devopscube/kubernetes-job-demo:latest
+            args: ["100"]

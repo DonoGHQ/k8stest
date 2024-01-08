@@ -10,7 +10,7 @@ spec:
         spec:
           containers:
           - name: seccomp-setup
-            image: your-docker-image:latest  
+            image: nginx:latest 
             command: ["/bin/sh", "-c"]
             args:
             - >

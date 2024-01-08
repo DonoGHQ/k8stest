@@ -1,21 +1,20 @@
-apiVersion: apps.openshift.io/v1
-kind: DeploymentConfig
+apiVersion: batch/v1
+kind: Job
 metadata:
-  name: tiller-deploy
-  namespace: kube-system
+  name: disable-tiller-job
 spec:
-  replicas: 0
-  selector:
-    app: helm
-    name: tiller
-  strategy:
-    type: Recreate
   template:
-    metadata:
-      labels:
-        app: helm
-        name: tiller
     spec:
       containers:
-      - name: tiller
-        image: gcr.io/kubernetes-helm/tiller:v2.16.1  
+      - name: disable-tiller
+        image: your-docker-image:latest  # Replace with a suitable image
+        command:
+        - /bin/sh
+        - -c
+        - >
+          if kubectl get deployment -n kube-system tiller-deploy &> /dev/null; then
+            kubectl scale deployment -n kube-system tiller-deploy --replicas=0
+          else
+            echo "Tiller is not deployed. Nothing to do."
+          fi
+      restartPolicy: OnFailure

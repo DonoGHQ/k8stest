@@ -1,20 +1,29 @@
-apiVersion: batch/v1beta1
-kind: CronJob
+apiVersion: apps/v1
+kind: StatefulSet
 metadata:
-  name: seccomp-setup-cronjob
+  name: nginx-statefulset
 spec:
-  schedule: "0 0 * * *" 
-  jobTemplate:
+  replicas: 3  
+  selector:
+    matchLabels:
+      app: nginx
+  serviceName: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
     spec:
-      template:
-        spec:
-          containers:
-          - name: seccomp-setup
-            image: nginx:latest 
-            command: ["/bin/sh", "-c"]
-            args:
-            - >
-              docker info --format '{{.SecurityOptions}}' | grep -q 'seccomp:docker/default\|seccomp:runtime/default' &&
-              echo "Seccomp profile is already set to docker/default or runtime/default." ||
-              docker info --format '{{.ID}}' | xargs -I {} docker update --security-opt seccomp=docker/default {}
-          restartPolicy: OnFailure
+      containers:
+      - name: nginx-container
+        image: nginx:latest  
+        ports:
+        - containerPort: 80
+  volumeClaimTemplates:
+  - metadata:
+      name: nginx-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "standard"
+      resources:
+        requests:
+          storage: 1Gi

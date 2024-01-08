@@ -1,26 +1,16 @@
-apiVersion: v1
-kind: PodTemplate
+apiVersion: batch/v1
+kind: Job
 metadata:
-  name: pod-test
-  namespace: test-kubequery-pod-templates
-template:
-  metadata:
-    labels:
-        app: helm
-        name: tiller
-  spec:
-    automountServiceAccountToken: false
-    containers:
-      - name: container
-        image: alpine
-        securityContext:
-          allowPrivilegeEscalation: false
-        command: ["/bin/sh"]
-        args: ["-c", "sleep 100"]
-        volumeMounts:
-          - name: varlog
-            mountPath: /var/log
-    volumes:
-        - name: varlog
-          hostPath:
-              path: /var/log
+  name: jobs-timeout-job
+  namespace: test-kubequery-job
+spec:
+  selector:
+    app: helm
+    name: tiller
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - command: ["perl", "-Mbignum=bpi", "-wle", "print bpi(2000)"]
+          image: perl
+          name: jobs-timeout-container

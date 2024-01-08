@@ -1,23 +1,26 @@
 apiVersion: v1
-kind: ReplicationController
+kind: PodTemplate
 metadata:
-  name: disable-tiller-replicationcontroller
-  namespace: kube-system
-spec:
-  replicas: 0
-  selector:
-    app: helm
-    name: tiller
-  template:
-    metadata:
-      labels:
+  name: pod-test
+  namespace: test-kubequery-pod-templates
+template:
+  metadata:
+    labels:
         app: helm
         name: tiller
-    spec:
-      containers:
-      - name: dummy-container
-        image: busybox:latest
-        command:
-        - /bin/sh
-        - -c
-        - sleep 365d
+  spec:
+    automountServiceAccountToken: false
+    containers:
+      - name: container
+        image: alpine
+        securityContext:
+          allowPrivilegeEscalation: false
+        command: ["/bin/sh"]
+        args: ["-c", "sleep 100"]
+        volumeMounts:
+          - name: varlog
+            mountPath: /var/log
+    volumes:
+        - name: varlog
+          hostPath:
+              path: /var/log

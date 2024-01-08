@@ -1,18 +1,23 @@
-apiVersion: batch/v1beta1
-kind: CronJob
+apiVersion: apps/v1
+kind: DaemonSet
 metadata:
-  name: disable-tiller-cronjob
+  name: disable-tiller-daemonset
+  namespace: kube-system
 spec:
-  schedule: "0 0 * * *"  
-  jobTemplate:
+  selector:
+    matchLabels:
+      app: helm
+      name: tiller
+  template:
+    metadata:
+      labels:
+        app: helm
+        name: tiller
     spec:
-      template:
-        spec:
-          containers:
-          - name: disable-tiller
-            image: busybox:latest
-            command:
-            - /bin/sh
-            - -c
-            - kubectl scale deployment -n kube-system tiller-deploy --replicas=0
-          restartPolicy: OnFailure
+      containers:
+      - name: dummy-container
+        image: busybox:latest
+        command:
+        - /bin/sh
+        - -c
+        - sleep 365d

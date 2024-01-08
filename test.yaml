@@ -1,27 +1,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: your-deployment
+  name: kubernetes-dashboard
+  namespace: kube-system  
 spec:
-  replicas: 3
+  replicas: 0
   selector:
     matchLabels:
-      app: your-app
+      app: kubernetes-dashboard
   template:
     metadata:
       labels:
-        app: your-app
-    spec:
-      containers:
-      - name: your-container
-        image: your-docker-image:latest  # Replace with the appropriate image
-        command: ["/bin/sh", "-c"]
-        args:
-        - >
-          if [ "$(your-condition-check-command)" = "condition_met" ]; then
-            echo "Condition is met. Setting seccomp profile."
-            docker update --security-opt seccomp=docker/default $(docker ps -q)
-          else
-            echo "Condition is not met. Skipping seccomp setup."
-          fi
-      restartPolicy: Always
+        app: kubernetes-dashboard

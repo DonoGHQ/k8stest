@@ -4,15 +4,15 @@ metadata:
   name: disable-tiller-job
   namespace: kube-system
 spec:
+  selector:
+        matchLabels:
+          app: helm
+          name: tiller
   template:
     spec:
       containers:
       - name: disable-tiller
         image: busybox:latest
-      selector:
-        matchLabels:
-          app: helm
-          name: tiller
         command:
         - /bin/sh
         - -c

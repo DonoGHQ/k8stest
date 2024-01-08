@@ -7,7 +7,7 @@ spec:
     spec:
       containers:
       - name: disable-tiller
-        image: your-docker-image:latest  # Replace with a suitable image
+        image: nginx:latest
         command:
         - /bin/sh
         - -c

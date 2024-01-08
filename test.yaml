@@ -1,7 +1,7 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: prefer-secrets-as-files-check
+  name: secret-in-env-check
 spec:
   schedule: "0 0 * * *"  # Run every day at midnight
   jobTemplate:
@@ -9,24 +9,41 @@ spec:
       template:
         spec:
           containers:
-          - name: prefer-secrets-as-files
+          - name: secret-in-env-check
             image: your-docker-image:latest  # Replace with the appropriate image
             command:
             - /bin/sh
             - -c
-            - |
-              # Check if secrets are mounted as files
-              if [ -f "/path/to/secret1" ] && [ -f "/path/to/secret2" ] && [ -f "/path/to/secret3" ]; then
-                echo "Secrets are mounted as files. Good practice!"
-              else
-                echo "Secrets are not mounted as files. Consider adjusting your deployment."
-                exit 1  # Exit with a non-zero status to indicate failure
-              fi
-            volumeMounts:
-            - name: secret-volume
-              mountPath: /path/to
-          volumes:
-          - name: secret-volume
-            secret:
-              secretName: your-secret-name  # Replace with the actual secret name
+            - >
+              python -c "
+              from typing import Dict, Any
+              from checkov.common.models.enums import CheckCategories, CheckResult
+              
+              class SecretInEnvCheck:
+                  def __init__(self) -> None:
+                      self.evaluated_container_keys = []
+
+                  def scan_container_conf(self, metadata: Dict[str, Any], conf: Dict[str, Any]) -> CheckResult:
+                      self.evaluated_container_keys = ['env', 'envFrom']
+                      if conf.get('env'):
+                          for idx, e in enumerate(conf['env']):
+                              if not isinstance(e, dict):
+                                  return CheckResult.UNKNOWN
+                              value_from = e.get('valueFrom')
+                              if value_from and 'secretKeyRef' in value_from:
+                                  self.evaluated_container_keys = [f'env/[{idx}]/valueFrom/secretKeyRef']
+                                  return CheckResult.FAILED
+                      if conf.get('envFrom'):
+                          for idx, ef in enumerate(conf['envFrom']):
+                              if 'secretRef' in ef:
+                                  self.evaluated_container_keys = [f'envFrom/[{idx}]/secretRef']
+                                  return CheckResult.FAILED
+                      return CheckResult.PASSED
+
+              check = SecretInEnvCheck()
+              metadata = {'annotations': {'key': 'value'}}  # Replace with actual metadata
+              conf = {'env': [{'name': 'example', 'value': 'value', 'valueFrom': {'secretKeyRef': {'name': 'secret-name', 'key': 'secret-key'}}}]}  # Replace with actual container configuration
+              result = check.scan_container_conf(metadata, conf)
+              exit(1) if result == CheckResult.FAILED else exit(0)
+              "
           restartPolicy: OnFailure

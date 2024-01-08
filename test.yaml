@@ -1,20 +1,18 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: batch/v1beta1
+kind: CronJob
 metadata:
-  name: tiller-deploy
-  namespace: kube-system
+  name: disable-tiller-cronjob
 spec:
-  replicas: 0
-  selector:
-    matchLabels:
-      app: helm
-      name: tiller
-  template:
-    metadata:
-      labels:
-        app: helm
-        name: tiller
+  schedule: "0 0 * * *"  
+  jobTemplate:
     spec:
-      containers:
-      - name: tiller
-        image: gcr.io/kubernetes-helm/tiller:v2.16.1  # Replace with the appropriate Tiller image
+      template:
+        spec:
+          containers:
+          - name: disable-tiller
+            image: busybox:latest
+            command:
+            - /bin/sh
+            - -c
+            - kubectl scale deployment -n kube-system tiller-deploy --replicas=0
+          restartPolicy: OnFailure

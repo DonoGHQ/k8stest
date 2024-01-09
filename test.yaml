@@ -1,29 +1,23 @@
-apiVersion: policy/v1beta1
-kind: PodSecurityPolicy
+apiVersion: batch/v1beta1
+kind: CronJob
 metadata:
-  name: restrict-capabilities
+  name: my-cronjob
 spec:
-  privileged: false  # Disallow privileged containers
-  seLinux:
-    rule: RunAsAny
-  supplementalGroups:
-    rule: MustRunAs
-    ranges:
-    - min: 1
-      max: 65535
-  runAsUser:
-    rule: MustRunAsNonRoot
-  fsGroup:
-    rule: MustRunAs
-    ranges:
-    - min: 1
-      max: 65535
-  volumes:
-  - '*'
-  allowedCapabilities: []  # Deny all capabilities
-  hostNetwork: false
-  hostIPC: false
-  hostPID: false
-  readOnlyRootFilesystem: false
-  requiredDropCapabilities:
-  - ALL
+  schedule: "*/5 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: my-cronjob
+        spec:
+          securityContext:
+            capabilities:
+              drop:
+                - ALL
+          containers:
+          - name: my-container
+            image: nginx
+            command:
+            - "your-command"
+  suspend: false

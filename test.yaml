@@ -1,23 +1,19 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  name: secret-in-env-fail-deployment
+  name: statefulset
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
-      app: jerry-app
+      app: statefullset-app
   template:
     metadata:
       labels:
-        app: jerry-app
+        app: statefulset-app
     spec:
       containers:
-      - name: tom-secret
-        image: nginx:latest  
-        env:
-        - name: SECRET_ENV_VAR
-          valueFrom:
-            secretKeyRef:
-              name: jerry-secret-name  
-              key: jerry-secret-key
+      - name: statefulset-container
+        image: nginx:latest
+        securityContext:
+          privileged: true

@@ -25,3 +25,5 @@ spec:
   hostIPC: false
   hostPID: false
   readOnlyRootFilesystem: false
+  requiredDropCapabilities:
+  - ALL

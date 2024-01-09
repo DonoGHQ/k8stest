@@ -1,17 +1,16 @@
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
-  name: secret-in-env-fail-statefulset
+  name: secret-in-env-fail-deployment
 spec:
   replicas: 1
-  serviceName: "tom-service" 
   selector:
     matchLabels:
-      app: your-app-label
+      app: jerry-app
   template:
     metadata:
       labels:
-        app: your-app-label
+        app: jerry-app
     spec:
       containers:
       - name: tom-secret
@@ -20,6 +19,5 @@ spec:
         - name: SECRET_ENV_VAR
           valueFrom:
             secretKeyRef:
-              name: tom-secret-name  
-              key: tom-secret-key   
-      restartPolicy: Always
+              name: jerry-secret-name  
+              key: jerry-secret-key

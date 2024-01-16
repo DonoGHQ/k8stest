@@ -16,7 +16,7 @@ spec:
           - name: your-container
             image: your-image:tag
             command:
-            - your-command
-            - --anonymous-auth=false
-            - --basic-auth-file=/path/to/basic-auth-file
+            #- your-command
+          #  - --anonymous-auth=false
+          #  - --basic-auth-file=/path/to/basic-auth-file
           restartPolicy: OnFailure 

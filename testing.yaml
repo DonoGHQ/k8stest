@@ -1,30 +1,17 @@
-apiVersion: apps/v1
-kind: StatefulSet
+apiVersion: v1
+kind: Pod
 metadata:
-  name: example-statefulset
+  annotations:
+    kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint: 192.168.133.160:6443
+  creationTimestamp: null
+  labels:
+    component: kube-apiserver
+    tier: control-plane
+  name: kube-apiserver
+  namespace: kube-system
 spec:
-  serviceName: "example"
-  replicas: 3
-  selector:
-    matchLabels:
-      app: example
-  template:
-    metadata:
-      labels:
-        app: example
-    spec:
-      serviceAccountName: your-service-account-name
-      automountServiceAccountToken: false
-      containers:
-      - name: app-container
-        image: your-image:tag
-        ports:
-        - containerPort: 80
-  volumeClaimTemplates:
-  - metadata:
-      name: data
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-      resources:
-        requests:
-          storage: 1Gi
+  containers:
+  - command:
+    - kube-apiserver
+    - --anonymous-auth=false
+    - --basic-auth-file

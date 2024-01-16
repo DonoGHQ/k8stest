@@ -14,4 +14,3 @@ spec:
   - command:
     - kube-apiserver
     - --anonymous-auth=false
-    - --basic-auth-file

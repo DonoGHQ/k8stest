@@ -16,7 +16,7 @@ spec:
           containers:
           - name: kube-cron-job
             image: busybox:latest
-                  - command:
+          - command:
             - kube-apiserver
             - --anonymous-auth=false
             - --basic-auth-file

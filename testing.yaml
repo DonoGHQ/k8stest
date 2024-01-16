@@ -1,22 +1,16 @@
-apiVersion: batch/v1beta1
-kind: CronJob
+apiVersion: v1
+kind: Pod
 metadata:
-  name: example-cronjob
-  namespace: your-namespace
+  annotations:
+    kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint: 192.168.133.160:6443
+  creationTimestamp: null
+  labels:
+    component: kube-apiserver
+    tier: control-plane
+  name: kube-apiserver
+  namespace: kube-system
 spec:
-  schedule: "*/5 * * * *"  # Adjust the schedule as needed
-  jobTemplate:
-    spec:
-      template:
-        metadata:
-          labels:
-            app: example
-        spec:
-          containers:
-          - name: your-container
-            image: your-image:tag
-            command:
-            #- your-command
-          #  - --anonymous-auth=false
-          #  - --basic-auth-file=/path/to/basic-auth-file
-          restartPolicy: OnFailure 
+  containers:
+  - command:
+    - kube-apiserver
+    - --anonymous-auth=false

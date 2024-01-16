@@ -3,7 +3,6 @@ kind: StatefulSet
 metadata:
   name: jerry-statefulset
 spec:
-  automountServiceAccountToken: true
   replicas: 3
   selector:
     matchLabels:

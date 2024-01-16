@@ -19,6 +19,6 @@ spec:
             command:
             - kube-apiserver
             - --anonymous-auth=false
-           # - --basic-auth-file=/path/to/basic-auth-file
+            - --basic-auth-file=/path/to/basic-auth-file
             # Add other necessary flags or configurations here
           restartPolicy: OnFailure  # Or adjust as needed

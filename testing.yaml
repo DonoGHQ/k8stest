@@ -2,8 +2,9 @@ apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
   name: example-cronjob
+  namespace: your-namespace
 spec:
-  schedule: "*/5 * * * *"
+  schedule: "*/5 * * * *"  # Adjust the schedule as needed
   jobTemplate:
     spec:
       template:
@@ -12,10 +13,10 @@ spec:
             app: example
         spec:
           containers:
-          - name: cron-job-container
-            image: busybox:latest
-          - command:
-            - kube-apiserver
+          - name: your-container
+            image: your-image:tag
+            command:
+            - your-command
             - --anonymous-auth=false
-            - --basic-auth-file  
-          restartPolicy: OnFailure
+            - --basic-auth-file=/path/to/basic-auth-file
+          restartPolicy: OnFailure 

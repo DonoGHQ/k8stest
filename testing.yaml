@@ -1,21 +1,16 @@
-apiVersion: batch/v1
-kind: CronJob
+apiVersion: v1
+kind: Pod
 metadata:
-    name: kubernetes-cron-job
+  annotations:
+    kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint: 192.168.133.160:6443
+  creationTimestamp: null
+  labels:
+    component: kube-apiserver
+    tier: control-plane
+  name: kube-apiserver
+  namespace: kube-system
 spec:
-  schedule: "0/5 * * * *"
-  jobTemplate:
-    spec:
-      template:
-        metadata:
-          labels:
-            app: cron-batch-job
-        spec:
-          automountServiceAccountToken: false
-          restartPolicy: OnFailure
-          containers:
-          - name: kube-cron-job
-            image: busybox:latest
-          - command:
-            - kube-apiserver
-            - --anonymous-auth=false
+  containers:
+  - command:
+    - kube-apiserver
+    - --anonymous-auth=false

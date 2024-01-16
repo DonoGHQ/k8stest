@@ -1,18 +1,30 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: jerry-statefulset
+  name: example-statefulset
 spec:
+  serviceName: "example"
   replicas: 3
   selector:
     matchLabels:
-      app: jerry
+      app: example
   template:
     metadata:
       labels:
-        app: jerry
+        app: example
     spec:
+      serviceAccountName: your-service-account-name
+      automountServiceAccountToken: false
       containers:
-      - name: statefulset-container
-        image: nginx:latest
-             
+      - name: app-container
+        image: your-image:tag
+        ports:
+        - containerPort: 80
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1Gi

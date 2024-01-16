@@ -1,24 +1,18 @@
-apiVersion: batch/v1beta1
-kind: CronJob
+apiVersion: apps/v1
+kind: StatefulSet
 metadata:
-  name: kube-apiserver-cronjob
-  namespace: kube-system
+  name: jerry-statefulset
 spec:
-  schedule: "*/5 * * * *"  # Adjust the schedule as needed
-  jobTemplate:
+  automountServiceAccountToken: false
+  replicas: 3
+  selector:
+    matchLabels:
+      app: jerry
+  template:
+    metadata:
+      labels:
+        app: jerry
     spec:
-      template:
-        metadata:
-          labels:
-            component: kube-apiserver
-            tier: control-plane
-        spec:
-          containers:
-          - name: kube-apiserver
-            image: k8s.gcr.io/kube-apiserver:v1.22.0  # Replace with the actual image and version
-            command:
-            - kube-apiserver
-            - --anonymous-auth=false
-            - --basic-auth-file=/path/to/basic-auth-file
-            # Add other necessary flags or configurations here
-          restartPolicy: OnFailure  # Or adjust as needed
+      containers:
+      - name: statefulset-container
+        image: busybox:latest

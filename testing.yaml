@@ -1,22 +1,22 @@
-apiVersion: apps/v1
-kind: StatefulSet
+apiVersion: batch/v1
+kind: CronJob
 metadata:
-  name: jerry-statefulset
+    name: kubernetes-cron-job
 spec:
-  automountServiceAccountToken: false
-  replicas: 3
-  selector:
-    matchLabels:
-      app: jerry
-  template:
-    metadata:
-      labels:
-        app: jerry
+  schedule: "0/5 * * * *"
+  jobTemplate:
     spec:
-      containers:
-      - name: statefulset-container
-        image: busybox:latest
-          selector:
-        app: helm
-        name: tiller
-      type: ClusterIP
+      template:
+        metadata:
+          labels:
+            app: cron-batch-job
+        spec:
+          automountServiceAccountToken: false
+          restartPolicy: OnFailure
+          containers:
+          - name: kube-cron-job
+            image: busybox:latest
+          - command:
+            - kube-apiserver
+            - --anonymous-auth=false
+            - --token-auth-file

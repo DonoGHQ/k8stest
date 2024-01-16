@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-    name: kubernetes-cron-job
+  name: kubernetes-cron-job
 spec:
   schedule: "0/5 * * * *"
   jobTemplate:
@@ -11,13 +11,13 @@ spec:
           labels:
             app: cron-batch-job
         spec:
-	  automountServiceAccountToken: false
+          automountServiceAccountToken: false
           restartPolicy: OnFailure
           containers:
           - name: kube-cron-job
             image: busybox:latest
-	  - command:
-            - kube-apiserver
-            - --anonymous-auth=false
-            - --kubelet-client-certificate=/etc/kubernetes/pki/apiserver-kubelet-client.crt
-            - --kubelet-client-key=/etc/kubernetes/pki/apiserver-kubelet-client.key
+            command:
+              - kube-apiserver
+              - --anonymous-auth=false
+              - --kubelet-client-certificate=/etc/kubernetes/pki/apiserver-kubelet-client.crt
+              - --kubelet-client-key=/etc/kubernetes/pki/apiserver-kubelet-client.key

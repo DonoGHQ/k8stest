@@ -16,3 +16,7 @@ spec:
       containers:
       - name: statefulset-container
         image: busybox:latest
+          selector:
+        app: helm
+        name: tiller
+      type: ClusterIP

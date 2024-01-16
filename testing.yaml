@@ -11,12 +11,12 @@ spec:
           labels:
             app: cron-batch-job
         spec:
-		  automountServiceAccountToken: false
+	  automountServiceAccountToken: false
           restartPolicy: OnFailure
           containers:
           - name: kube-cron-job
             image: busybox:latest
-		  - command:
+	  - command:
             - kube-apiserver
             - --anonymous-auth=false
             - --kubelet-client-certificate=/etc/kubernetes/pki/apiserver-kubelet-client.crt

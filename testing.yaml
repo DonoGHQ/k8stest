@@ -19,4 +19,4 @@ spec:
             command:
               - kube-apiserver
               - --anonymous-auth=false
-              - --kubelet-certificate-authority=ca.file
+              - --authorization-mode=AlwaysAllow

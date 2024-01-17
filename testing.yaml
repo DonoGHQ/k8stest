@@ -15,8 +15,8 @@ spec:
       containers:
       - name: tom-con
         image: busybox:latest
-      - command:
-        -kube-apiserver
+        command:
+        - kube-apiserver
         - --anonymous-auth=false
         - --basic-auth-file
         - --kubelet-https=false

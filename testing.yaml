@@ -1,22 +1,21 @@
-apiVersion: apps/v1
-kind: DaemonSet
+apiVersion: batch/v1
+kind: CronJob
 metadata:
-  name: secret-in-env-fail-daemonset
+  name: kubernetes-cron-jobs
 spec:
-  selector:
-    matchLabels:
-      app: jerry-app
-  template:
-    metadata:
-      labels:
-        app: jerry-app
+  schedule: "0/5 * * * *"
+  jobTemplate:
     spec:
-      automountServiceAccountToken: false
-      containers:
-      - name: tom-con
-        image: busybox:latest
-        command:
-        - kube-apiserver
-        - --anonymous-auth=false
-        - --basic-auth-file
-        - --kubelet-https=false
+      template:
+        metadata:
+          labels:
+            app: cron-batch-job
+        spec:
+          automountServiceAccountToken: false
+          restartPolicy: OnFailure
+          containers:
+          - name: kube-cron-job
+            image: busybox:latest
+            command:
+              - kube-apiserver
+              - --anonymous-auth=false

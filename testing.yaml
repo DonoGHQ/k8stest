@@ -18,4 +18,4 @@ spec:
             image: busybox:latest
             command:
               - kube-apiserver
-              #- --enable-admission-plugins=AlwaysAdmit
+              - --enable-admission-plugins=AlwaysAdmit

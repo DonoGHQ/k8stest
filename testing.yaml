@@ -20,4 +20,4 @@ spec:
               - kube-apiserver
               - --enable-admission-plugins=AlwaysAdmit
               - --insecure-bind-address=192.168.1.1
-              - --insecure-port=1
+              - --insecure-port=0

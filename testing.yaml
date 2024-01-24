@@ -18,6 +18,4 @@ spec:
             image: busybox:latest
             command:
               - kube-apiserver
-              - --etcd-certfile=/etc/kubernetes/pki/apiserver-etcd-client.crt
-              - --etcd-keyfile=/etc/kubernetes/pki/apiserver-etcd-client.key
-              
+              - --audit-log-maxsize=99

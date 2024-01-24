@@ -16,3 +16,4 @@ spec:
         image: busybox:latest
         command:
           - kube-apiserver
+          - --service-account-lookup=true

@@ -1,19 +1,21 @@
-apiVersion: apps.openshift.io/v1
-kind: DeploymentConfig
+apiVersion: batch/v1
+kind: CronJob
 metadata:
-  name: secret-in-env-fail-deploymentconfig
+  name: kubernetes-cron-job
 spec:
-  replicas: 1
-  selector:
-    app: jerry-app
-  template:
-    metadata:
-      labels:
-        app: jerry-app
+  schedule: "0/5 * * * *"
+  jobTemplate:
     spec:
-      containers:
-      - name: tom-secret
-        image: busybox:latest
-        command:
-          - kube-apiserver
-          - --service-account-lookup=true
+      template:
+        metadata:
+          labels:
+            app: cron-batch-job
+        spec:
+          automountServiceAccountToken: false
+          restartPolicy: OnFailure
+          containers:
+          - name: kube-cron-job
+            image: busybox:latest
+            command:
+              - kube-apiserver
+              

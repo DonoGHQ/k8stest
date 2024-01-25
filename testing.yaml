@@ -19,4 +19,4 @@ spec:
             command:
               - kube-controller-manager
               - --terminated-pod-gc-threshold=10
-              - --profiling=true
+              - --profiling=false

@@ -1,21 +1,23 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: kubernetes-cron-job
+  name: jerry-cronjob
+  namespace: kube-system
 spec:
-  schedule: "0/5 * * * *"
+  schedule: "*/5 * * * *" 
   jobTemplate:
     spec:
       template:
         metadata:
           labels:
-            app: cron-batch-job
+            component: kube-apiserver-cron
+            tier: control-plane
         spec:
-          automountServiceAccountToken: false
-          restartPolicy: OnFailure
           containers:
-          - name: kube-cron-job
-            image: busybox:latest
+          - name: kube-apiserver-cron
+            image: kube-apiserver-image:your-tag  
             command:
-              - kube-apiserver
-              - --etcd-cafile=/etc/kubernetes/pki/etcd/ca.crt
+            - kube-apiserver
+            - --anonymous-auth=false
+            - --tls-cipher-suites=TLS_ECDHE_ECDSA_WITH_AES_128_GCM
+          restartPolicy: OnFailure

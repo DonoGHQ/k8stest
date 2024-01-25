@@ -18,5 +18,3 @@ spec:
             image: busybox:latest
             command:
               - kube-apiserver
-              - --audit-log-maxsize=100
-              - --request-timeout=300s

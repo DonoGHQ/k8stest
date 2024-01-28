@@ -1,20 +1,21 @@
-apiVersion: apps/v1
-kind: DaemonSet
+apiVersion: batch/v1
+kind: CronJob
 metadata:
-  name: secret-in-env-fail-daemonset
+  name: kubernetes-cron-job
 spec:
-  selector:
-    matchLabels:
-      app: jerry-app
-  template:
-    metadata:
-      labels:
-        app: jerry-app
+  schedule: "0/5 * * * *"
+  jobTemplate:
     spec:
-      automountServiceAccountToken: false
-      containers:
-      - name: tom-con
-        image: busybox:latest
-        command:
-        - kube-apiserver
-        - --terminated-pod-gc-threshold=0
+      template:
+        metadata:
+          labels:
+            app: cron-batch-job
+        spec:
+          automountServiceAccountToken: false
+          restartPolicy: OnFailure
+          containers:
+          - name: kube-cron-job
+            image: busybox:latest
+            command:
+              - kube-controller-manager
+              - --use-service-account-credentials=false

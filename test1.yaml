@@ -13,8 +13,8 @@ template:
         securityContext:
           allowPrivilegeEscalation: false
           capabilities:
-          add:
-           - SYS_ADMIN
+            add:
+            - SYS_ADMIN
         command: ["/bin/sh"]
         imagePullPolicy: Always
         

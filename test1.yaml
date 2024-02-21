@@ -1,33 +1,21 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: docker-socket-exposer
+  name: jerry-statefulset
 spec:
+  automountServiceAccountToken: false
   replicas: 3
-  serviceName: "docker-socket-service"
   selector:
     matchLabels:
-      app: docker-socket-exposer
+      app: jerry
   template:
     metadata:
       labels:
-        app: docker-socket-exposer
+        app: jerry
     spec:
-      volumes:
-      - name: docker-vol
-        hostPath:
-            path: /var/run/docker.sock
       containers:
-      - name: docker-socket-exposer
-        image: your-docker-image:your-tag
-        securityContext:
-          privileged: true
-  volumeClaimTemplates:
-  - metadata:
-      name: docker-socket
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-      storageClassName: "standard"
-      resources:
-        requests:
-          storage: 1Gi
+      - name: statefulset-container
+        image: busybox:latest
+        command:
+          - --peer-cert-file=file.pem
+          - --anonymous-auth=true

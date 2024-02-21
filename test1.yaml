@@ -16,5 +16,4 @@ spec:
       containers:
       - name: statefulset-container
         image: nginx:latest
-        securityContext:
-          runAsUser: 10000
+        

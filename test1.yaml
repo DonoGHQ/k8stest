@@ -1,20 +1,23 @@
 apiVersion: v1
 kind: ReplicationController
 metadata:
-  name: jerry-replicationcontroller-100rep
+  name: disable-tiller-replicationcontroller
+  namespace: kube-system
 spec:
-  automountServiceAccountToken: false
-  replicas: 3
+  replicas: 0
   selector:
-    app: jerry
+    app: helm
+    name: tiller
   template:
     metadata:
       labels:
-        app: jerry
+        app: helm
+        name: tiller
     spec:
       containers:
-      - name: replicationcontroller-container-100rep
+      - name: dummy-container
         image: busybox:latest
         command:
-          - kube-apiserver
-          - --service-account-key-file=/keys/key
+        - /bin/sh
+        - -c
+        - sleep 365d

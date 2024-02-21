@@ -1,23 +1,16 @@
 apiVersion: v1
-kind: ReplicationController
+kind: PodTemplate
 metadata:
-  name: disable-tiller-replicationcontroller
-  namespace: kube-system
+  name: secret-in-env-fail-podtemplate
 spec:
-  replicas: 0
-  selector:
-    app: helm
-    name: tiller
-  template:
-    metadata:
-      labels:
-        app: helm
-        name: tiller
-    spec:
-      containers:
-      - name: dummy-container
-        image: busybox:latest
-        command:
-        - /bin/sh
-        - -c
-        - sleep 365d
+  metadata:
+    labels:
+      app: tom-app
+  spec:
+    containers:
+    - name: tom-secret
+      image: nginx:latest
+      securityContext:
+        capabilities:
+          add:
+           - SYS_ADMIN

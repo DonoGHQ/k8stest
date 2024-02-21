@@ -17,5 +17,6 @@ spec:
       - name: statefulset-container
         image: busybox:latest
         command:
-        - kubelet
-        - --anonymous-auth=true
+          - kubelet
+          - --peer-cert-file=file.pem
+          - --authorization-mode=AlwaysAllow

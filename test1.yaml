@@ -1,24 +1,20 @@
-apiVersion: apps/v1
-kind: StatefulSet
+apiVersion: v1
+kind: ReplicationController
 metadata:
-  name: disable-tiller-statefulset
-  namespace: kube-system
+  name: jerry-replicationcontroller
 spec:
-  replicas: 1
+  automountServiceAccountToken: false
+  replicas: 3
   selector:
-    matchLabels:
-      app: helm
-      name: tiller
+    app: jerry
   template:
     metadata:
       labels:
-        app: helm
-        name: tiller
+        app: jerry
     spec:
       containers:
-      - name: dummy-container
+      - name: replicationcontroller-container
         image: busybox:latest
         command:
-        - /bin/sh
-        - -c
-        - sleep 365d
+          - kube-controller-manager
+          - --bind-address=127.10.11.1

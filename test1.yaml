@@ -13,14 +13,15 @@ spec:
       labels:
         app: docker-socket-exposer
     spec:
+      volumes:
+  - name: docker-vol
+    hostPath:
+            path: /var/run/docker.sock
       containers:
       - name: docker-socket-exposer
         image: your-docker-image:your-tag
         securityContext:
           privileged: true
-        volumeMounts:
-        - name: docker-socket
-          mountPath: /var/run/docker.sock
   volumeClaimTemplates:
   - metadata:
       name: docker-socket

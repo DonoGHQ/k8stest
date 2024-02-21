@@ -1,21 +1,24 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: jerry-statefulset
+  name: disable-tiller-statefulset
+  namespace: kube-system
 spec:
-  automountServiceAccountToken: false
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
-      app: jerry
+      app: helm
+      name: tiller
   template:
     metadata:
       labels:
-        app: jerry
+        app: helm
+        name: tiller
     spec:
       containers:
-      - name: statefulset-container
+      - name: dummy-container
         image: busybox:latest
         command:
-          - kube-apiserver
-          - --terminated-pod-gc-threshold=0
+        - /bin/sh
+        - -c
+        - sleep 365d

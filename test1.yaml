@@ -17,6 +17,11 @@ spec:
       - name: statefulset-container
         image: busybox:latest
         command:
-          - kubelet
-          - --peer-cert-file=file.pem
-          - --authorization-mode=AlwaysAllow
+        - kubelet
+        - --anonymous-auth=false
+        - --client-ca-file=test.key
+        - --read-only-port=0
+        - --streaming-connection-idle-timeout=4
+        - --protect-kernel-defaults=true
+        - --make-iptables-util-chains=true
+        - --event-qps=6

@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ReplicationController
 metadata:
-  name: jerry-replicationcontroller
+  name: jerry-replicationcontroller-100rep
 spec:
   automountServiceAccountToken: false
   replicas: 3
@@ -13,8 +13,8 @@ spec:
         app: jerry
     spec:
       containers:
-      - name: replicationcontroller-container
+      - name: replicationcontroller-container-100rep
         image: busybox:latest
         command:
-          - kube-controller-manager
-          - --bind-address=127.10.11.1
+          - kube-apiserver
+          - --service-account-key-file=/keys/key

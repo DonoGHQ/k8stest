@@ -14,8 +14,8 @@ spec:
         app: docker-socket-exposer
     spec:
       volumes:
-  - name: docker-vol
-    hostPath:
+      - name: docker-vol
+        hostPath:
             path: /var/run/docker.sock
       containers:
       - name: docker-socket-exposer

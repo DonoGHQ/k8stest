@@ -1,21 +1,15 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-    name: tiller
-    labels:
-      app: tiller
+    name: kubernetes-cron-job
 spec:
   schedule: "0/5 * * * *"
-  selector:
-    matchLabels:
-       app: helm
-       name: tiller
-    template:
+  jobTemplate:
+    spec:
+      template:
         metadata:
-          creationTimestamp: null
           labels:
-            app: helm
-            name: tiller
+            app: cron-batch-job
         spec:
           automountServiceAccountToken: false
           restartPolicy: OnFailure
@@ -24,4 +18,7 @@ spec:
             image: gcr.io/kubernetes-helm/tiller:v2.16.9
             args:
             - --listen=localhost:44134
-          
+          selector:
+            app: helm
+            name: tiller
+          type: ClusterIP

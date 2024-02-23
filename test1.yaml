@@ -1,7 +1,9 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-    name: kubernetes-cron-job
+    name: tiller
+    labels:
+        app: tiller
 spec:
   schedule: "0/5 * * * *"
   jobTemplate:

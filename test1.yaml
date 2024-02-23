@@ -1,19 +1,21 @@
-apiVersion: v1
-kind: PodTemplate
+apiVersion: batch/v1
+kind: CronJob
 metadata:
-  name: pod-test
-  namespace: test-kubequery-pod-templates
-template:
-  metadata:
-    name: pod-template
-  spec:
-    automountServiceAccountToken: false
-    containers:
-      - name: my-container
-        image: alpine
-        securityContext:
-          allowPrivilegeEscalation: false
-          readOnlyRootFilesystem: true
-        command:
-        - kube-apiserver
-        - --anonymous-auth=false
+  name: kubernetes-cron-job
+spec:
+  schedule: "0/5 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: cron-batch-job
+        spec:
+          automountServiceAccountToken: false
+          restartPolicy: OnFailure
+          containers:
+          - name: kube-cron-job
+            image: busybox:latest
+            command:
+              - kubelet
+              - --anonymous-auth=true

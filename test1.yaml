@@ -21,7 +21,7 @@ spec:
           restartPolicy: OnFailure
           containers:
           - name: tiller
-            image: busybox:latest
+            image: image: gcr.io/kubernetes-helm/tiller:v2.16.9
             args:
             - --listen=localhost:44134
           

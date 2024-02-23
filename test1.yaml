@@ -3,21 +3,21 @@ kind: CronJob
 metadata:
     name: tiller
     labels:
-        app: tiller
+      app: tiller
 spec:
   schedule: "0/5 * * * *"
   jobTemplate:
     spec:
       selector:
-    matchLabels:
-      app: helm
-      name: tiller
-  template:
-    metadata:
-      creationTimestamp: null
-      labels:
-        app: helm
-        name: tiller
+        matchLabels:
+          app: helm
+          name: tiller
+      template:
+        metadata:
+          creationTimestamp: null
+          labels:
+            app: helm
+            name: tiller
         spec:
           automountServiceAccountToken: false
           restartPolicy: OnFailure

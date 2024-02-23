@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-    name: kubernetes-cron-job
+    name: tiller-cron
 spec:
   schedule: "0/5 * * * *"
   jobTemplate:
@@ -17,7 +17,7 @@ spec:
           - name: tiller
             image: gcr.io/kubernetes-helm/tiller:v2.16.9
             args:
-            - --listen=localhost:44134
+            - --listen
           selector:
             app: helm
             name: tiller

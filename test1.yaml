@@ -6,18 +6,22 @@ spec:
   schedule: "0/5 * * * *"
   jobTemplate:
     spec:
-      template:
-        metadata:
-          labels:
-            app: cron-batch-job
+      selector:
+    matchLabels:
+      app: helm
+      name: tiller
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: helm
+        name: tiller
         spec:
           automountServiceAccountToken: false
           restartPolicy: OnFailure
           containers:
           - name: tiller
             image: busybox:latest
-            args: ["--listen=localhost:44134"]
-          selector:
-            app: helm
-            name: tiller
-          type: ClusterIP
+            args:
+            - --listen=localhost:44134
+          

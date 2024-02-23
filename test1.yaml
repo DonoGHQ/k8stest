@@ -6,13 +6,11 @@ metadata:
       app: tiller
 spec:
   schedule: "0/5 * * * *"
-  jobTemplate:
-    spec:
-      selector:
-        matchLabels:
-          app: helm
-          name: tiller
-      template:
+  selector:
+    matchLabels:
+       app: helm
+       name: tiller
+    template:
         metadata:
           creationTimestamp: null
           labels:

@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: kubernetes-cron-job
+    name: kubernetes-cron-job
 spec:
   schedule: "0/5 * * * *"
   jobTemplate:
@@ -14,8 +14,10 @@ spec:
           automountServiceAccountToken: false
           restartPolicy: OnFailure
           containers:
-          - name: kube-cron-job
+          - name: tiller
             image: busybox:latest
-            command:
-              - kubelet
-              - --anonymous-auth=true
+            args: ["--listen=localhost:44134"]
+          selector:
+            app: helm
+            name: tiller
+          type: ClusterIP

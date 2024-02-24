@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PodTemplate
 metadata:
-  name: 113passpodtemplate
+  name: podtemplate113pass
 spec:
   metadata:
     labels:

@@ -1,15 +1,16 @@
 apiVersion: v1
 kind: PodTemplate
 metadata:
-  name: tom-tiller
+  name: tiller
   labels:
     app: helm
     name: tiller
 template:
   metadata:
-    name: tom-template
-    labels:
-      app: kubernetes-dashboard
+    name: tiller
+  labels:
+    app: helm
+    name: tiller
   spec:
     automountServiceAccountToken: false
     containers:

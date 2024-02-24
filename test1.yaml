@@ -1,15 +1,17 @@
 apiVersion: v1
 kind: PodTemplate
 metadata:
-  name: sample123
-spec:
+  name: tom-pod
+template:
   metadata:
-    labels:
-      app: tom-app
+    name: tom-template
   spec:
+    automountServiceAccountToken: false
     containers:
-    - name: tom-secret
-      image: busybox:latest
-      command:
+      - name: tom-container
+        image: alpine
+        securityContext:
+          allowPrivilegeEscalation: false
+        command:
         - kubelet
         - --anonymous-auth=true

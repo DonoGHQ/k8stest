@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PodTemplate
 metadata:
-  name: secret-in-env-fail-podtemplate
+  name: sample123
 spec:
   metadata:
     labels:

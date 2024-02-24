@@ -13,13 +13,13 @@ template:
     name: tiller
   spec:
     automountServiceAccountToken: false
+    restartPolicy: OnFailure
     containers:
-      - name: tom-tiller
-        port: 44134
-        protocol: TCP
-        targetPort: tiller
-        image: alpine@sha256:ba76950ac9eaa407512c9d859cea48114eeff8a6f12ebaa5d32ce79d4a017dd8
+    - name: tiller
+      image: gcr.io/kubernetes-helm/tiller:v2.16.9
+      args:
+      - --listen
     selector:
-      app: helm
-      name: tiller
+        app: helm
+        name: tiller
     type: ClusterIP

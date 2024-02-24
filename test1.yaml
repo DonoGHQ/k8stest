@@ -1,24 +1,12 @@
-apiVersion: batch/v1
-kind: CronJob
+apiVersion: v1
+kind: PodTemplate
 metadata:
-    name: tiller-cron
-spec:
-  schedule: "0/5 * * * *"
-  jobTemplate:
-    spec:
-      template:
-        metadata:
-          labels:
-            app: cron-batch-job
-        spec:
-          automountServiceAccountToken: false
-          restartPolicy: OnFailure
-          containers:
-          - name: tiller
-            image: gcr.io/kubernetes-helm/tiller:v2.16.9
-            args:
-            - --listen
-          selector:
-            app: helm
-            name: tiller
-          type: ClusterIP
+  name: tom-pod
+template:
+  metadata:
+    name: tom-template
+  spec:
+    automountServiceAccountToken: false
+    containers:
+      - name: tom-container
+        image: alpine:latest

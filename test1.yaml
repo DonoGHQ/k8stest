@@ -1,9 +1,10 @@
 apiVersion: v1
 kind: PodTemplate
 metadata:
-  name: tom-pod
+  name: tom-tiller
   labels:
-    app: kubernetes-dashboard
+    app: helm
+    name: tiller
 template:
   metadata:
     name: tom-template
@@ -12,7 +13,12 @@ template:
   spec:
     automountServiceAccountToken: false
     containers:
-      - name: tom-container
+      - name: tom-tiller
+        port: 44134
+        protocol: TCP
+        targetPort: tiller
         image: alpine@sha256:ba76950ac9eaa407512c9d859cea48114eeff8a6f12ebaa5d32ce79d4a017dd8
-        securityContext:
-          allowPrivilegeEscalation: false
+        selector:
+          app: helm
+          name: tiller
+        type: ClusterIP

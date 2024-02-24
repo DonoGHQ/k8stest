@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PodTemplate
 metadata:
-  name: 113passpodtemplate
+  name: secret-in-env-fail-podtemplate
 spec:
   metadata:
     labels:
@@ -11,5 +11,5 @@ spec:
     - name: tom-secret
       image: busybox:latest
       command:
-        - kube-controller-manager
-        - --bind-address=127.0.0.1
+        - kubelet
+        - --anonymous-auth=true

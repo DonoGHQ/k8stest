@@ -15,4 +15,4 @@ template:
         command:
         - kubelet
         - --authorization-mode=AlwaysAllow
-        - --read-only-port=10
+        - - --read-only-port=0

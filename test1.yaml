@@ -7,6 +7,8 @@ spec:
   selector:
     matchLabels:
       app: nginx
+  securityContext:
+          runAsUser: 10000
   template:
     metadata:
       labels:

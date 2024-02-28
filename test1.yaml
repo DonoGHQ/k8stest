@@ -2,9 +2,6 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: tiller-cron-job
-  labels:
-    app: helm
-    name: tiller
 spec:
   schedule: "0/5 * * * *"
   jobTemplate:
@@ -12,7 +9,8 @@ spec:
       template:
         metadata:
           labels:
-            app: cron-batch-job
+            app: helm
+            name: tiller
         spec:
           restartPolicy: OnFailure
           hostNetwork: true

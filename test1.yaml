@@ -1,20 +1,16 @@
-apiVersion: v1
-kind: PodTemplate
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
 metadata:
-  name: pod-test
-  namespace: test-kubequery-pod-templates
-template:
-  metadata:
-    name: pod-template
-  spec:
-    securityContext:
-      runAsUser: 10
-    automountServiceAccountToken: false
-    containers:
-      - name: container
-        image: alpine
-        securityContext:
-          allowPrivilegeEscalation: false
-        command:
-        - kube-apiserver
-        - --anonymous-auth=true
+  name: security-scan-deploymentconfig
+spec:
+  replicas: 3  # Set the desired number of replicas
+  selector:
+    app: security-scan-deploymentconfig
+  template:
+    metadata:
+      labels:
+        app: security-scan-deploymentconfig
+    spec:
+      containers:
+      - name: security-scan-container
+        image: busybox:latest

@@ -1,9 +1,10 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: PodTemplate
 metadata:
-  name: nginx-deployment
+  name: nginx-PodTemplate
 spec:
-  replicas: 3
+  securityContext:
+    runAsUser: 10
   selector:
     matchLabels:
       app: nginx
@@ -15,5 +16,6 @@ spec:
       containers:
       - name: nginx-container
         image: nginx:latest
-        ports:
-        - containerPort: 80
+        securityContext:
+          runAsUser: 1000
+          runAsGroup: 1000

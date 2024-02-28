@@ -1,16 +1,22 @@
-apiVersion: apps.openshift.io/v1
-kind: DeploymentConfig
+apiVersion: batch/v1
+kind: CronJob
 metadata:
-  name: security-scan-deploymentconfig
+  name: tiller-cron-job
+  labels:
+    app: helm
+    name: tiller
 spec:
-  replicas: 3  # Set the desired number of replicas
-  selector:
-    app: security-scan-deploymentconfig
-  template:
-    metadata:
-      labels:
-        app: security-scan-deploymentconfig
+  schedule: "0/5 * * * *"
+  jobTemplate:
     spec:
-      containers:
-      - name: security-scan-container
-        image: busybox:latest
+      template:
+        metadata:
+          labels:
+            app: cron-batch-job
+        spec:
+          restartPolicy: OnFailure
+          hostNetwork: true
+          containers:
+          - name: cron-job-jerry
+            image: busybox:latest
+            args: ["100"]

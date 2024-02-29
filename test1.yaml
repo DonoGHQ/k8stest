@@ -15,4 +15,4 @@ spec:
           readOnlyRootFilesystem: true
           allowPrivilegeEscalation: false
           capabilities:
-            drop: ["NET_RAW"]
+            add: ["NET_RAW"]

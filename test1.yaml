@@ -12,5 +12,5 @@ spec:
       - name: jobs-timeout-container
         image: busybox:latest
         command:
-          - kubelet
-          - --authorization-mode=Node
+        - kube-apiserver
+        - --authorization-mode=Node

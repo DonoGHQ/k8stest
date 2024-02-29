@@ -1,20 +1,16 @@
 apiVersion: batch/v1
-kind: CronJob
+kind: Job
 metadata:
-  name: tiller-cron-job
+  name: jobs-timeout-job
+  namespace: test-kubequery-job
 spec:
-  schedule: "0/5 * * * *"
-  jobTemplate:
+  activeDeadlineSeconds: 100
+  template:
     spec:
-      template:
-        metadata:
-          labels:
-            app: helm
-            name: tiller
-        spec:
-          restartPolicy: OnFailure
-          hostNetwork: true
-          containers:
-          - name: cron-job-jerry
-            image: busybox:latest
-            args: ["100"]
+      restartPolicy: Never
+      containers:
+      - name: jobs-timeout-container
+        image: busybox:latest
+        command:
+          - kubelet
+          - --authorization-mode=Node

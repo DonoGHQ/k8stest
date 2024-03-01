@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: jobs-timeout-74pass
+  name: jobs-timeout-139pass
   namespace: test-kubequery-job
 spec:
   activeDeadlineSeconds: 100
@@ -9,7 +9,8 @@ spec:
     spec:
       restartPolicy: Never
       containers:
-      - name: jobs-timeout-container74pass
+      - name: jobs-timeout-container139
         image: busybox:latest
         command:
-        - kube-apiserver
+          - kubelet
+          - --authorization-mode=Node

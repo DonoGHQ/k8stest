@@ -1,18 +1,15 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: security-pass-job
+  name: jobs-timeout-74pass
+  namespace: test-kubequery-job
 spec:
+  activeDeadlineSeconds: 100
   template:
-    metadata:
-      labels:
-        app: security-pass-job
     spec:
+      restartPolicy: Never
       containers:
-      - name: security-pass-container
-        image: nginx:latest
-        securityContext:
-          readOnlyRootFilesystem: true
-          allowPrivilegeEscalation: false
-          capabilities:
-            drop: ["NET_RAW"]
+      - name: jobs-timeout-container74pass
+        image: busybox:latest
+        command:
+        - kube-apiserver

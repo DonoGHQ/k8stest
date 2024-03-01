@@ -1,16 +1,17 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: jobs-timeout-139pass
+  name: jobs-timeout-job
   namespace: test-kubequery-job
 spec:
   activeDeadlineSeconds: 100
   template:
+    metadata:
+    labels:
+        k8s-app: kubernetes-dashboard
     spec:
       restartPolicy: Never
       containers:
-      - name: jobs-timeout-container139
-        image: busybox:latest
-        command:
-          - kubelet
-          - --authorization-mode=Node
+        - command: ["perl", "-Mbignum=bpi", "-wle", "print bpi(2000)"]
+          name: jobs-timeout-container
+          image: busybox:latest

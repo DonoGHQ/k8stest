@@ -7,11 +7,10 @@ spec:
   activeDeadlineSeconds: 100
   template:
     metadata:
-    labels:
+      labels:
         k8s-app: kubernetes-dashboard
     spec:
       restartPolicy: Never
       containers:
-        - command: ["perl", "-Mbignum=bpi", "-wle", "print bpi(2000)"]
-          name: jobs-timeout-container
-          image: busybox:latest
+      - name: jobs-timeout-container
+        image: busybox:latest

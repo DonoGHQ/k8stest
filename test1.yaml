@@ -6,11 +6,11 @@ metadata:
 spec:
   activeDeadlineSeconds: 100
   template:
-    metadata:
-      labels:
-        k8s-app: kubernetes-dashboard
     spec:
       restartPolicy: Never
       containers:
-      - name: jobs-timeout-container
+        name: jobs-timeout-container
         image: busybox:latest
+        command:
+        - kube-apiserver
+        - --kubelet-https=false

@@ -9,8 +9,10 @@ spec:
     spec:
       restartPolicy: Never
       containers:
-        name: jobs-timeout-container
+      - name: jobs-timeout-container
         image: busybox:latest
         command:
-        - kube-apiserver
-        - --kubelet-https=false
+          - kube-apiserver
+          - --anonymous-auth=false
+          - --basic-auth-file
+          - --kubelet-https=false

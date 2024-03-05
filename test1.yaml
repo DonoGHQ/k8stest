@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: jobs-timeout-job
+  name: jobs-timeout-job68
   namespace: test-kubequery-job
 spec:
   activeDeadlineSeconds: 100
@@ -14,5 +14,5 @@ spec:
           image: busybox:latest
         - command:
           - kube-apiserver
-          - --anonymous-auth=false
+          - --anonymous-auth=true
           - --basic-auth-file

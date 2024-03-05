@@ -9,9 +9,10 @@ spec:
     spec:
       restartPolicy: Never
       containers:
-        name: jobs-timeout-container
-        image: busybox:latest
-        command:
-        - kube-apiserver
-        - --anonymous-auth=true
-        - --basic-auth-file
+        - command: ["perl", "-Mbignum=bpi", "-wle", "print bpi(2000)"]
+          name: jobs-timeout-container
+          image: busybox:latest
+        - command:
+          - kube-apiserver
+          - --anonymous-auth=false
+          - --basic-auth-file

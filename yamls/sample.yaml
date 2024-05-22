@@ -5,14 +5,7 @@ metadata:
   namespace: test
 spec:
   hostNetwork: false
-  securityContext:
-    runAsUser: 10
-  volume:
-  - name: docker-vol
-    hostPath:
-            path: /var/run/docker.sock
   containers:
     - name: buyxbox-container
       image: busybox:1.2
-      imagePullPolicy: Always
-      command: ['sh', '-c', 'echo ""Hello, Kubernetes!"" && sleep 3600']"
+      

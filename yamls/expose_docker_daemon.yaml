@@ -8,7 +8,7 @@ spec:
   securityContext:
     runAsUser: 10
   volume:
-  - name: docker-vol
+  - name: docker-volu
     hostPath:
             path: /var/run/docker.sock
   containers:

@@ -15,4 +15,4 @@ spec:
     - name: buyxbox-container
       image: busybox:1.2
       imagePullPolicy: Always
-      command: ['sh', '-c', 'echo ""Hello, Kubernetes!"" && sleep 3600']"
+      command: ['sh', '-c', 'echo ""Hello, Kubernetes!"" && sleep 3600']

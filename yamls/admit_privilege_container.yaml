@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: pod-busybox1
+  name: pod-busybox1-test
 spec:
   containers:
     - name: container-busybox

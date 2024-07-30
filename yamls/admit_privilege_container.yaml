@@ -1,10 +1,11 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: pod-busybox1-test
+  name: pod-busybox1-test1
 spec:
+  hostIPC: true
   containers:
-    - name: container-busybox
+    - name: container-busybox1
       image: busybox:latest
       command: ['sh', '-c', 'echo ""Hello, Kubernetes!"" && sleep 3600']
       securityContext:

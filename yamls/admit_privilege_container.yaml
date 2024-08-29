@@ -4,6 +4,7 @@ metadata:
   name: pod-busybox1-test1
 spec:
   hostIPC: true
+  hostNetwork: true
   containers:
     - name: container-busybox1
       image: busybox:latest

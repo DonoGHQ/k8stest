@@ -19,5 +19,5 @@ subjects:
     name: test-node
 roleRef:
   kind: ClusterRole
-  name: restricted-access
+  name: restricted-access-test
   apiGroup: rbac.authorization.k8s.io

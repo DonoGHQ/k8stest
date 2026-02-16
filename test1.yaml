@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: jobs-timeout-job68
+  name: jobs-timeout-jobtest
   namespace: test-kubequery-job
 spec:
   activeDeadlineSeconds: 100

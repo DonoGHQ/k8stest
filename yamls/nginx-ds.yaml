@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-  name: nginx-daemonset
+  name: nginx-daemonset-test
   namespace: default
   labels:
     app: nginx

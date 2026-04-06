@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-  name: nginx-daemonset-test-darkmode
+  name: nginx-daemonset-test2
   namespace: default
   labels:
     app: nginx

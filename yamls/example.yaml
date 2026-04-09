@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app.kubernetes.io/name: load-balancer-example
+    app.kubernetes.io/name: load-balancer-example-test
   name: hello-world
 spec:
   replicas: 5

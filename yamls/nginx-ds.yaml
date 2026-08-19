@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-  name: nginx-daemonset-test2-addedexception-prscan-disabled
+  name: nginx-daemonset-test2-addedexception-prscan
   namespace: default
   labels:
     app: nginx
